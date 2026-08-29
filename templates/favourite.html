@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>پسندیدہ سورتیں - Favorite Surahs</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e3a8a">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --app-blue-gradient: linear-gradient(180deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+            --app-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        body.dark-mode {
+            --app-bg: #090d16;
+            --card-bg: #131c2e;
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+            --shadow-md: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--app-bg);
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            padding-bottom: 90px;
+            direction: rtl;
+        }
+
+        .header-bar {
+            background: var(--app-blue-gradient);
+            color: white;
+            padding: 20px 16px 30px 16px;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .header-sub {
+            font-size: 13px;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: -15px auto 0 auto;
+            padding: 0 14px;
+        }
+
+        .fav-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .fav-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 16px 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .fav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .fav-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .fav-number-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #bfdbfe;
+        }
+
+        .fav-name-ar {
+            font-family: 'Amiri Quran', serif;
+            font-size: 24px;
+            color: #2563eb;
+            line-height: 1.2;
+        }
+
+        .fav-name-en {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .fav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-read {
+            background: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.2s;
+        }
+
+        .btn-read:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover {
+            background: #fca5a5;
+        }
+
+        .empty-state {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            margin-top: 20px;
+        }
+
+        .empty-icon {
+            font-size: 50px;
+            margin-bottom: 12px;
+        }
+
+        .empty-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .bottom-nav-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            z-index: 1000;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            background: none;
+            border: none;
+            flex-grow: 1;
+        }
+
+        .nav-item .icon { font-size: 20px; }
+        .nav-item.active { color: #2563eb; }
+    </style>
+</head>
+<body>
+
+    <header class="header-bar">
+        <div class="header-title">
+            <span>⭐</span>
+            <span>پسندیدہ سورتیں (Favorite Surahs)</span>
+        </div>
+        <div class="header-sub">آپ کی محفوظ کردہ سورتوں کی مکمل فہرست</div>
+    </header>
+
+    <div class="container">
+        <div id="favoritesList" class="fav-grid"></div>
+
+        <div id="emptyState" class="empty-state" style="display:none;">
+            <div class="empty-icon">🤍</div>
+            <h3 style="margin-bottom: 6px;">کوئی سورت محفوظ نہیں ہے</h3>
+            <p class="empty-text">قرآن مجید پڑھتے ہوئے دل (❤️) والے بٹن پر کلک کر کے اپنی پسندیدہ سورتیں یہاں شامل کریں۔</p>
+            <a href="/" class="btn-read" style="display:inline-block;">📖 قرآن پاک پڑھیں</a>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav-bar">
+        <a href="/" class="nav-item">
+            <span class="icon">📖</span>
+            <span>Quran</span>
+        </a>
+        <a href="/hadith" class="nav-item">
+            <span class="icon">📚</span>
+            <span>Hadith</span>
+        </a>
+        <a href="/favorites" class="nav-item active">
+            <span class="icon">⭐</span>
+            <span>Saved</span>
+        </a>
+    </nav>
+
+    <script>
+        function getFavSurahs() {
+            try { return JSON.parse(localStorage.getItem('fav_surahs')) || []; } catch(e){ return []; }
+        }
+
+        function removeFav(num) {
+            var favs = getFavSurahs();
+            favs = favs.filter(function(item){ return item.number !== num; });
+            try { localStorage.setItem('fav_surahs', JSON.stringify(favs)); } catch(e){}
+            renderFavorites();
+        }
+
+        function renderFavorites() {
+            var favs = getFavSurahs();
+            var listEl = document.getElementById('favoritesList');
+            var emptyEl = document.getElementById('emptyState');
+
+            if (favs.length === 0) {
+                listEl.innerHTML = '';
+                emptyEl.style.display = 'block';
+            } else {
+                emptyEl.style.display = 'none';
+                var html = '';
+                favs.forEach(function(s){
+                    html += '<div class="fav-card">' +
+                                '<div class="fav-info">' +
+                                    '<div class="fav-number-badge">' + s.number + '</div>' +
+                                    '<div>' +
+                                        '<div class="fav-name-ar">سورة ' + (s.name || '') + '</div>' +
+                                        '<div class="fav-name-en">Surah #' + s.number + '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="fav-actions">' +
+                                    '<a href="/surah/' + s.number + '" class="btn-read">📖 تلاوت کریں</a>' +
+                                    '<button class="btn-delete" onclick="removeFav(' + s.number + ')" title="Remove">🗑️</button>' +
+                                '</div>' +
+                            '</div>';
+                });
+                listEl.innerHTML = html;
+            }
+        }
+
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        } catch(e){}
+
+        renderFavorites();
+    </script>
+</body>
+</html>

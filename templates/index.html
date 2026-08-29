@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="{{ current_translation.lang }}" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Islamic App Portal - {{ surah_info.name }}</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e3a8a">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --app-blue-gradient: linear-gradient(180deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+            --app-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --primary-green: #10b981;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        body.dark-mode {
+            --app-bg: #090d16;
+            --card-bg: #131c2e;
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+            --shadow-md: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--app-bg);
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            padding-bottom: 90px;
+            direction: rtl;
+        }
+
+        .app-header-hero {
+            background: var(--app-blue-gradient);
+            color: white;
+            padding: 16px 16px 28px 16px;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .header-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .date-display { text-align: center; flex-grow: 1; }
+        .hijri-date { font-size: 16px; font-weight: 800; }
+        .greg-date { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .prayer-tracker-card {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(14px);
+            border-radius: 20px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .prayer-mosque-icon { font-size: 32px; margin-left: 8px; }
+        .prayer-info-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .prayer-stage { text-align: center; }
+        .prayer-stage .label { font-size: 11px; text-transform: uppercase; opacity: 0.85; font-weight: 600; }
+        .prayer-stage .name { font-size: 16px; font-weight: 800; }
+        .prayer-arrow { font-size: 18px; opacity: 0.7; }
+
+        .app-container {
+            max-width: 650px;
+            margin: -15px auto 0 auto;
+            padding: 0 14px;
+        }
+
+        .search-pill-box {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 18px;
+        }
+
+        .search-pill-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 14px;
+            width: 100%;
+            color: var(--text-dark);
+            font-family: inherit;
+        }
+
+        .search-icon-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .mini-features-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+        }
+
+        .mini-feature-btn {
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .mini-feature-btn .icon { font-size: 22px; }
+
+        .selectors-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
+
+        select {
+            padding: 7px 10px;
+            font-size: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--app-bg);
+            color: var(--text-dark);
+            outline: none;
+            font-weight: 600;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .surah-card-header {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 18px;
+        }
+
+        .surah-title-ar {
+            font-family: 'Amiri Quran', serif;
+            font-size: 36px;
+            color: #2563eb;
+            margin-bottom: 4px;
+        }
+
+        .surah-meta-text { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+
+        .bismillah-text {
+            font-family: 'Amiri Quran', serif;
+            font-size: 24px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            color: var(--text-dark);
+        }
+
+        .ayah-feed-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ayah-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .ayah-tag {
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .ayah-action-icons { display: flex; gap: 6px; align-items: center; }
+
+        .btn-circle {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--app-bg);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-circle.active { background: #2563eb; color: white; border-color: #2563eb; }
+
+        .arabic-ayah {
+            font-family: 'Amiri Quran', serif;
+            font-size: 28px;
+            line-height: 2.2;
+            color: var(--text-dark);
+            text-align: right;
+            margin-bottom: 14px;
+        }
+
+        .translation-ayah {
+            font-size: 16px;
+            line-height: 2.1;
+            color: var(--text-muted);
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+        }
+
+        .translation-ayah.rtl { font-family: 'Noto Nastaliq Urdu', serif; text-align: right; }
+        .translation-ayah.ltr { font-family: 'Plus Jakarta Sans', sans-serif; text-align: left; direction: ltr; }
+
+        .whatsapp-float-btn {
+            position: fixed;
+            bottom: 85px;
+            left: 20px;
+            background: #22c55e;
+            color: white;
+            width: 54px; height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 99;
+            border: none;
+            text-decoration: none;
+        }
+
+        .bottom-nav-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            z-index: 1000;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            background: none;
+            border: none;
+            flex-grow: 1;
+        }
+
+        .nav-item .icon { font-size: 20px; }
+        .nav-item.active { color: #2563eb; }
+
+        /* Modals & Rich Cards */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border-radius: 24px;
+            padding: 24px;
+            width: 92%;
+            max-width: 520px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-md);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            left: 16px; top: 14px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .tab-switch-row {
+            display: flex;
+            background: var(--app-bg);
+            border-radius: 12px;
+            padding: 4px;
+            margin: 12px 0 16px 0;
+            gap: 6px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            font-size: 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--card-bg);
+            color: #2563eb;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .prayer-item {
+            background: var(--app-bg);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .prayer-name { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+        .prayer-time { font-size: 16px; font-weight: 800; color: #2563eb; margin-top: 2px; }
+
+        .compass-wrap {
+            margin: 12px auto;
+            width: 110px; height: 110px;
+            border: 3px dashed #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .compass-needle {
+            width: 5px; height: 80px;
+            background: linear-gradient(to top, #3b82f6 50%, #ef4444 50%);
+            border-radius: 4px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .tasbeeh-count-big { font-size: 50px; font-weight: 800; color: #2563eb; margin: 10px 0; }
+        .tasbeeh-press-btn {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            border: none;
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(37,99,235,0.35);
+            margin: 10px auto;
+            display: block;
+        }
+        .tasbeeh-press-btn:active { transform: scale(0.95); }
+
+        .item-card {
+            background: var(--app-bg);
+            padding: 14px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+            text-align: right;
+            border: 1px solid var(--border-color);
+        }
+
+        .item-title { font-weight: 800; color: #2563eb; font-size: 14px; margin-bottom: 6px; }
+        .item-arabic { font-family: 'Amiri Quran', serif; font-size: 19px; line-height: 1.9; margin: 6px 0; color: var(--text-dark); }
+        .item-trans { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+        
+        .hadith-ref-tag {
+            display: inline-block;
+            background: rgba(37,99,235,0.1);
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Top App Header -->
+    <header class="app-header-hero">
+        <div class="header-top-bar">
+            <button class="header-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+            
+            <div class="date-display">
+                <div class="hijri-date" id="hijriDateText">16 Rabi I, 1448</div>
+                <div class="greg-date" id="gregDateText">Sun 30-08-26</div>
+            </div>
+
+            <button class="header-btn" onclick="openFavoritesModal()">⭐ Saved</button>
+        </div>
+
+        <!-- Prayer Tracker Bar -->
+        <div class="prayer-tracker-card" onclick="openPrayerModal()" style="cursor:pointer;">
+            <div class="prayer-mosque-icon">🕌</div>
+            
+            <div class="prayer-info-wrap">
+                <div class="prayer-stage">
+                    <div class="label">Now</div>
+                    <div class="name" id="currentPrayerLabel">ISHA</div>
+                </div>
+
+                <div class="prayer-arrow">➔</div>
+
+                <div class="prayer-stage">
+                    <div class="label" id="nextPrayerTime">04:18 AM</div>
+                    <div class="name" id="nextPrayerLabel">FAJR</div>
+                </div>
+            </div>
+
+            <div style="font-size:18px;">🧭</div>
+        </div>
+    </header>
+
+    <!-- 2. Main Body Container -->
+    <div class="app-container">
+
+        <!-- Search Bar -->
+        <div class="search-pill-box">
+            <span style="font-size:18px;">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search word or ayat in Quran..." onkeyup="filterAyahs()">
+            <button class="search-icon-btn" onclick="toggleCurrentFavorite()">❤️</button>
+        </div>
+
+        <!-- Quick Mini Action Tabs -->
+        <div class="mini-features-row">
+            <button class="mini-feature-btn" onclick="window.scrollTo({top: 400, behavior: 'smooth'})">
+                <span class="icon">📖</span>
+                <span>Al-Quran</span>
+            </button>
+            <a href="/hadith" class="mini-feature-btn">
+                <span class="icon">📚</span>
+                <span>Hadith</span>
+            </a>
+            <button class="mini-feature-btn" onclick="openPrayerModal()">
+                <span class="icon">🕌</span>
+                <span>Prayers</span>
+            </button>
+            <button class="mini-feature-btn" onclick="openIbadaatModal()">
+                <span class="icon">✨</span>
+                <span>Ibadaat</span>
+            </button>
+            <button class="mini-feature-btn" onclick="openDuasModal()">
+                <span class="icon">🤲</span>
+                <span>Duas & Kalimas</span>
+            </button>
+        </div>
+
+        <!-- Selectors / Options Bar -->
+        <div class="selectors-card">
+            <select id="surahSelect" onchange="updateView()">
+                {% for s in all_surahs %}
+                    <option value="{{ s.number }}" {% if s.number == current_surah %}selected{% endif %}>
+                        {{ s.number }}. {{ s.name }} ({{ s.englishName }})
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select id="reciterSelect" onchange="updateView()">
+                {% for r in reciters %}
+                    <option value="{{ r.id }}" {% if r.id == current_reciter %}selected{% endif %}>
+                        🎙️ {{ r.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select id="translationSelect" onchange="updateView()">
+                {% for t in translations %}
+                    <option value="{{ t.id }}" {% if t.id == current_translation.id %}selected{% endif %}>
+                        🌐 {{ t.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Surah Title Card -->
+        <div class="surah-card-header">
+            <div class="surah-title-ar">{{ surah_info.name }}</div>
+            <div class="surah-meta-text">
+                Surah {{ surah_info.englishName }} | {{ surah_info.revelationType }} | کل آیات: {{ surah_info.numberOfAyahs }}
+            </div>
+            
+            {% if surah_info.number != 1 and surah_info.number != 9 %}
+            <div class="bismillah-text">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+            {% endif %}
+        </div>
+
+        <!-- Ayahs List -->
+        <div id="ayahList">
+            {% for ayah in surah_data %}
+            <div class="ayah-feed-card" id="ayah-box-{{ ayah.number }}" data-ayah="{{ ayah.number }}">
+                <div class="ayah-card-top">
+                    <span class="ayah-tag">آیت {{ ayah.number }}</span>
+                    
+                    <div class="ayah-action-icons">
+                        <audio controls class="quran-audio" src="{{ ayah.audio }}" style="height:30px;"></audio>
+                        <button class="btn-circle" onclick="shareAyah(this)" title="Share">📲</button>
+                        <button class="btn-circle btn-bookmark" id="bm-{{ ayah.number }}" onclick="toggleBookmark({{ surah_info.number }}, {{ ayah.number }})" title="Save">📌</button>
+                    </div>
+                </div>
+
+                <div class="arabic-ayah">{{ ayah.arabic }}</div>
+                <div class="translation-ayah {{ current_translation.dir }}">{{ ayah.translation }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <!-- Floating WhatsApp Share Button -->
+    <a href="javascript:void(0)" onclick="shareCurrentPage()" class="whatsapp-float-btn" title="Share via WhatsApp">
+        💬
+    </a>
+
+    <!-- 3. Fixed App Bottom Bar -->
+    <nav class="bottom-nav-bar">
+        <a href="/" class="nav-item active">
+            <span class="icon">📖</span>
+            <span>Quran</span>
+        </a>
+        <a href="/hadith" class="nav-item">
+            <span class="icon">📚</span>
+            <span>Hadith</span>
+        </a>
+        <button class="nav-item" onclick="openIbadaatModal()">
+            <span class="icon">✨</span>
+            <span>Ibadaat</span>
+        </button>
+        <button class="nav-item" onclick="openTasbeehModal()">
+            <span class="icon">📿</span>
+            <span>Tasbeeh</span>
+        </button>
+        <button class="nav-item" onclick="openDuasModal()">
+            <span class="icon">🤲</span>
+            <span>Duas</span>
+        </button>
+    </nav>
+
+    <!-- 1. PRAYERS & QIBLA MODAL -->
+    <div id="prayerModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('prayerModal')">&times;</span>
+            <h3 style="color:#2563eb; margin-bottom: 4px;">🕌 اوقاتِ نماز و سمتِ قبلہ</h3>
+            <p id="locationStatus" style="font-size:12px; color:var(--text-muted);">Connecting Location...</p>
+
+            <div class="prayer-grid">
+                <div class="prayer-item"><div class="prayer-name">Fajr (فجر)</div><div class="prayer-time" id="fajrTime">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Dhuhr (ظہر)</div><div class="prayer-time" id="dhuhrTime">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Asr (عصر)</div><div class="prayer-time" id="asrTime">--:--</div></div>
+                <div class="prayer-item"><div class="prayer-name">Maghrib (مغرب)</div><div class="prayer-time" id="maghribTime">--:--</div></div>
+                <div class="prayer-item" style="grid-column: span 2;"><div class="prayer-name">Isha (عشاء)</div><div class="prayer-time" id="ishaTime">--:--</div></div>
+            </div>
+
+            <h4 style="margin-top:12px; font-size:13px;">🧭 قبلہ رخ (Qibla Angle)</h4>
+            <div class="compass-wrap">
+                <div class="compass-needle" id="qiblaNeedle"></div>
+            </div>
+            <p id="qiblaAngleText" style="font-size:12px; font-weight:800; color:#2563eb;">Calculating Angle...</p>
+        </div>
+    </div>
+
+    <!-- 2. IBADAAT MODAL (Fiqh Hanafi & Ahle Hadees - Namaz & Janaza with Ahadith) -->
+    <div id="ibadaatModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('ibadaatModal')">&times;</span>
+            <h3 style="color:#2563eb; margin-bottom: 4px;">✨ طریقہ نماز و نمازِ جنازہ</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom: 8px;">(بحوالہ صحیح احادیثِ نبویہ ﷺ)</p>
+
+            <div class="tab-switch-row">
+                <button class="tab-btn active" id="btnHanafi" onclick="switchMethodTab('hanafi')">طریقہ فقہ حنفی</button>
+                <button class="tab-btn" id="btnAhlehadith" onclick="switchMethodTab('ahlehadith')">طریقہ اہلِ حدیث</button>
+            </div>
+
+            <!-- HANAFI METHOD CONTAINER -->
+            <div id="hanafiSection">
+                <!-- Hanafi Namaz -->
+                <div class="item-card">
+                    <span class="hadith-ref-tag">صحیح بخاری: 738 | سنن ابی داؤد: 756 | مصنف ابن ابی شیبہ</span>
+                    <div class="item-title">📖 نماز کا مسنون طریقہ (فقہ حنفی)</div>
+                    <div class="item-trans">
+                        <b>1. قیام و ہاتھ باندھنا:</b> مرد تکبیر تحریمہ (الله اكبر) کے وقت دونوں ہاتھ کانوں کی لو تک اٹھائیں اور <u>ناف کے نیچے</u> دائیں ہاتھ سے بائیں ہاتھ کی کلائی کو پکڑ کر باندھیں۔ (خواتین سینے پر ہاتھ رکھیں)۔<br><br>
+                        <b>2. ثناء، قرأت:</b> ثناء (سبحانک اللھم...) پڑھیں، پھر تعوذ و تسمیہ کے بعد سورۃ الفاتحہ اور ساتھ کوئی سورت پڑھیں۔ امام کے پیچھے مقتدی خاموش رہے۔<br><br>
+                        <b>3. رکوع و قومہ:</b> صرف شروع میں رفع یدین کریں، رکوع جاتے اور اٹھتے وقت ہاتھ نہ اٹھائیں۔ رکوع میں <i>"سبحان ربی العظیم"</i> 3 بار اور قومہ میں <i>"ربنا ولک الحمد"</i> کہیں۔<br><br>
+                        <b>4. سجدہ و جلسہ:</b> سجدے میں جاتے وقت پہلے گھٹنے، پھر ہاتھ، پھر ناک اور پیشانی رکھیں۔ <i>"سبحان ربی الاعلیٰ"</i> 3 بار پڑھیں۔ دونوں سجدوں کے درمیان سیدھے بیٹھیں۔<br><br>
+                        <b>5. قعدہ و تشہد:</b> بائیں پاؤں کو بچھا کر اس پر بیٹھیں اور دایاں پاؤں کھڑا رکھیں۔ التحیات میں <i>"اشھد ان لا الہ"</i> پر شہادت کی انگلی اٹھائیں اور <i>"الا اللہ"</i> پر گرا دیں۔ اس کے بعد درودِ ابراہیمی اور مسنون دعا پڑھ کر دونوں طرف سلام پھیریں۔
+                    </div>
+                </div>
+
+                <!-- Hanafi Janaza -->
+                <div class="item-card">
+                    <span class="hadith-ref-tag">سنن ابی داؤد: 3197 | جامع ترمذی: 1024</span>
+                    <div class="item-title">⚰️ نمازِ جنازہ کا طریقہ (فقہ حنفی)</div>
+                    <div class="item-trans">
+                        <b>پہلی تکبیر:</b> دونوں ہاتھ کانوں تک اٹھا کر <i>"الله اكبر"</i> کہیں اور ناف کے نیچے ہاتھ باندھ کر ثناء پڑھیں:<br>
+                        <div class="item-arabic" style="font-size:15px;">سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَىٰ جَدُّكَ وَجَلَّ ثَنَاؤُكَ وَلَا إِلٰهَ غَيْرُكَ</div>
+                        <b>دوسری تکبیر:</b> بغیر ہاتھ اٹھائے <i>"الله اكبر"</i> کہیں اور <b>درودِ ابراہیمی</b> پڑھیں۔<br><br>
+                        <b>تیسری تکبیر:</b> بغیر ہاتھ اٹھائے <i>"الله اكبر"</i> کہیں اور بالغ/نابالغ کی مسنون جنازہ دعا پڑھیں۔<br><br>
+                        <b>چوتھی تکبیر:</b> بغیر ہاتھ اٹھائے <i>"الله اكبر"</i> کہیں اور دونوں طرف سلام پھیر دیں۔
+                    </div>
+                </div>
+            </div>
+
+            <!-- AHLE HADEES METHOD CONTAINER -->
+            <div id="ahlehadithSection" style="display:none;">
+                <!-- Ahle Hadees Namaz -->
+                <div class="item-card">
+                    <span class="hadith-ref-tag">صحیح بخاری: 735، 756 | صحیح مسلم: 390، 391</span>
+                    <div class="item-title">📖 نماز کا مسنون طریقہ (اہلِ حدیث)</div>
+                    <div class="item-trans">
+                        <b>1. قیام و ہاتھ باندھنا:</b> تکبیرِ تحریمہ (الله اكبر) کہتے ہوئے ہاتھ کندھوں یا کانوں کے برابر اٹھائیں (رفع یدین) اور <u>سینے پر</u> دائیں ہاتھ کو بائیں بازو/کلائی پر رکھیں۔<br><br>
+                        <b>2. قرأت و آمین بالجہر:</b> ثناء (اللھم باعد بینی...) کے بعد تعوذ، تسمیہ اور سورۃ الفاتحہ پڑھیں۔ جہری نمازوں میں امام و مقتدی اونچی آواز میں <b>"آمین"</b> کہیں۔ سورۃ الفاتحہ ہر رکعت میں فرض ہے۔<br><br>
+                        <b>3. رفع یدین (رکوع):</b> رکوع میں جاتے وقت اور رکوع سے سر اٹھاتے وقت بھی کندھوں تک <b>رفع یدین</b> کریں اور <i>"سمع الله لمن حمدہ - ربنا ولک الحمد"</i> کہیں۔<br><br>
+                        <b>4. سجدہ:</b> سجدے میں جاتے وقت پہلے ہاتھ زمین پر رکھیں پھر گھٹنے۔ دونوں سجدوں کے درمیان <i>"رب اغفر لی"</i> پڑھیں۔<br><br>
+                        <b>5. تشہد و انگلی کی حرکت:</b> تشہد میں شہادت کی انگلی کو شروع سے آخر تک مسلسل حرکت (اشارہ) دیتے رہیں، درودِ ابراہیمی اور عذابِ قبر سے پناہ کی مسنون دعا پڑھ کر سلام پھیریں۔
+                    </div>
+                </div>
+
+                <!-- Ahle Hadees Janaza -->
+                <div class="item-card">
+                    <span class="hadith-ref-tag">صحیح بخاری: 1335 | سنن النسائی: 1989</span>
+                    <div class="item-title">⚰️ نمازِ جنازہ کا طریقہ (اہلِ حدیث)</div>
+                    <div class="item-trans">
+                        <b>پہلی تکبیر:</b> ہاتھ اٹھا کر (رفع یدین کر کے) سینے پر باندھیں، تعوذ و تسمیہ کے بعد <b>سورۃ الفاتحہ</b> اور کوئی چھوٹی سورت پڑھیں۔<br><br>
+                        <b>دوسری تکبیر:</b> رفع یدین کے ساتھ <i>"الله اكبر"</i> کہیں اور رسول اللہ ﷺ پر <b>درودِ ابراہیمی</b> پڑھیں۔<br><br>
+                        <b>تیسری تکبیر:</b> رفع یدین کے ساتھ <i>"الله اكبر"</i> کہیں اور میت کے لیے اخلاص سے مسنون دعا پڑھیں۔<br><br>
+                        <b>چوتھی تکبیر:</b> رفع یدین کے ساتھ <i>"الله اكبر"</i> کہہ کر دائیں طرف ایک سلام (یا دونوں طرف سلام) پھیریں۔
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Janaza Duas -->
+            <div class="item-card">
+                <span class="hadith-ref-tag">جامع ترمذی: 1024 | سنن ابن ماجہ: 1498</span>
+                <div class="item-title">🤲 نمازِ جنازہ کی مسنون دعا (بالغ میت کے لیے)</div>
+                <div class="item-arabic">اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا، وَشَاهِدِنَا وَغَائِبِنَا، وَصَغِيرِنَا وَكَبِيرِنَا، وَذَكَرِنَا وَأُنْثَانَا، اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الْإِسْلَامِ، وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الْإِيمَانِ، اللَّهُمَّ لَا تَحْرِمْنَا أَجْرَهُ وَلَا تُضِلَّنَا بَعْدَهُ</div>
+                <div class="item-trans">اے اللہ! بخش دے ہمارے زندہ کو اور ہمارے فوت شدہ کو، ہمارے حاضر کو اور ہمارے غائب کو، ہمارے چھوٹے کو اور ہمارے بڑے کو، ہمارے مرد کو اور ہماری عورت کو۔ اے اللہ! ہم میں سے جس کو تو زندہ رکھے تو اسے اسلام پر زندہ رکھ اور جس کو تو موت دے تو اسے ایمان پر موت دے۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">👶 نمازِ جنازہ کی دعا (نابالغ بچے/بچی کے لیے)</div>
+                <div class="item-arabic">اللَّهُمَّ اجْعَلْهُ لَنَا فَرَطًا وَاجْعَلْهُ لَنَا أَجْرًا وَذُخْرًا وَاجْعَلْهُ لَنَا شَافِعًا وَمُشَفَّعًا</div>
+                <div class="item-trans">اے اللہ! اس بچے کو ہمارے لیے آگے پہنچنے والا (ذریعہ نجات) بنا اور اسے ہمارے لیے اجر اور ذخیرہ بنا اور اسے ہمارے حق میں شفاعت کرنے والا بنا۔ (بچی کے لیے "اجْعَلْهَا" پڑھیں)۔</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. DUAS & 6 KALIMAS MODAL -->
+    <div id="duasModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('duasModal')">&times;</span>
+            <h3 style="color:#2563eb; margin-bottom: 12px;">🤲 مسنون دعائیں و چھ کلمے</h3>
+
+            <!-- 6 KALIMAS -->
+            <div class="item-card">
+                <div class="item-title">1️⃣ پہلا کلمہ طیب (First Kalima Tayyab)</div>
+                <div class="item-arabic">لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَّسُولُ اللهِ</div>
+                <div class="item-trans">اللہ کے سوا کوئی معبود نہیں، محمد ﷺ اللہ کے رسول ہیں۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">2️⃣ دوسرا کلمہ شہادت (Second Kalima Shahadat)</div>
+                <div class="item-arabic">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</div>
+                <div class="item-trans">میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد ﷺ اس کے بندے اور رسول ہیں۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">3️⃣ تیسرا کلمہ تمجید (Third Kalima Tamjeed)</div>
+                <div class="item-arabic">سُبْحَانَ اللهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلٰهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ</div>
+                <div class="item-trans">اللہ پاک ہے اور تمام تعریفیں اللہ ہی کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں، اور اللہ سب سے بڑا ہے۔ گناہوں سے بچنے کی طاقت اور نیکی کرنے کی قوت اللہ ہی کی طرف سے ہے۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">4️⃣ چوتھا کلمہ توحید (Fourth Kalima Tauheed)</div>
+                <div class="item-arabic">لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ حَيٌّ لَّا يَمُوتُ أَبَدًا أَبَدًا، ذُو الْجَلَالِ وَالْإِكْرَامِ، بِيَدِهِ الْخَيْرُ، وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ</div>
+                <div class="item-trans">اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کی تعریف ہے۔ وہی زندہ کرتا ہے اور وہی مارتا ہے، وہ ہمیشہ زندہ رہنے والا ہے جسے کبھی موت نہیں آئے گی...</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">5️⃣ پانچواں کلمہ استغفار (Fifth Kalima Astaghfar)</div>
+                <div class="item-arabic">أَسْتَغْفِرُ اللهَ رَبِّي مِنْ كُلِّ ذَنْبٍ أَذْنَبْتُهُ عَمَدًا أَوْ خَطَأً سِرًّا أَوْ عَلَانِيَةً وَأَتُوبُ إِلَيْهِ مِنَ الذَّنْبِ الَّذِي أَعْلَمُ وَمِنَ الذَّنْبِ الَّذِي لَا أَعْلَمُ، إِنَّكَ أَنْتَ عَلَّامُ الْغُيُوبِ وَسَتَّارُ الْعُيُوبِ وَغَفَّارُ الذُّنُوبِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ</div>
+                <div class="item-trans">میں اللہ سے اپنے تمام گناہوں کی بخشش مانگتا ہوں جو میں نے جان بوجھ کر کیے یا بھول کر، چھپ کر کیے یا ظاہر ہو کر۔ اور میں اس کے حضور توبہ کرتا ہوں ان گناہوں سے جنہیں میں جانتا ہوں اور جنہیں میں نہیں جانتا...</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">6️⃣ چھٹا کلمہ ردِ کفر (Sixth Kalima Rad-e-Kufr)</div>
+                <div class="item-arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا وَأَنَا أَعْلَمُ بِهِ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ، تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالشِّرْكِ وَالْكِذْبِ وَالْغِيبَةِ وَالْبِدْعَةِ وَالنَّمِيمَةِ وَالْفَوَاحِشِ وَالْبُهْتَانِ وَالْمَعَاصِي كُلِّهَا، وَأَسْلَمْتُ وَأَقُولُ لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَّسُولُ اللهِ</div>
+                <div class="item-trans">اے اللہ! میں تیری پناہ مانگتا ہوں اس بات سے کہ تیرے ساتھ کسی چیز کو شریک کروں جانتے بوجھتے، اور بخشش چاہتا ہوں ان گناہوں کی جنہیں میں نہیں جانتا۔ میں نے کفر، شرک، جھوٹ، غیبت، بدعت اور تمام گناہوں سے توبہ کی اور اسلام لایا...</div>
+            </div>
+
+            <!-- Ayat-ul-Kursi -->
+            <div class="item-card">
+                <div class="item-title">🌟 آیت الکرسی (Ayat-ul-Kursi)</div>
+                <div class="item-arabic">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ</div>
+                <div class="item-trans">اللہ، جس کے سوا کوئی معبود نہیں، وہ زندہ اور سب کا تھامنے والا ہے۔ نہ اسے اونگھ آتی ہے نہ نیند...</div>
+            </div>
+
+            <!-- Dua-e-Qunoot -->
+            <div class="item-card">
+                <div class="item-title">🤲 دعائے قنوت (Dua-e-Qunoot for Witr)</div>
+                <div class="item-arabic">اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ وَنَشْكُرُكَ وَلَا نَكْفُرُكَ وَنَخْلَعُ وَنَتْرُكُ مَن يَفْجُرُكَ، اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَىٰ وَنَحْفِدُ وَنَرْجُو رَحْمَتَكَ وَنَخْشَىٰ عَذَابَكَ إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحِقٌ</div>
+                <div class="item-trans">اے اللہ! ہم تجھ ہی سے مدد مانگتے ہیں اور تجھ سے بخشش چاہتے ہیں اور تجھ پر ایمان لاتے ہیں...</div>
+            </div>
+
+            <!-- Masnoon Duas -->
+            <div class="item-card">
+                <div class="item-title">1. سونے سے پہلے کی دعا</div>
+                <div class="item-arabic">بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ</div>
+                <div class="item-trans">اے میرے رب! تیرے ہی نام کے ساتھ میں نے اپنا پہلو رکھا اور تیرے ہی نام سے اٹھاؤں گا۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">2. بیدار ہونے کے بعد کی دعا</div>
+                <div class="item-arabic">الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</div>
+                <div class="item-trans">تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں مارنے کے بعد زندہ کیا اور اسی کی طرف لوٹنا ہے۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">3. بیت الخلاء جانے کی دعا</div>
+                <div class="item-arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ</div>
+                <div class="item-trans">اے اللہ! میں خبیث جنوں اور جننیوں کی برائی سے تیری پناہ مانگتا ہوں۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">4. بیت الخلاء سے نکلنے کی دعا</div>
+                <div class="item-arabic">غُفْرَانَكَ، الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَىٰ وَعَافَانِي</div>
+                <div class="item-trans">اے اللہ! میں تیری بخشش چاہتا ہوں۔ تمام تعریفیں اللہ کے لیے ہیں جس نے مجھ سے تکلیف دور کی اور عافیت دی۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">5. سفر کی دعا</div>
+                <div class="item-arabic">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ</div>
+                <div class="item-trans">پاک ہے وہ ذات جس نے اس سواری کو ہمارے تابع کیا، ورنہ ہم اس پر قابو پانے والے نہ تھے، اور ہم اپنے رب کی طرف لوٹنے والے ہیں۔</div>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">6. رنج و غم اور پریشانی کی دعا</div>
+                <div class="item-arabic">لَا إِلٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ</div>
+                <div class="item-trans">تیرے سوا کوئی معبود نہیں، تو پاک ہے، بے شک میں ہی قصورواروں میں سے ہوں۔</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. TASBEEH MODAL -->
+    <div id="tasbeehModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('tasbeehModal')">&times;</span>
+            <h3 style="color:#2563eb; margin-bottom: 6px;">📿 Digital Tasbeeh</h3>
+            <select id="dhikrSelect" onchange="resetTasbeeh()" style="margin: 10px 0; width: 85%;">
+                <option value="سُبْحَانَ اللَّهِ">سُبْحَانَ اللَّهِ (SubhanAllah)</option>
+                <option value="الْحَمْدُ لِلَّهِ">الْحَمْدُ لِلَّهِ (Alhamdulillah)</option>
+                <option value="اللَّهُ أَكْبَرُ">اللَّهُ أَكْبَرُ (Allahu Akbar)</option>
+                <option value="أَسْتَغْفِرُ اللَّهَ">أَسْتَغْفِرُ اللَّهَ (Astaghfirullah)</option>
+                <option value="لَا إِلٰهَ إِلَّا اللَّهُ">لَا إِلٰهَ إِلَّا اللَّهُ (La ilaha illallah)</option>
+            </select>
+            <div class="tasbeeh-count-big" id="tasbeehCount">0</div>
+            <button class="tasbeeh-press-btn" onclick="incrementTasbeeh()">TAP</button>
+            <div style="margin-top:10px;">
+                <button class="btn-circle" onclick="resetTasbeeh()" style="margin:0 auto; width:auto; padding:4px 14px; border-radius:15px; color:#ef4444;">🔄 Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. FAVORITES MODAL -->
+    <div id="favModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('favModal')">&times;</span>
+            <h3 style="color:#2563eb; margin-bottom: 12px;">⭐ Saved Surahs</h3>
+            <div id="favSurahListContainer" style="min-height:80px; max-height:240px; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <script>
+        var currentSurahNum = {{ surah_info.number }};
+        var currentSurahName = {{ surah_info.englishName | tojson }};
+
+        function setAppDates() {
+            var now = new Date();
+            var options = { weekday: 'short', day: '2-digit', month: '2-digit', year: '2-digit' };
+            document.getElementById('gregDateText').innerText = now.toLocaleDateString('en-GB', options).replace(/\//g, '-');
+        }
+        setAppDates();
+
+        function updateView() {
+            var s = document.getElementById('surahSelect').value;
+            var r = document.getElementById('reciterSelect').value;
+            var t = document.getElementById('translationSelect').value;
+            window.location.href = '/surah/' + s + '?reciter=' + r + '&translation=' + t;
+        }
+
+        function toggleTheme() {
+            var isDark = document.body.classList.toggle('dark-mode');
+            document.getElementById('themeBtn').innerText = isDark ? '☀️ Light' : '🌙 Dark';
+            try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e){}
+        }
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeBtn').innerText = '☀️ Light';
+            }
+        } catch(e){}
+
+        function filterAyahs() {
+            var q = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.ayah-feed-card').forEach(function(box){
+                box.style.display = box.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+            });
+        }
+
+        document.querySelectorAll('.quran-audio').forEach(function(audio, idx, list){
+            audio.onended = function() {
+                if (idx + 1 < list.length) {
+                    list[idx + 1].play();
+                    list[idx + 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            };
+        });
+
+        function shareAyah(btn) {
+            var box = btn.closest('.ayah-feed-card');
+            var ayahNum = box.getAttribute('data-ayah');
+            var arabic = box.querySelector('.arabic-ayah').innerText;
+            var translation = box.querySelector('.translation-ayah').innerText;
+            var shareText = "📖 *Al-Quran* (Surah " + currentSurahNum + ", Ayah " + ayahNum + ")\n\n" + arabic + "\n\n" + translation + "\n\n🔗 Islamic Web Portal";
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText), '_blank');
+        }
+
+        function shareCurrentPage() {
+            var shareText = "📖 Read Quran & Hadith online with Urdu translations and live audio:\n" + window.location.href;
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText), '_blank');
+        }
+
+        function toggleBookmark(s, a) {
+            try { localStorage.setItem('quran_last_read', JSON.stringify({ surah: s, ayah: a })); } catch(e){}
+            document.querySelectorAll('.btn-bookmark').forEach(function(btn){ 
+                btn.classList.remove('active'); 
+            });
+            var btnTarget = document.getElementById('bm-' + a);
+            if (btnTarget) {
+                btnTarget.classList.add('active');
+            }
+        }
+        try {
+            var last = JSON.parse(localStorage.getItem('quran_last_read'));
+            if (last && last.surah === currentSurahNum) {
+                var btnTarget = document.getElementById('bm-' + last.ayah);
+                if (btnTarget) {
+                    btnTarget.classList.add('active');
+                }
+            }
+        } catch(e){}
+
+        function getFavSurahs() {
+            try { return JSON.parse(localStorage.getItem('fav_surahs')) || []; } catch(e){ return []; }
+        }
+
+        function toggleCurrentFavorite() {
+            var favs = getFavSurahs();
+            var idx = favs.findIndex(function(item){ return item.number === currentSurahNum; });
+            if (idx > -1) {
+                favs.splice(idx, 1);
+            } else {
+                favs.push({ number: currentSurahNum, name: currentSurahName });
+            }
+            try { localStorage.setItem('fav_surahs', JSON.stringify(favs)); } catch(e){}
+            alert(idx > -1 ? 'Removed from saved' : 'Surah saved!');
+        }
+
+        function openFavoritesModal() {
+            var favs = getFavSurahs();
+            var container = document.getElementById('favSurahListContainer');
+            if (favs.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); margin-top:20px;">No saved surahs yet.</p>';
+            } else {
+                var html = '';
+                favs.forEach(function(s){
+                    html += '<a href="/surah/' + s.number + '" style="display:inline-block; background:#eff6ff; color:#2563eb; padding:6px 12px; margin:4px; border-radius:15px; text-decoration:none; font-weight:700;">' + s.number + '. ' + s.name + '</a>';
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('favModal').style.display = 'flex';
+        }
+
+        // Modal Controllers & Tab Switcher
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function openPrayerModal() {
+            document.getElementById('prayerModal').style.display = 'flex';
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(fetchPrayerAndQibla, handleLocationError, { timeout: 7000 });
+            } else {
+                fetchDefaultTimes();
+            }
+        }
+        function openIbadaatModal() { document.getElementById('ibadaatModal').style.display = 'flex'; }
+        function openDuasModal() { document.getElementById('duasModal').style.display = 'flex'; }
+
+        function switchMethodTab(type) {
+            var btnH = document.getElementById('btnHanafi');
+            var btnA = document.getElementById('btnAhlehadith');
+            var secH = document.getElementById('hanafiSection');
+            var secA = document.getElementById('ahlehadithSection');
+
+            if (type === 'hanafi') {
+                btnH.classList.add('active');
+                btnA.classList.remove('active');
+                secH.style.display = 'block';
+                secA.style.display = 'none';
+            } else {
+                btnA.classList.add('active');
+                btnH.classList.remove('active');
+                secA.style.display = 'block';
+                secH.style.display = 'none';
+            }
+        }
+
+        function fetchPrayerAndQibla(pos) {
+            var lat = pos.coords.latitude;
+            var lng = pos.coords.longitude;
+            document.getElementById('locationStatus').innerText = "📍 Live Location Connected";
+
+            fetch("https://api.aladhan.com/v1/timings?latitude=" + lat + "&longitude=" + lng + "&method=1&school=1")
+                .then(function(res){ return res.json(); })
+                .then(function(data){
+                    var t = data.data.timings;
+                    document.getElementById('fajrTime').innerText = t.Fajr;
+                    document.getElementById('dhuhrTime').innerText = t.Dhuhr;
+                    document.getElementById('asrTime').innerText = t.Asr;
+                    document.getElementById('maghribTime').innerText = t.Maghrib;
+                    document.getElementById('ishaTime').innerText = t.Isha;
+                    document.getElementById('nextPrayerTime').innerText = t.Fajr;
+                }).catch(function(){ fetchDefaultTimes(); });
+
+            fetch("https://api.aladhan.com/v1/qibla/" + lat + "/" + lng)
+                .then(function(res){ return res.json(); })
+                .then(function(data){
+                    var angle = Math.round(data.data.direction);
+                    document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
+                    document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
+                });
+        }
+        function handleLocationError() { document.getElementById('locationStatus').innerText = "📍 Pakistan Times (Default)"; fetchDefaultTimes(); }
+        function fetchDefaultTimes() {
+            fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
+                .then(function(res){ return res.json(); })
+                .then(function(data){
+                    var t = data.data.timings;
+                    document.getElementById('fajrTime').innerText = t.Fajr;
+                    document.getElementById('dhuhrTime').innerText = t.Dhuhr;
+                    document.getElementById('asrTime').innerText = t.Asr;
+                    document.getElementById('maghribTime').innerText = t.Maghrib;
+                    document.getElementById('ishaTime').innerText = t.Isha;
+                    document.getElementById('nextPrayerTime').innerText = t.Fajr;
+                    document.getElementById('qiblaAngleText').innerText = "Angle: 260° (Pakistan)";
+                    document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
+                });
+        }
+
+        var tasbeehCount = 0;
+        function openTasbeehModal() {
+            try { tasbeehCount = parseInt(localStorage.getItem('tasbeeh_count')) || 0; } catch(e){ tasbeehCount = 0; }
+            document.getElementById('tasbeehCount').innerText = tasbeehCount;
+            document.getElementById('tasbeehModal').style.display = 'flex';
+        }
+        function closeTasbeehModal() { document.getElementById('tasbeehModal').style.display = 'none'; }
+        function incrementTasbeeh() {
+            tasbeehCount++;
+            document.getElementById('tasbeehCount').innerText = tasbeehCount;
+            try { localStorage.setItem('tasbeeh_count', tasbeehCount); } catch(e){}
+        }
+        function resetTasbeeh() {
+            tasbeehCount = 0;
+            document.getElementById('tasbeehCount').innerText = 0;
+            try { localStorage.setItem('tasbeeh_count', 0); } catch(e){}
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(function(){});
+        }
+    </script>
+</body>
+</html>

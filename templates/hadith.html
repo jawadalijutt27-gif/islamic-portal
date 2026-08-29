@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang.code }}" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ current_book.name }} - Hadith Sharif</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-sub: #374151;
+            --header-bg: linear-gradient(135deg, #064e3b, #047857);
+            --border-color: #e5e7eb;
+            --badge-bg: #d1fae5;
+            --badge-text: #065f46;
+        }
+
+        body.dark-mode {
+            --bg-color: #0f172a !important;
+            --card-bg: #1e293b !important;
+            --text-main: #f8fafc !important;
+            --text-sub: #cbd5e1 !important;
+            --header-bg: linear-gradient(135deg, #022c22, #0f172a) !important;
+            --border-color: #334155 !important;
+            --badge-bg: #064e3b !important;
+            --badge-text: #6ee7b7 !important;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', 'Noto Sans', Tahoma, sans-serif;
+            color: var(--text-main);
+            padding-bottom: 60px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 16px 12px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        select, input[type="text"], .action-btn {
+            padding: 7px 12px;
+            font-size: 13px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            outline: none;
+            background: #ffffff;
+            color: #064e3b;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 20px auto;
+            padding: 0 12px;
+        }
+
+        .book-header-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-top: 4px solid #10b981;
+        }
+
+        .hadith-box {
+            background: var(--card-bg);
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .hadith-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .meta-badges {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hadith-number {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .grade-badge {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #fde68a;
+        }
+
+        .grade-badge.sahih {
+            background: #d1fae5;
+            color: #065f46;
+            border-color: #a7f3d0;
+        }
+
+        .grade-badge.daif {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri Quran', serif;
+            font-size: 24px;
+            line-height: 2.1;
+            color: var(--text-main);
+            text-align: right;
+            margin-bottom: 14px;
+        }
+
+        .translation-text {
+            font-size: 17px;
+            line-height: 2.2;
+            color: var(--text-sub);
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+        }
+
+        .translation-text.rtl {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .translation-text.ltr {
+            font-family: 'Segoe UI', 'Noto Sans', sans-serif;
+            text-align: left;
+            direction: ltr;
+            line-height: 1.7;
+        }
+
+        .pagination-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>کتبِ احادیث نبویہ ﷺ (Hadith Collection)</h1>
+        
+        <div class="controls-row">
+            <a href="/" class="action-btn" style="background:#10b981; color:#fff;">📖 تلاوتِ قرآن</a>
+
+            <!-- Select Book -->
+            <select id="bookSelect" onchange="updateHadithView()">
+                {% for b in books %}
+                    <option value="{{ b.id }}" {% if b.id == current_book.id %}selected{% endif %}>
+                        📚 {{ b.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Select Language -->
+            <select id="langSelect" onchange="updateHadithView()">
+                {% for l in languages %}
+                    <option value="{{ l.code }}" {% if l.code == current_lang.code %}selected{% endif %}>
+                        🌐 {{ l.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button class="action-btn" id="themeBtn" onclick="toggleTheme()">🌙 Dark Mode</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="book-header-card">
+            <h2 style="color:#10b981; margin-bottom: 6px;">{{ current_book.name }}</h2>
+            <p style="color:var(--text-sub); font-size:14px;">صفحہ: {{ page }} | کل احادیث: {{ current_book.total }} | زبان: {{ current_lang.name }}</p>
+        </div>
+
+        <div id="hadithList">
+            {% for h in hadiths %}
+            <div class="hadith-box">
+                <div class="hadith-top">
+                    <div class="meta-badges">
+                        <span class="hadith-number">🌍 Intl Hadith No: #{{ h.intl_number }}</span>
+                        
+                        {% set st = h.status | lower %}
+                        <span class="grade-badge {% if 'sahih' in st or 'صحیح' in st %}sahih{% elif 'daif' in st or 'ضعیف' in st %}daif{% endif %}">
+                            حکم / درجہ: {{ h.status }}
+                        </span>
+                    </div>
+
+                    <button class="action-btn" onclick="shareHadith(this)">📲 Share</button>
+                </div>
+                {% if h.arabic %}
+                <div class="arabic-text">{{ h.arabic }}</div>
+                {% endif %}
+                <div class="translation-text {{ current_lang.dir }}">{{ h.translation }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination-row">
+            {% if page > 1 %}
+            <a href="/hadith/{{ current_book.id }}?page={{ page - 1 }}&lang={{ current_lang.code }}" class="action-btn">⬅️ Previous</a>
+            {% endif %}
+            <a href="/hadith/{{ current_book.id }}?page={{ page + 1 }}&lang={{ current_lang.code }}" class="action-btn" style="background:#10b981; color:#fff;">Next ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        function updateHadithView() {
+            var b = document.getElementById('bookSelect').value;
+            var l = document.getElementById('langSelect').value;
+            window.location.href = '/hadith/' + b + '?lang=' + l;
+        }
+
+        function toggleTheme() {
+            var isDark = document.body.classList.toggle('dark-mode');
+            document.getElementById('themeBtn').innerText = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+            try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e){}
+        }
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeBtn').innerText = '☀️ Light Mode';
+            }
+        } catch(e){}
+
+        function shareHadith(btn) {
+            var box = btn.closest('.hadith-box');
+            var num = box.querySelector('.hadith-number').innerText;
+            var grade = box.querySelector('.grade-badge').innerText;
+            var text = box.querySelector('.translation-text').innerText;
+            var shareText = "📚 " + num + " (" + grade + ")\n\n" + text + "\n\n🔗 Islamic Web Portal";
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText), '_blank');
+        }
+    </script>
+</body>
+</html>
