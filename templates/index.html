@@ -1045,23 +1045,75 @@
                     document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
                     document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
                 });
+       function updateCurrentAndNextPrayer(timings) {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    function timeToMinutes(timeStr) {
+        const parts = timeStr.split(':');
+        return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+    }
+
+    const prayerOrder = [
+        { name: 'FAJR', time: timings.Fajr, mins: timeToMinutes(timings.Fajr) },
+        { name: 'DHUHR', time: timings.Dhuhr, mins: timeToMinutes(timings.Dhuhr) },
+        { name: 'ASR', time: timings.Asr, mins: timeToMinutes(timings.Asr) },
+        { name: 'MAGHRIB', time: timings.Maghrib, mins: timeToMinutes(timings.Maghrib) },
+        { name: 'ISHA', time: timings.Isha, mins: timeToMinutes(timings.Isha) }
+    ];
+
+    let currentPrayer = prayerOrder[prayerOrder.length - 1];
+    let nextPrayer = prayerOrder[0];
+
+    for (let i = 0; i < prayerOrder.length; i++) {
+        if (currentMinutes < prayerOrder[i].mins) {
+            nextPrayer = prayerOrder[i];
+            currentPrayer = i === 0 ? prayerOrder[prayerOrder.length - 1] : prayerOrder[i - 1];
+            break;
         }
-        function handleLocationError() { document.getElementById('locationStatus').innerText = "📍 Pakistan Times (Default)"; fetchDefaultTimes(); }
-        function fetchDefaultTimes() {
-            fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
-                .then(function(res){ return res.json(); })
-                .then(function(data){
-                    var t = data.data.timings;
-                    document.getElementById('fajrTime').innerText = t.Fajr;
-                    document.getElementById('dhuhrTime').innerText = t.Dhuhr;
-                    document.getElementById('asrTime').innerText = t.Asr;
-                    document.getElementById('maghribTime').innerText = t.Maghrib;
-                    document.getElementById('ishaTime').innerText = t.Isha;
-                    document.getElementById('nextPrayerTime').innerText = t.Fajr;
+    }
+
+    if (document.getElementById('currentPrayerName')) {
+        document.getElementById('currentPrayerName').innerText = currentPrayer.name;
+    }
+    if (document.getElementById('nextPrayerName')) {
+        document.getElementById('nextPrayerName').innerText = nextPrayer.name;
+    }
+    if (document.getElementById('nextPrayerTime')) {
+        document.getElementById('nextPrayerTime').innerText = nextPrayer.time;
+    }
+}
+
+function handleLocationError() {
+    if (document.getElementById('locationStatus')) {
+        document.getElementById('locationStatus').innerText = "📍 Pakistan (Default)";
+    }
+    fetchDefaultTimes();
+}
+
+function fetchDefaultTimes() {
+    fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
+        .then(function(res){ return res.json(); })
+        .then(function(data){
+            if (data && data.data) {
+                var t = data.data.timings;
+                if (document.getElementById('fajrTime')) document.getElementById('fajrTime').innerText = t.Fajr;
+                if (document.getElementById('dhuhrTime')) document.getElementById('dhuhrTime').innerText = t.Dhuhr;
+                if (document.getElementById('asrTime')) document.getElementById('asrTime').innerText = t.Asr;
+                if (document.getElementById('maghribTime')) document.getElementById('maghribTime').innerText = t.Maghrib;
+                if (document.getElementById('ishaTime')) document.getElementById('ishaTime').innerText = t.Isha;
+
+                updateCurrentAndNextPrayer(t);
+
+                if (document.getElementById('qiblaAngleText')) {
                     document.getElementById('qiblaAngleText').innerText = "Angle: 260° (Pakistan)";
+                }
+                if (document.getElementById('qiblaNeedle')) {
                     document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
-                });
-        }
+                }
+            }
+        });
+}
 
         var tasbeehCount = 0;
         function openTasbeehModal() {
