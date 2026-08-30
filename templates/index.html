@@ -506,14 +506,14 @@
             <div class="prayer-info-wrap">
                 <div class="prayer-stage">
                     <div class="label">Now</div>
-                    <div class="name" id="currentPrayerLabel">ISHA</div>
+                    <div class="name" id="currentPrayerLabel">--</div>
                 </div>
 
                 <div class="prayer-arrow">➔</div>
 
                 <div class="prayer-stage">
-                    <div class="label" id="nextPrayerTime">04:18 AM</div>
-                    <div class="name" id="nextPrayerLabel">FAJR</div>
+                    <div class="label" id="nextPrayerTime">--:--</div>
+                    <div class="name" id="nextPrayerLabel">--</div>
                 </div>
             </div>
 
@@ -680,9 +680,8 @@
                 <button class="tab-btn" id="btnAhlehadith" onclick="switchMethodTab('ahlehadith')">طریقہ اہلِ حدیث</button>
             </div>
 
-            <!-- HANAFI METHOD CONTAINER -->
+            <!-- HANAFI SECTION -->
             <div id="hanafiSection">
-                <!-- Hanafi Namaz -->
                 <div class="item-card">
                     <span class="hadith-ref-tag">صحیح بخاری: 738 | سنن ابی داؤد: 756 | مصنف ابن ابی شیبہ</span>
                     <div class="item-title">📖 نماز کا مسنون طریقہ (فقہ حنفی)</div>
@@ -695,7 +694,6 @@
                     </div>
                 </div>
 
-                <!-- Hanafi Janaza -->
                 <div class="item-card">
                     <span class="hadith-ref-tag">سنن ابی داؤد: 3197 | جامع ترمذی: 1024</span>
                     <div class="item-title">⚰️ نمازِ جنازہ کا طریقہ (فقہ حنفی)</div>
@@ -709,9 +707,8 @@
                 </div>
             </div>
 
-            <!-- AHLE HADEES METHOD CONTAINER -->
+            <!-- AHLE HADEES SECTION -->
             <div id="ahlehadithSection" style="display:none;">
-                <!-- Ahle Hadees Namaz -->
                 <div class="item-card">
                     <span class="hadith-ref-tag">صحیح بخاری: 735، 756 | صحیح مسلم: 390، 391</span>
                     <div class="item-title">📖 نماز کا مسنون طریقہ (اہلِ حدیث)</div>
@@ -724,7 +721,6 @@
                     </div>
                 </div>
 
-                <!-- Ahle Hadees Janaza -->
                 <div class="item-card">
                     <span class="hadith-ref-tag">صحیح بخاری: 1335 | سنن النسائی: 1989</span>
                     <div class="item-title">⚰️ نمازِ جنازہ کا طریقہ (اہلِ حدیث)</div>
@@ -742,13 +738,13 @@
                 <span class="hadith-ref-tag">جامع ترمذی: 1024 | سنن ابن ماجہ: 1498</span>
                 <div class="item-title">🤲 نمازِ جنازہ کی مسنون دعا (بالغ میت کے لیے)</div>
                 <div class="item-arabic">اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا، وَشَاهِدِنَا وَغَائِبِنَا، وَصَغِيرِنَا وَكَبِيرِنَا، وَذَكَرِنَا وَأُنْثَانَا، اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الْإِسْلَامِ، وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الْإِيمَانِ، اللَّهُمَّ لَا تَحْرِمْنَا أَجْرَهُ وَلَا تُضِلَّنَا بَعْدَهُ</div>
-                <div class="item-trans">اے اللہ! بخش دے ہمارے زندہ کو اور ہمارے فوت شدہ کو، ہمارے حاضر کو اور ہمارے غائب کو، ہمارے چھوٹے کو اور ہمارے بڑے کو، ہمارے مرد کو اور ہماری عورت کو۔ اے اللہ! ہم میں سے جس کو تو زندہ رکھے تو اسے اسلام پر زندہ رکھ اور جس کو تو موت دے تو اسے ایمان پر موت دے۔</div>
+                <div class="item-trans">اے اللہ! بخش دے ہمارے زندہ کو اور ہمارے فوت شدہ کو، ہمارے حاضر کو اور ہمارے غائب کو، ہمارے چھوٹے کو اور ہمارے بڑے کو، ہمارے مرد کو اور ہماری عورت کو...</div>
             </div>
 
             <div class="item-card">
                 <div class="item-title">👶 نمازِ جنازہ کی دعا (نابالغ بچے/بچی کے لیے)</div>
                 <div class="item-arabic">اللَّهُمَّ اجْعَلْهُ لَنَا فَرَطًا وَاجْعَلْهُ لَنَا أَجْرًا وَذُخْرًا وَاجْعَلْهُ لَنَا شَافِعًا وَمُشَفَّعًا</div>
-                <div class="item-trans">اے اللہ! اس بچے کو ہمارے لیے آگے پہنچنے والا (ذریعہ نجات) بنا اور اسے ہمارے لیے اجر اور ذخیرہ بنا اور اسے ہمارے حق میں شفاعت کرنے والا بنا۔ (بچی کے لیے "اجْعَلْهَا" پڑھیں)۔</div>
+                <div class="item-trans">اے اللہ! اس بچے کو ہمارے لیے آگے پہنچنے والا بنا اور اسے ہمارے لیے اجر اور ذخیرہ بنا...</div>
             </div>
         </div>
     </div>
@@ -759,92 +755,52 @@
             <span class="modal-close" onclick="closeModal('duasModal')">&times;</span>
             <h3 style="color:#2563eb; margin-bottom: 12px;">🤲 مسنون دعائیں و چھ کلمے</h3>
 
-            <!-- 6 KALIMAS -->
             <div class="item-card">
-                <div class="item-title">1️⃣ پہلا کلمہ طیب (First Kalima Tayyab)</div>
+                <div class="item-title">1️⃣ پہلا کلمہ طیب</div>
                 <div class="item-arabic">لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَّسُولُ اللهِ</div>
                 <div class="item-trans">اللہ کے سوا کوئی معبود نہیں، محمد ﷺ اللہ کے رسول ہیں۔</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">2️⃣ دوسرا کلمہ شہادت (Second Kalima Shahadat)</div>
+                <div class="item-title">2️⃣ دوسرا کلمہ شہادت</div>
                 <div class="item-arabic">أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</div>
                 <div class="item-trans">میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد ﷺ اس کے بندے اور رسول ہیں۔</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">3️⃣ تیسرا کلمہ تمجید (Third Kalima Tamjeed)</div>
+                <div class="item-title">3️⃣ تیسرا کلمہ تمجید</div>
                 <div class="item-arabic">سُبْحَانَ اللهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلٰهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ</div>
-                <div class="item-trans">اللہ پاک ہے اور تمام تعریفیں اللہ ہی کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں، اور اللہ سب سے بڑا ہے۔ گناہوں سے بچنے کی طاقت اور نیکی کرنے کی قوت اللہ ہی کی طرف سے ہے۔</div>
+                <div class="item-trans">اللہ پاک ہے اور تمام تعریفیں اللہ ہی کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں، اور اللہ سب سے بڑا ہے۔</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">4️⃣ چوتھا کلمہ توحید (Fourth Kalima Tauheed)</div>
+                <div class="item-title">4️⃣ چوتھا کلمہ توحید</div>
                 <div class="item-arabic">لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ حَيٌّ لَّا يَمُوتُ أَبَدًا أَبَدًا، ذُو الْجَلَالِ وَالْإِكْرَامِ، بِيَدِهِ الْخَيْرُ، وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ</div>
-                <div class="item-trans">اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کی تعریف ہے۔ وہی زندہ کرتا ہے اور وہی مارتا ہے، وہ ہمیشہ زندہ رہنے والا ہے جسے کبھی موت نہیں آئے گی...</div>
+                <div class="item-trans">اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں...</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">5️⃣ پانچواں کلمہ استغفار (Fifth Kalima Astaghfar)</div>
-                <div class="item-arabic">أَسْتَغْفِرُ اللهَ رَبِّي مِنْ كُلِّ ذَنْبٍ أَذْنَبْتُهُ عَمَدًا أَوْ خَطَأً سِرًّا أَوْ عَلَانِيَةً وَأَتُوبُ إِلَيْهِ مِنَ الذَّنْبِ الَّذِي أَعْلَمُ وَمِنَ الذَّنْبِ الَّذِي لَا أَعْلَمُ، إِنَّكَ أَنْتَ عَلَّامُ الْغُيُوبِ وَسَتَّارُ الْعُيُوبِ وَغَفَّارُ الذُّنُوبِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ</div>
-                <div class="item-trans">میں اللہ سے اپنے تمام گناہوں کی بخشش مانگتا ہوں جو میں نے جان بوجھ کر کیے یا بھول کر، چھپ کر کیے یا ظاہر ہو کر۔ اور میں اس کے حضور توبہ کرتا ہوں ان گناہوں سے جنہیں میں جانتا ہوں اور جنہیں میں نہیں جانتا...</div>
+                <div class="item-title">5️⃣ پانچواں کلمہ استغفار</div>
+                <div class="item-arabic">أَسْتَغْفِرُ اللهَ رَبِّي مِنْ كُلِّ ذَنْبٍ أَذْنَبْتُهُ عَمَدًا أَوْ خَطَأً سِرًّا أَوْ عَلَانِيَةً وَأَتُوبُ إِلَيْهِ مِنَ الذَّنْبِ الَّذِي أَعْلَمُ وَمِنَ الذَّنْبِ الَّذِي لَا أَعْلَمُ...</div>
+                <div class="item-trans">میں اللہ سے اپنے تمام گناہوں کی بخشش مانگتا ہوں...</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">6️⃣ چھٹا کلمہ ردِ کفر (Sixth Kalima Rad-e-Kufr)</div>
-                <div class="item-arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا وَأَنَا أَعْلَمُ بِهِ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ، تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالشِّرْكِ وَالْكِذْبِ وَالْغِيبَةِ وَالْبِدْعَةِ وَالنَّمِيمَةِ وَالْفَوَاحِشِ وَالْبُهْتَانِ وَالْمَعَاصِي كُلِّهَا، وَأَسْلَمْتُ وَأَقُولُ لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَّسُولُ اللهِ</div>
-                <div class="item-trans">اے اللہ! میں تیری پناہ مانگتا ہوں اس بات سے کہ تیرے ساتھ کسی چیز کو شریک کروں جانتے بوجھتے، اور بخشش چاہتا ہوں ان گناہوں کی جنہیں میں نہیں جانتا۔ میں نے کفر، شرک، جھوٹ، غیبت، بدعت اور تمام گناہوں سے توبہ کی اور اسلام لایا...</div>
-            </div>
-
-            <!-- Ayat-ul-Kursi -->
-            <div class="item-card">
-                <div class="item-title">🌟 آیت الکرسی (Ayat-ul-Kursi)</div>
-                <div class="item-arabic">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ</div>
-                <div class="item-trans">اللہ، جس کے سوا کوئی معبود نہیں، وہ زندہ اور سب کا تھامنے والا ہے۔ نہ اسے اونگھ آتی ہے نہ نیند...</div>
-            </div>
-
-            <!-- Dua-e-Qunoot -->
-            <div class="item-card">
-                <div class="item-title">🤲 دعائے قنوت (Dua-e-Qunoot for Witr)</div>
-                <div class="item-arabic">اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ وَنَشْكُرُكَ وَلَا نَكْفُرُكَ وَنَخْلَعُ وَنَتْرُكُ مَن يَفْجُرُكَ، اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَىٰ وَنَحْفِدُ وَنَرْجُو رَحْمَتَكَ وَنَخْشَىٰ عَذَابَكَ إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحِقٌ</div>
-                <div class="item-trans">اے اللہ! ہم تجھ ہی سے مدد مانگتے ہیں اور تجھ سے بخشش چاہتے ہیں اور تجھ پر ایمان لاتے ہیں...</div>
-            </div>
-
-            <!-- Masnoon Duas -->
-            <div class="item-card">
-                <div class="item-title">1. سونے سے پہلے کی دعا</div>
-                <div class="item-arabic">بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ</div>
-                <div class="item-trans">اے میرے رب! تیرے ہی نام کے ساتھ میں نے اپنا پہلو رکھا اور تیرے ہی نام سے اٹھاؤں گا۔</div>
+                <div class="item-title">6️⃣ چھٹا کلمہ ردِ کفر</div>
+                <div class="item-arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا وَأَنَا أَعْلَمُ بِهِ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ...</div>
+                <div class="item-trans">اے اللہ! میں تیری پناہ مانگتا ہوں اس بات سے کہ تیرے ساتھ کسی چیز کو شریک کروں...</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">2. بیدار ہونے کے بعد کی دعا</div>
-                <div class="item-arabic">الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</div>
-                <div class="item-trans">تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں مارنے کے بعد زندہ کیا اور اسی کی طرف لوٹنا ہے۔</div>
+                <div class="item-title">🌟 آیت الکرسی</div>
+                <div class="item-arabic">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ...</div>
+                <div class="item-trans">اللہ، جس کے سوا کوئی معبود نہیں، وہ زندہ اور سب کا تھامنے والا ہے۔..</div>
             </div>
 
             <div class="item-card">
-                <div class="item-title">3. بیت الخلاء جانے کی دعا</div>
-                <div class="item-arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ</div>
-                <div class="item-trans">اے اللہ! میں خبیث جنوں اور جننیوں کی برائی سے تیری پناہ مانگتا ہوں۔</div>
-            </div>
-
-            <div class="item-card">
-                <div class="item-title">4. بیت الخلاء سے نکلنے کی دعا</div>
-                <div class="item-arabic">غُفْرَانَكَ، الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَىٰ وَعَافَانِي</div>
-                <div class="item-trans">اے اللہ! میں تیری بخشش چاہتا ہوں۔ تمام تعریفیں اللہ کے لیے ہیں جس نے مجھ سے تکلیف دور کی اور عافیت دی۔</div>
-            </div>
-
-            <div class="item-card">
-                <div class="item-title">5. سفر کی دعا</div>
-                <div class="item-arabic">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ</div>
-                <div class="item-trans">پاک ہے وہ ذات جس نے اس سواری کو ہمارے تابع کیا، ورنہ ہم اس پر قابو پانے والے نہ تھے، اور ہم اپنے رب کی طرف لوٹنے والے ہیں۔</div>
-            </div>
-
-            <div class="item-card">
-                <div class="item-title">6. رنج و غم اور پریشانی کی دعا</div>
-                <div class="item-arabic">لَا إِلٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ</div>
-                <div class="item-trans">تیرے سوا کوئی معبود نہیں، تو پاک ہے، بے شک میں ہی قصورواروں میں سے ہوں۔</div>
+                <div class="item-title">🤲 دعائے قنوت</div>
+                <div class="item-arabic">اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ...</div>
+                <div class="item-trans">اے اللہ! ہم تجھ ہی سے مدد مانگتے ہیں اور تجھ سے بخشش چاہتے ہیں...</div>
             </div>
         </div>
     </div>
@@ -993,11 +949,6 @@
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         function openPrayerModal() {
             document.getElementById('prayerModal').style.display = 'flex';
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(fetchPrayerAndQibla, handleLocationError, { timeout: 7000 });
-            } else {
-                fetchDefaultTimes();
-            }
         }
         function openIbadaatModal() { document.getElementById('ibadaatModal').style.display = 'flex'; }
         function openDuasModal() { document.getElementById('duasModal').style.display = 'flex'; }
@@ -1021,100 +972,117 @@
             }
         }
 
+        function updateCurrentAndNextPrayer(timings) {
+            var now = new Date();
+            var currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+            function timeToMinutes(timeStr) {
+                var parts = timeStr.split(':');
+                return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+            }
+
+            var prayerOrder = [
+                { name: 'FAJR', time: timings.Fajr, mins: timeToMinutes(timings.Fajr) },
+                { name: 'DHUHR', time: timings.Dhuhr, mins: timeToMinutes(timings.Dhuhr) },
+                { name: 'ASR', time: timings.Asr, mins: timeToMinutes(timings.Asr) },
+                { name: 'MAGHRIB', time: timings.Maghrib, mins: timeToMinutes(timings.Maghrib) },
+                { name: 'ISHA', time: timings.Isha, mins: timeToMinutes(timings.Isha) }
+            ];
+
+            var currentPrayer = prayerOrder[prayerOrder.length - 1];
+            var nextPrayer = prayerOrder[0];
+
+            for (var i = 0; i < prayerOrder.length; i++) {
+                if (currentMinutes < prayerOrder[i].mins) {
+                    nextPrayer = prayerOrder[i];
+                    currentPrayer = (i === 0) ? prayerOrder[prayerOrder.length - 1] : prayerOrder[i - 1];
+                    break;
+                }
+            }
+
+            if (document.getElementById('currentPrayerLabel')) {
+                document.getElementById('currentPrayerLabel').innerText = currentPrayer.name;
+            }
+            if (document.getElementById('nextPrayerLabel')) {
+                document.getElementById('nextPrayerLabel').innerText = nextPrayer.name;
+            }
+            if (document.getElementById('nextPrayerTime')) {
+                document.getElementById('nextPrayerTime').innerText = nextPrayer.time;
+            }
+        }
+
+        function applyTimings(t) {
+            if (document.getElementById('fajrTime')) document.getElementById('fajrTime').innerText = t.Fajr;
+            if (document.getElementById('dhuhrTime')) document.getElementById('dhuhrTime').innerText = t.Dhuhr;
+            if (document.getElementById('asrTime')) document.getElementById('asrTime').innerText = t.Asr;
+            if (document.getElementById('maghribTime')) document.getElementById('maghribTime').innerText = t.Maghrib;
+            if (document.getElementById('ishaTime')) document.getElementById('ishaTime').innerText = t.Isha;
+
+            updateCurrentAndNextPrayer(t);
+        }
+
         function fetchPrayerAndQibla(pos) {
             var lat = pos.coords.latitude;
             var lng = pos.coords.longitude;
-            document.getElementById('locationStatus').innerText = "📍 Live Location Connected";
+            if (document.getElementById('locationStatus')) {
+                document.getElementById('locationStatus').innerText = "📍 Live Location Connected";
+            }
 
             fetch("https://api.aladhan.com/v1/timings?latitude=" + lat + "&longitude=" + lng + "&method=1&school=1")
                 .then(function(res){ return res.json(); })
                 .then(function(data){
-                    var t = data.data.timings;
-                    document.getElementById('fajrTime').innerText = t.Fajr;
-                    document.getElementById('dhuhrTime').innerText = t.Dhuhr;
-                    document.getElementById('asrTime').innerText = t.Asr;
-                    document.getElementById('maghribTime').innerText = t.Maghrib;
-                    document.getElementById('ishaTime').innerText = t.Isha;
-                    document.getElementById('nextPrayerTime').innerText = t.Fajr;
+                    if (data && data.data) {
+                        applyTimings(data.data.timings);
+                    }
                 }).catch(function(){ fetchDefaultTimes(); });
 
             fetch("https://api.aladhan.com/v1/qibla/" + lat + "/" + lng)
                 .then(function(res){ return res.json(); })
                 .then(function(data){
-                    var angle = Math.round(data.data.direction);
-                    document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
-                    document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
+                    if (data && data.data) {
+                        var angle = Math.round(data.data.direction);
+                        if (document.getElementById('qiblaAngleText')) {
+                            document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
+                        }
+                        if (document.getElementById('qiblaNeedle')) {
+                            document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
+                        }
+                    }
                 });
-       function updateCurrentAndNextPrayer(timings) {
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-    function timeToMinutes(timeStr) {
-        const parts = timeStr.split(':');
-        return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
-    }
-
-    const prayerOrder = [
-        { name: 'FAJR', time: timings.Fajr, mins: timeToMinutes(timings.Fajr) },
-        { name: 'DHUHR', time: timings.Dhuhr, mins: timeToMinutes(timings.Dhuhr) },
-        { name: 'ASR', time: timings.Asr, mins: timeToMinutes(timings.Asr) },
-        { name: 'MAGHRIB', time: timings.Maghrib, mins: timeToMinutes(timings.Maghrib) },
-        { name: 'ISHA', time: timings.Isha, mins: timeToMinutes(timings.Isha) }
-    ];
-
-    let currentPrayer = prayerOrder[prayerOrder.length - 1];
-    let nextPrayer = prayerOrder[0];
-
-    for (let i = 0; i < prayerOrder.length; i++) {
-        if (currentMinutes < prayerOrder[i].mins) {
-            nextPrayer = prayerOrder[i];
-            currentPrayer = i === 0 ? prayerOrder[prayerOrder.length - 1] : prayerOrder[i - 1];
-            break;
         }
-    }
 
-    if (document.getElementById('currentPrayerName')) {
-        document.getElementById('currentPrayerName').innerText = currentPrayer.name;
-    }
-    if (document.getElementById('nextPrayerName')) {
-        document.getElementById('nextPrayerName').innerText = nextPrayer.name;
-    }
-    if (document.getElementById('nextPrayerTime')) {
-        document.getElementById('nextPrayerTime').innerText = nextPrayer.time;
-    }
-}
-
-function handleLocationError() {
-    if (document.getElementById('locationStatus')) {
-        document.getElementById('locationStatus').innerText = "📍 Pakistan (Default)";
-    }
-    fetchDefaultTimes();
-}
-
-function fetchDefaultTimes() {
-    fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
-        .then(function(res){ return res.json(); })
-        .then(function(data){
-            if (data && data.data) {
-                var t = data.data.timings;
-                if (document.getElementById('fajrTime')) document.getElementById('fajrTime').innerText = t.Fajr;
-                if (document.getElementById('dhuhrTime')) document.getElementById('dhuhrTime').innerText = t.Dhuhr;
-                if (document.getElementById('asrTime')) document.getElementById('asrTime').innerText = t.Asr;
-                if (document.getElementById('maghribTime')) document.getElementById('maghribTime').innerText = t.Maghrib;
-                if (document.getElementById('ishaTime')) document.getElementById('ishaTime').innerText = t.Isha;
-
-                updateCurrentAndNextPrayer(t);
-
-                if (document.getElementById('qiblaAngleText')) {
-                    document.getElementById('qiblaAngleText').innerText = "Angle: 260° (Pakistan)";
-                }
-                if (document.getElementById('qiblaNeedle')) {
-                    document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
-                }
+        function handleLocationError() {
+            if (document.getElementById('locationStatus')) {
+                document.getElementById('locationStatus').innerText = "📍 Pakistan (Default)";
             }
-        });
-}
+            fetchDefaultTimes();
+        }
 
+        function fetchDefaultTimes() {
+            fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
+                .then(function(res){ return res.json(); })
+                .then(function(data){
+                    if (data && data.data) {
+                        applyTimings(data.data.timings);
+
+                        if (document.getElementById('qiblaAngleText')) {
+                            document.getElementById('qiblaAngleText').innerText = "Angle: 260° (Pakistan)";
+                        }
+                        if (document.getElementById('qiblaNeedle')) {
+                            document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
+                        }
+                    }
+                });
+        }
+
+        // Initialize Prayer Timings Immediately on Page Load
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(fetchPrayerAndQibla, handleLocationError, { timeout: 7000 });
+        } else {
+            fetchDefaultTimes();
+        }
+
+        // Tasbeeh Logic
         var tasbeehCount = 0;
         function openTasbeehModal() {
             try { tasbeehCount = parseInt(localStorage.getItem('tasbeeh_count')) || 0; } catch(e){ tasbeehCount = 0; }
