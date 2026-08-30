@@ -1021,6 +1021,22 @@
             updateCurrentAndNextPrayer(t);
         }
 
+var qiblaAngle = 260;
+
+        function handleOrientation(event) {
+            var compassHeading = event.webkitCompassHeading;
+            if (!compassHeading && event.alpha !== null) {
+                compassHeading = (360 - event.alpha) % 360;
+            }
+            if (compassHeading !== undefined && compassHeading !== null) {
+                var shiftAngle = (qiblaAngle - compassHeading + 360) % 360;
+                var needle = document.getElementById('qiblaNeedle');
+                if (needle) {
+                    needle.style.transform = 'rotate(' + shiftAngle + 'deg)';
+                }
+            }
+        }
+
         function fetchPrayerAndQibla(pos) {
             var lat = pos.coords.latitude;
             var lng = pos.coords.longitude;
@@ -1040,16 +1056,21 @@
                 .then(function(res){ return res.json(); })
                 .then(function(data){
                     if (data && data.data) {
-                        var angle = Math.round(data.data.direction);
+                        qiblaAngle = Math.round(data.data.direction);
                         if (document.getElementById('qiblaAngleText')) {
-                            document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
+                            document.getElementById('qiblaAngleText').innerText = "Angle: " + qiblaAngle + "°";
                         }
                         if (document.getElementById('qiblaNeedle')) {
-                            document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
+                            document.getElementById('qiblaNeedle').style.transform = "rotate(" + qiblaAngle + "deg)";
+                        }
+
+                        if (window.DeviceOrientationEvent) {
+                            window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+                            window.addEventListener('deviceorientation', handleOrientation, true);
                         }
                     }
                 });
-        }
+        } 
 
         function handleLocationError() {
             if (document.getElementById('locationStatus')) {
