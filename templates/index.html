@@ -947,8 +947,14 @@
 
         // Modal Controllers & Tab Switcher
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function openPrayerModal() {
+function openPrayerModal() {
             document.getElementById('prayerModal').style.display = 'flex';
+            startCompass();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(fetchPrayerAndQibla, handleLocationError, { timeout: 7000 });
+            } else {
+                fetchDefaultTimes();
+            }
         }
         function openIbadaatModal() { document.getElementById('ibadaatModal').style.display = 'flex'; }
         function openDuasModal() { document.getElementById('duasModal').style.display = 'flex'; }
@@ -1021,19 +1027,42 @@
             updateCurrentAndNextPrayer(t);
         }
 
-var qiblaAngle = 260;
+var qiblaAngle = 259;
+        var compassActive = false;
 
         function handleOrientation(event) {
-            var compassHeading = event.webkitCompassHeading;
-            if (!compassHeading && event.alpha !== null) {
-                compassHeading = (360 - event.alpha) % 360;
+            var heading = null;
+
+            if (event.webkitCompassHeading) {
+                heading = event.webkitCompassHeading;
+            } else if (event.alpha !== null) {
+                heading = (360 - event.alpha) % 360;
             }
-            if (compassHeading !== undefined && compassHeading !== null) {
-                var shiftAngle = (qiblaAngle - compassHeading + 360) % 360;
+
+            if (heading !== null && heading !== undefined) {
+                var currentBearing = (qiblaAngle - heading + 360) % 360;
                 var needle = document.getElementById('qiblaNeedle');
                 if (needle) {
-                    needle.style.transform = 'rotate(' + shiftAngle + 'deg)';
+                    needle.style.transform = 'rotate(' + Math.round(currentBearing) + 'deg)';
                 }
+            }
+        }
+
+        function startCompass() {
+            if (compassActive) return;
+            compassActive = true;
+
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(function(res) {
+                        if (res === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation, true);
+                        }
+                    })
+                    .catch(function(err){ console.error(err); });
+            } else {
+                window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+                window.addEventListener('deviceorientation', handleOrientation, true);
             }
         }
 
