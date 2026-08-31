@@ -1144,6 +1144,12 @@ function fetchPrayerAndQibla(pos) {
             if (document.getElementById('qiblaNeedle')) document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
         });
     }
+        // Auto-run trigger
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchPrayerAndQibla, handleLocationError, { timeout: 8000 });
+    } else {
+        handleLocationError();
+    }
         var tasbeehCount = 0;
         function openTasbeehModal() {
             try { tasbeehCount = parseInt(localStorage.getItem('tasbeeh_count')) || 0; } catch(e){ tasbeehCount = 0; }
