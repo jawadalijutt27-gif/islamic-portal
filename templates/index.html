@@ -1020,48 +1020,130 @@
             }
         }
 
-        function fetchPrayerAndQibla(pos) {
-            var lat = pos.coords.latitude;
-            var lng = pos.coords.longitude;
+function fetchPrayerAndQibla(pos) {
+        var lat = pos.coords.latitude;
+        var lng = pos.coords.longitude;
+        if (document.getElementById('locationStatus')) {
             document.getElementById('locationStatus').innerText = "📍 Live Location Connected";
-
-            fetch("https://api.aladhan.com/v1/timings?latitude=" + lat + "&longitude=" + lng + "&method=1&school=1")
-                .then(function(res){ return res.json(); })
-                .then(function(data){
-                    var t = data.data.timings;
-                    document.getElementById('fajrTime').innerText = t.Fajr;
-                    document.getElementById('dhuhrTime').innerText = t.Dhuhr;
-                    document.getElementById('asrTime').innerText = t.Asr;
-                    document.getElementById('maghribTime').innerText = t.Maghrib;
-                    document.getElementById('ishaTime').innerText = t.Isha;
-                    document.getElementById('nextPrayerTime').innerText = t.Fajr;
-                }).catch(function(){ fetchDefaultTimes(); });
-
-            fetch("https://api.aladhan.com/v1/qibla/" + lat + "/" + lng)
-                .then(function(res){ return res.json(); })
-                .then(function(data){
-                    var angle = Math.round(data.data.direction);
-                    document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
-                    document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
-                });
-        }
-        function handleLocationError() { document.getElementById('locationStatus').innerText = "📍 Pakistan Times (Default)"; fetchDefaultTimes(); }
-        function fetchDefaultTimes() {
-            fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
-                .then(function(res){ return res.json(); })
-                .then(function(data){
-                    var t = data.data.timings;
-                    document.getElementById('fajrTime').innerText = t.Fajr;
-                    document.getElementById('dhuhrTime').innerText = t.Dhuhr;
-                    document.getElementById('asrTime').innerText = t.Asr;
-                    document.getElementById('maghribTime').innerText = t.Maghrib;
-                    document.getElementById('ishaTime').innerText = t.Isha;
-                    document.getElementById('nextPrayerTime').innerText = t.Fajr;
-                    document.getElementById('qiblaAngleText').innerText = "Angle: 260° (Pakistan)";
-                    document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
-                });
         }
 
+        fetch("https://api.aladhan.com/v1/timings?latitude=" + lat + "&longitude=" + lng + "&method=1&school=1")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            var t = data.data.timings;
+            
+            if (document.getElementById('fajrTime')) document.getElementById('fajrTime').innerText = t.Fajr;
+            if (document.getElementById('dhuhrTime')) document.getElementById('dhuhrTime').innerText = t.Dhuhr;
+            if (document.getElementById('asrTime')) document.getElementById('asrTime').innerText = t.Asr;
+            if (document.getElementById('maghribTime')) document.getElementById('maghribTime').innerText = t.Maghrib;
+            if (document.getElementById('ishaTime')) document.getElementById('ishaTime').innerText = t.Isha;
+
+            var now = new Date();
+            var currentMins = now.getHours() * 60 + now.getMinutes();
+
+            function toMins(timeStr) {
+                var parts = timeStr.split(':');
+                return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+            }
+
+            var list = [
+                { name: 'FAJR', time: t.Fajr, mins: toMins(t.Fajr) },
+                { name: 'DHUHR', time: t.Dhuhr, mins: toMins(t.Dhuhr) },
+                { name: 'ASR', time: t.Asr, mins: toMins(t.Asr) },
+                { name: 'MAGHRIB', time: t.Maghrib, mins: toMins(t.Maghrib) },
+                { name: 'ISHA', time: t.Isha, mins: toMins(t.Isha) }
+            ];
+
+            var cur = 'ISHA';
+            var nxt = list[0];
+
+            for (var i = 0; i < list.length; i++) {
+                if (currentMins < list[i].mins) {
+                    nxt = list[i];
+                    cur = (i === 0) ? 'ISHA' : list[i - 1].name;
+                    break;
+                }
+            }
+
+            if (document.getElementById('nextPrayerTime')) {
+                document.getElementById('nextPrayerTime').innerText = nxt.time;
+            }
+            if (document.getElementById('nextPrayerName')) {
+                document.getElementById('nextPrayerName').innerText = nxt.name;
+            }
+            if (document.getElementById('currentPrayerName')) {
+                document.getElementById('currentPrayerName').innerText = cur;
+            }
+        })
+        .catch(function() {
+            fetchDefaultTimes();
+        });
+
+        // Qibla Direction
+        fetch("https://api.aladhan.com/v1/qibla/" + lat + "/" + lng)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            var angle = Math.round(data.data.direction);
+            if (document.getElementById('qiblaAngleText')) {
+                document.getElementById('qiblaAngleText').innerText = "Angle: " + angle + "°";
+            }
+            if (document.getElementById('qiblaNeedle')) {
+                document.getElementById('qiblaNeedle').style.transform = "rotate(" + angle + "deg)";
+            }
+        })
+        .catch(function(err) {
+            console.log("Qibla error", err);
+        });
+    }
+
+    function handleLocationError() {
+        if (document.getElementById('locationStatus')) {
+            document.getElementById('locationStatus').innerText = "📍 Pakistan Times (Default)";
+        }
+        fetchDefaultTimes();
+    }
+
+    function fetchDefaultTimes() {
+        fetch("https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1&school=1")
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            var t = data.data.timings;
+            if (document.getElementById('fajrTime')) document.getElementById('fajrTime').innerText = t.Fajr;
+            if (document.getElementById('dhuhrTime')) document.getElementById('dhuhrTime').innerText = t.Dhuhr;
+            if (document.getElementById('asrTime')) document.getElementById('asrTime').innerText = t.Asr;
+            if (document.getElementById('maghribTime')) document.getElementById('maghribTime').innerText = t.Maghrib;
+            if (document.getElementById('ishaTime')) document.getElementById('ishaTime').innerText = t.Isha;
+
+            var now = new Date();
+            var currentMins = now.getHours() * 60 + now.getMinutes();
+            function toMins(timeStr) {
+                var parts = timeStr.split(':');
+                return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+            }
+            var list = [
+                { name: 'FAJR', time: t.Fajr, mins: toMins(t.Fajr) },
+                { name: 'DHUHR', time: t.Dhuhr, mins: toMins(t.Dhuhr) },
+                { name: 'ASR', time: t.Asr, mins: toMins(t.Asr) },
+                { name: 'MAGHRIB', time: t.Maghrib, mins: toMins(t.Maghrib) },
+                { name: 'ISHA', time: t.Isha, mins: toMins(t.Isha) }
+            ];
+            var cur = 'ISHA';
+            var nxt = list[0];
+            for (var i = 0; i < list.length; i++) {
+                if (currentMins < list[i].mins) {
+                    nxt = list[i];
+                    cur = (i === 0) ? 'ISHA' : list[i - 1].name;
+                    break;
+                }
+            }
+            if (document.getElementById('nextPrayerTime')) document.getElementById('nextPrayerTime').innerText = nxt.time;
+            if (document.getElementById('nextPrayerName')) document.getElementById('nextPrayerName').innerText = nxt.name;
+            if (document.getElementById('currentPrayerName')) document.getElementById('currentPrayerName').innerText = cur;
+
+            if (document.getElementById('qiblaAngleText')) document.getElementById('qiblaAngleText').innerText = "Angle: 260° (Pakistan)";
+            if (document.getElementById('qiblaNeedle')) document.getElementById('qiblaNeedle').style.transform = "rotate(260deg)";
+        });
+    }
         var tasbeehCount = 0;
         function openTasbeehModal() {
             try { tasbeehCount = parseInt(localStorage.getItem('tasbeeh_count')) || 0; } catch(e){ tasbeehCount = 0; }
