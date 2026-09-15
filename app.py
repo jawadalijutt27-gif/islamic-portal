@@ -67,8 +67,64 @@ BISMILLAH_PREFIX = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلر�
 
 @app.route('/')
 def home():
-    return redirect(url_for('view_surah', surah_id=1))
+    return render_template('home.html')
+@app.route('/more')
+def more_features():
+    return render_template('more.html')
+@app.route('/supplications')
+def supplications():
+    return render_template('supplications.html')
 
+@app.route('/tasbeeh')
+def tasbeeh():
+    return render_template('tasbeeh.html')
+
+@app.route('/shahadat')
+def shahadat():
+    return render_template('shahadat.html')
+
+@app.route('/rules-of-stopping')
+def rules_of_stopping():
+    return render_template('rules_of_stopping.html')
+
+@app.route('/pronunciation')
+def pronunciation():
+    return render_template('pronunciation.html')
+
+@app.route('/salah-tracker')
+def salah_tracker():
+    return render_template('salah_tracker.html')
+
+@app.route('/flashes')
+def flashes():
+    return render_template('flashes.html')
+
+@app.route('/prayer-times')
+def prayer_times():
+    return render_template('prayer_times.html')
+
+@app.route('/share-greetings')
+def share_greetings():
+    return render_template('share_greetings.html')
+
+@app.route('/qaida')
+def qaida_urdu():
+    return render_template('qaida.html')
+
+@app.route('/qaida-english')
+def qaida_en():
+    return render_template('qaida_english.html')
+
+@app.route('/allah-names')
+def allah_names():
+    return render_template('allah_names.html')
+
+@app.route('/qibla')
+def qibla_dir():
+    return render_template('qibla.html')
+@app.route('/ibadaat')
+def ibadaat():
+    return render_template('ibadaat.html')
 @app.route('/surah/<int:surah_id>')
 def view_surah(surah_id):
     if surah_id < 1 or surah_id > 114:
@@ -124,7 +180,9 @@ def favorites():
 # Hadith Section Route
 @app.route('/hadith')
 @app.route('/hadith/<book_id>')
-def view_hadith(book_id='bukhari'):
+def view_hadith(book_id=None):
+    if not book_id:
+        return render_template('hadith.html', show_books=True, books=HADITH_BOOKS)
     page = request.args.get('page', 1, type=int)
     lang_code = request.args.get('lang', 'urd')
     limit = 20
@@ -176,7 +234,8 @@ def view_hadith(book_id='bukhari'):
         languages=HADITH_LANGUAGES,
         current_lang=current_lang,
         hadiths=hadiths,
-        page=page
+        page=page,
+        show_books=False
     )
 
 # PWA Routes
@@ -190,6 +249,29 @@ def service_worker():
 @app.route('/favorites')
 def favorites_page():
     return render_template('favourite.html')
+TILAWAT_RECITERS = {
+    "afs": {"name": "Mishary Rashid Alafasy", "server": "https://server8.mp3quran.net/afs"},
+    "basit": {"name": "Abdul Basit Abdul Samad", "server": "https://server7.mp3quran.net/basit"},
+    "sudais": {"name": "Abdur-Rahman As-Sudais", "server": "https://server11.mp3quran.net/sds"},
+    "shur": {"name": "Saud Ash-Shuraim", "server": "https://server7.mp3quran.net/shur"},
+    "ghamdi": {"name": "Saad Al-Ghamdi", "server": "https://server7.mp3quran.net/s_gmd"},
+    "husary": {"name": "Mahmoud Khalil Al-Husary", "server": "https://server13.mp3quran.net/husr"},
+    "minsh": {"name": "Mohamed Siddiq Al-Minshawi", "server": "https://server10.mp3quran.net/minsh"}
+}
+@app.route('/tilawat')
+@app.route('/tilawat/<int:surah_id>')
+def tilawat(surah_id=1):
+    from flask import request
+    reciter_key = request.args.get('reciter', 'afs')
+    if reciter_key not in TILAWAT_RECITERS:
+        reciter_key = 'afs'
+
+    formatted_surah = f"{surah_id:03d}"
+    server_base = TILAWAT_RECITERS[reciter_key]["server"]
+    audio_url = f"{server_base}/{formatted_surah}.mp3"
+
+    return render_template('tilawat.html', surah_id=surah_id, audio_url=audio_url, reciters=TILAWAT_RECITERS, current_reciter=reciter_key)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
