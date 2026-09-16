@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Islamic Features & Services</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h2 {
+      font-size: 20px;
+      color: #1a4fba;
+      font-weight: 700;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 12px;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 125px;
+      transition: transform 0.15s ease;
+    }
+    .feature-card:active {
+      transform: scale(0.97);
+    }
+    .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a202c;
+    }
+    .arabic-label {
+      font-size: 20px;
+      color: #b7791f;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    /* Fixed Bottom Navigation */
+    .bottom-nav {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 60px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      border-top: 1px solid #e2e8f0 !important;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05) !important;
+      z-index: 999999 !important;
+    }
+    .nav-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      color: #718096 !important;
+      font-size: 11px !important;
+      flex: 1 !important;
+    }
+    .nav-item.active {
+      color: #1a4fba !important;
+      font-weight: 600 !important;
+    }
+    .nav-item svg {
+      stroke: currentColor;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="header">
+    <h2>Islamic Features & Tools</h2>
+  </div>
+
+  <div class="grid-container">
+
+    <!-- Supplication -->
+    <a href="/supplications" class="feature-card">
+      <div class="icon">🤲</div>
+      <div class="card-title">Supplication</div>
+    </a>
+
+    <!-- Tasbeeh -->
+    <a href="/tasbeeh" class="feature-card">
+      <div class="icon">📿</div>
+      <div class="card-title">Tasbeeh</div>
+    </a>
+
+    <!-- Shahadat -->
+    <a href="/shahadat" class="feature-card">
+      <div class="icon">☝️</div>
+      <div class="card-title">Shahadat</div>
+    </a>
+
+    <!-- Rules of stopping -->
+    <a href="/rules-of-stopping" class="feature-card">
+      <div class="arabic-label">وقفہ</div>
+      <div class="card-title">Rules of stopping</div>
+    </a>
+
+    <!-- Pronunciation -->
+    <a href="/pronunciation" class="feature-card">
+      <div class="icon">🗣️</div>
+      <div class="card-title">Pronunciation</div>
+    </a>
+
+    <!-- Salah Tracker -->
+    <a href="/salah-tracker" class="feature-card">
+      <div class="icon">🕌</div>
+      <div class="card-title">Salah Tracker</div>
+    </a>
+
+    <!-- Flashes -->
+    <a href="/flashes" class="feature-card">
+      <div class="icon">🔦</div>
+      <div class="card-title">Flashes</div>
+    </a>
+
+    <!-- Prayer Time -->
+    <a href="/prayer-times" class="feature-card">
+      <div class="icon">🧎‍♂️</div>
+      <div class="card-title">Prayer Time</div>
+    </a>
+
+    <!-- Share Greetings -->
+    <a href="/share-greetings" class="feature-card">
+      <div class="icon">💌</div>
+      <div class="card-title">Share Greetings</div>
+    </a>
+
+    <!-- Qaida (Urdu) -->
+    <a href="/qaida" class="feature-card">
+      <div class="icon">📖</div>
+      <div class="card-title">Qaida (Urdu)</div>
+    </a>
+
+    <!-- Qaida (English) -->
+    <a href="/qaida-english" class="feature-card">
+      <div class="icon">📚</div>
+      <div class="card-title">Qaida (English)</div>
+    </a>
+
+    <!-- Allah Names -->
+    <a href="/allah-names" class="feature-card">
+      <div class="arabic-label">الله</div>
+      <div class="card-title">Allah Names</div>
+    </a>
+
+    <!-- Qibla Direction -->
+    <a href="/qibla" class="feature-card" style="grid-column: span 2; max-width: 250px; margin: 0 auto; width: 100%;">
+      <div class="icon">🧭</div>
+      <div class="card-title">Qibla Direction</div>
+    </a>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <a href="/surah/1" class="nav-item">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span style="margin-top:3px;">Quran</span>
+    </a>
+    <a href="/hadith" class="nav-item">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      <span style="margin-top:3px;">Hadith</span>
+    </a>
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span style="margin-top:3px;">Home</span>
+    </a>
+    <a href="/ibadaat" class="nav-item">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span style="margin-top:3px;">Ibadaat</span>
+    </a>
+    <a href="/more" class="nav-item active">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+      <span style="margin-top:3px;">More</span>
+    </a>
+  </div>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ current_lang.code }}" dir="rtl">
+<html lang="{{ current_lang.code if current_lang else 'ur' }}" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ current_book.name }} - Hadith Sharif</title>
+    <title>{{ current_book.name if current_book else 'Hadith Books' }} - Hadith Sharif</title>
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -183,16 +182,105 @@
             gap: 12px;
             margin-top: 25px;
         }
+        /* Header ko Sticky aur Islamic Theme Look dena */
+.top-bar, .app-header, header {
+    background: var(--header-bg) !important;
+    color: #ffffff !important;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 14px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.top-bar h1, .top-bar h2, .top-bar a, .top-bar span {
+    color: #ffffff !important;
+}
+
+/* Books Grid Cards ko Clean Green Border aur Hover dena */
+.book-card, .hadith-book-card, a.card {
+    background: var(--card-bg) !important;
+    border: 1.5px solid #d1fae5 !important;
+    border-radius: 14px !important;
+    padding: 22px 14px !important;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(6, 78, 59, 0.05) !important;
+    transition: all 0.25s ease-in-out !important;
+}
+
+/* Hover aur Click effect */
+.book-card:hover, .hadith-book-card:hover, a.card:hover {
+    border-color: #047857 !important;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(6, 78, 59, 0.15) !important;
+}
+
+/* Book Icon aur Text Colors */
+.book-card svg, .hadith-book-card svg, a.card svg {
+    stroke: #047857 !important;
+    color: #047857 !important;
+}
+
+.book-card h3, .book-card p, .hadith-book-card span, a.card p {
+    color: var(--text-main) !important;
+    font-weight: 700 !important;
+    margin-top: 10px;
+}
     </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
 </head>
 <body>
+    {% if show_books %}
+        <!-- Header Bar -->
+        <div style="background: linear-gradient(135deg, #064e3b, #047857); position: sticky; top: 0; z-index: 1000; padding: 14px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); margin-bottom: 20px;">
+            <h2 style="text-align: center; font-size: 19px; font-weight: 700; color: #ffffff; margin: 0;">كتب احادیث نبویہ ﷺ</h2>
+        </div>
+
+        <!-- 2-Column Grid -->
+        <div style="max-width: 520px; margin: 0 auto; padding: 0 16px 90px;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+                {% for b in books %}
+                <a href="/hadith/{{ b['id'] }}" style="background: #ffffff; border: 1.5px solid #d1fae5; border-radius: 16px; padding: 22px 14px; text-decoration: none; text-align: center; box-shadow: 0 3px 10px rgba(6, 78, 59, 0.05); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div style="font-size: 32px; margin-bottom: 10px; color: #047857;">📖</div>
+                    <div style="font-size: 15px; font-weight: 700; color: #064e3b; font-family: 'Noto Sans Arabic', Tahoma, sans-serif;">{{ b.get('name_ar', b.get('name')) }}</div>
+                    <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-top: 4px;">{{ b.get('name', '') }}</div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+    <!-- Back to Books Button jab user kisi specific book ke andar ho -->
+    <div style="padding: 12px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9;">
+        <a href="/hadith" style="text-decoration: none; color: #059669; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+            ← All Hadith Books
+        </a>
+    </div>
 
     <header>
         <h1>کتبِ احادیث نبویہ ﷺ (Hadith Collection)</h1>
         
         <div class="controls-row">
-            <a href="/" class="action-btn" style="background:#10b981; color:#fff;">📖 تلاوتِ قرآن</a>
-
             <!-- Select Book -->
             <select id="bookSelect" onchange="updateHadithView()">
                 {% for b in books %}
@@ -211,7 +299,6 @@
                 {% endfor %}
             </select>
 
-            <button class="action-btn" id="themeBtn" onclick="toggleTheme()">🌙 Dark Mode</button>
         </div>
     </header>
 
@@ -280,5 +367,39 @@
             window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText), '_blank');
         }
     </script>
+    {% endif %}
+    <!-- Fixed Bottom Navigation Bar -->
+  <div class="bottom-nav" style="position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; direction: ltr;">
+    <a href="/surah/1" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
+      <span style="font-size: 20px; margin-bottom: 2px;">📖</span>
+      <span>Quran</span>
+    </a>
+    <a href="/hadith" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #1a4fba; font-size: 11px; font-weight: 700;">
+      <span style="font-size: 20px; margin-bottom: 2px;">۞</span>
+      <span>Hadith</span>
+    </a>
+    <a href="/" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
+      <span style="font-size: 20px; margin-bottom: 2px;">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="/ibadaat" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
+      <span style="font-size: 20px; margin-bottom: 2px;">🕌</span>
+      <span>Ibadaat</span>
+    </a>
+    <a href="/more" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
+      <span style="font-size: 20px; margin-bottom: 2px;">⋮⋮⋮</span>
+      <span>More</span>
+    </a>
+  </div>
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
 </body>
 </html>

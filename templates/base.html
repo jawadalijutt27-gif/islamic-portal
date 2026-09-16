@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Islamic App{% endblock %}</title>
+
+    <style>
+        /* --- Poori App Ka Common Forest Green Theme & Styling --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+
+        /* Eye Care / Warm Reading Mode (Poori App ke liye) */
+        body.eyecare-mode {
+            background-color: #fbf7ee !important;
+            filter: sepia(0.25) brightness(0.96) !important;
+            transition: background-color 0.3s ease, filter 0.3s ease;
+        }
+
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule {
+            background-color: #fdfaf2 !important;
+            border-color: #d1ccb8 !important;
+        }
+
+        /* Top Header Common Style */
+        .top-header {
+            background: linear-gradient(135deg, #064e3b, #047857);
+            color: #ffffff;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.15);
+        }
+
+        .theme-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+    </style>
+
+    <!-- Agar kisi page ki apni extra CSS ho to yahan aayegi -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Har page par aane wala top bar (Theme button ke sath) -->
+    <header class="top-header">
+        <div>{% block header_title %}Islamic App{% endblock %}</div>
+        <button id="themeToggleBtn" class="theme-btn" onclick="toggleGlobalTheme()">🌙</button>
+    </header>
+
+    <!-- Har page ka apna content is block ke andar load hoga -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Global JavaScript (Eye Care Persistence) -->
+    <script>
+        function applySavedTheme() {
+            const mode = localStorage.getItem('app_reading_mode');
+            const btn = document.getElementById('themeToggleBtn');
+            if (mode === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+                if (btn) btn.innerText = '🔆';
+            } else {
+                document.body.classList.remove('eyecare-mode');
+                if (btn) btn.innerText = '🌙';
+            }
+        }
+
+        function toggleGlobalTheme() {
+            const isEyeCare = document.body.classList.toggle('eyecare-mode');
+            localStorage.setItem('app_reading_mode', isEyeCare ? 'eyecare' : 'normal');
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) {
+                btn.innerText = isEyeCare ? '🔆' : '🌙';
+            }
+        }
+
+        // Har page khulte hi Eye care check karega
+        applySavedTheme();
+    </script>
+
+    <!-- Kisi page ki apni JS ho to yahan aayegi -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

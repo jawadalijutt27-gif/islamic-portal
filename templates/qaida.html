@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مکمل نورانی قاعدہ اردو - Comprehensive Qaida</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 90px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      direction: ltr;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a202c;
+    }
+    /* Horizontal Scrolling Lessons Bar */
+    .lesson-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 14px 2px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+    }
+    .lesson-scroll::-webkit-scrollbar {
+      height: 5px;
+    }
+    .lesson-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e0;
+      border-radius: 4px;
+    }
+    .lesson-btn {
+      white-space: nowrap;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #4a5568;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .lesson-btn.active {
+      background: #1a4fba;
+      color: #ffffff;
+      border-color: #1a4fba;
+      box-shadow: 0 3px 8px rgba(26, 79, 186, 0.3);
+    }
+    /* Lesson Details Header */
+    .lesson-header {
+      background: #ebf8ff;
+      border-right: 4px solid #3182ce;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      text-align: right;
+    }
+    .lesson-title {
+      font-size: 17px;
+      font-weight: bold;
+      color: #2b6cb0;
+      margin-bottom: 6px;
+    }
+    .lesson-rule {
+      font-size: 13px;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    /* Responsive Qaida Grid */
+    .qaida-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .char-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      min-height: 82px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .char-card:hover {
+      border-color: #1a4fba;
+      background: #f0f7ff;
+    }
+    .char-card:active {
+      transform: scale(0.96);
+    }
+    .arabic-char {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1a202c;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      line-height: 1.3;
+    }
+    .char-pronounce {
+      font-size: 11px;
+      color: #718096;
+      margin-top: 4px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .tajweed-tag {
+      font-size: 9px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-top: 3px;
+      font-weight: bold;
+    }
+    .tag-bold { background: #fed7d7; color: #9b2c2c; }
+    .tag-qalqala { background: #feebc8; color: #9c4221; }
+    .tag-ghunna { background: #c6f6d5; color: #22543d; }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">جامع نورانی قاعدہ (اردو)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <!-- Lesson Navigation Scroll Bar -->
+  <div class="lesson-scroll">
+    <button class="lesson-btn active" onclick="switchLesson(1)">تختی ۱: مفردات</button>
+    <button class="lesson-btn" onclick="switchLesson(2)">تختی ۲: مرکبات</button>
+    <button class="lesson-btn" onclick="switchLesson(3)">تختی ۳: حرکات</button>
+    <button class="lesson-btn" onclick="switchLesson(4)">تختی ۴: تنوین</button>
+    <button class="lesson-btn" onclick="switchLesson(5)">تختی ۵: مشق حرکات و تنوین</button>
+    <button class="lesson-btn" onclick="switchLesson(6)">تختی ۶: کھڑی حرکات</button>
+    <button class="lesson-btn" onclick="switchLesson(7)">تختی ۷: حروفِ مدہ</button>
+    <button class="lesson-btn" onclick="switchLesson(8)">تختی ۸: حروفِ لین</button>
+    <button class="lesson-btn" onclick="switchLesson(9)">تختی ۹: مشق مدہ و لین</button>
+    <button class="lesson-btn" onclick="switchLesson(10)">تختی ۱۰: جزم و سکون</button>
+    <button class="lesson-btn" onclick="switchLesson(11)">تختی ۱۱: تشدید</button>
+    <button class="lesson-btn" onclick="switchLesson(12)">تختی ۱۲: مشق تشدید مع جزم</button>
+    <button class="lesson-btn" onclick="switchLesson(13)">تختی ۱۳: احکامِ نون و تنوین</button>
+    <button class="lesson-btn" onclick="switchLesson(14)">تختی ۱۴: حروفِ مقطعات</button>
+  </div>
+
+  <!-- ================= 1. MUFRADAT ================= -->
+  <div id="lesson-1" class="lesson-content">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۱: حروفِ مفردات (الگ الگ حروف)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> مفردات 29 حروف ہیں۔ ان میں سے 7 حروف ہمیشہ موٹے (مستعلیہ) پڑھے جاتے ہیں: <strong>خ، ص، ض، ط، ظ، غ، ق</strong> (خص ضغط قظ)۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">ا</span><span class="char-pronounce">الف</span></div>
+      <div class="char-card"><span class="arabic-char">ب</span><span class="char-pronounce">با</span></div>
+      <div class="char-card"><span class="arabic-char">ت</span><span class="char-pronounce">تا</span></div>
+      <div class="char-card"><span class="arabic-char">ث</span><span class="char-pronounce">ثا (نرم)</span></div>
+
+      <div class="char-card"><span class="arabic-char">ج</span><span class="char-pronounce">جیم</span></div>
+      <div class="char-card"><span class="arabic-char">ح</span><span class="char-pronounce">حا (حلق)</span></div>
+      <div class="char-card"><span class="arabic-char">خ</span><span class="char-pronounce">خا</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+      <div class="char-card"><span class="arabic-char">د</span><span class="char-pronounce">دال</span></div>
+
+      <div class="char-card"><span class="arabic-char">ذ</span><span class="char-pronounce">ذال (نرم)</span></div>
+      <div class="char-card"><span class="arabic-char">ر</span><span class="char-pronounce">را</span></div>
+      <div class="char-card"><span class="arabic-char">ز</span><span class="char-pronounce">زا (سیٹی)</span></div>
+      <div class="char-card"><span class="arabic-char">س</span><span class="char-pronounce">سین</span></div>
+
+      <div class="char-card"><span class="arabic-char">ش</span><span class="char-pronounce">شین</span></div>
+      <div class="char-card"><span class="arabic-char">ص</span><span class="char-pronounce">صاد</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+      <div class="char-card"><span class="arabic-char">ض</span><span class="char-pronounce">ضاد</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+      <div class="char-card"><span class="arabic-char">ط</span><span class="char-pronounce">طا</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+
+      <div class="char-card"><span class="arabic-char">ظ</span><span class="char-pronounce">ظا</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+      <div class="char-card"><span class="arabic-char">ع</span><span class="char-pronounce">عین</span></div>
+      <div class="char-card"><span class="arabic-char">غ</span><span class="char-pronounce">غین</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+      <div class="char-card"><span class="arabic-char">ف</span><span class="char-pronounce">فا</span></div>
+
+      <div class="char-card"><span class="arabic-char">ق</span><span class="char-pronounce">قاف</span><span class="tajweed-tag tag-bold">موٹا</span></div>
+      <div class="char-card"><span class="arabic-char">ك</span><span class="char-pronounce">کاف</span></div>
+      <div class="char-card"><span class="arabic-char">ل</span><span class="char-pronounce">لام</span></div>
+      <div class="char-card"><span class="arabic-char">م</span><span class="char-pronounce">میم</span></div>
+
+      <div class="char-card"><span class="arabic-char">ن</span><span class="char-pronounce">نون</span></div>
+      <div class="char-card"><span class="arabic-char">و</span><span class="char-pronounce">واؤ</span></div>
+      <div class="char-card"><span class="arabic-char">ه</span><span class="char-pronounce">ہا</span></div>
+      <div class="char-card"><span class="arabic-char">ء</span><span class="char-pronounce">ہمزہ</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ی</span><span class="char-pronounce">یا</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ے</span><span class="char-pronounce">بڑی یا</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 2. MURAKKABAT ================= -->
+  <div id="lesson-2" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۲: مرکبات (ملی ہوئی شکلیں)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> جب دو یا دو سے زائد حروف ملتے ہیں تو ان کی شکلیں بدل جاتی ہیں۔ ہر حرف کو اس کے نکتوں اور سرے سے پہچانیں۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">لا</span><span class="char-pronounce">لام الف</span></div>
+      <div class="char-card"><span class="arabic-char">با</span><span class="char-pronounce">با الف</span></div>
+      <div class="char-card"><span class="arabic-char">بل</span><span class="char-pronounce">با لام</span></div>
+      <div class="char-card"><span class="arabic-char">کف</span><span class="char-pronounce">کاف فا</span></div>
+
+      <div class="char-card"><span class="arabic-char">لح</span><span class="char-pronounce">لام حا</span></div>
+      <div class="char-card"><span class="arabic-char">بلب</span><span class="char-pronounce">با لام با</span></div>
+      <div class="char-card"><span class="arabic-char">کتب</span><span class="char-pronounce">کاف تا با</span></div>
+      <div class="char-card"><span class="arabic-char">نح</span><span class="char-pronounce">نون حا</span></div>
+
+      <div class="char-card"><span class="arabic-char">یب</span><span class="char-pronounce">یا با</span></div>
+      <div class="char-card"><span class="arabic-char">ثج</span><span class="char-pronounce">ثا جیم</span></div>
+      <div class="char-card"><span class="arabic-char">بح</span><span class="char-pronounce">با حا</span></div>
+      <div class="char-card"><span class="arabic-char">سخ</span><span class="char-pronounce">سین خا</span></div>
+
+      <div class="char-card"><span class="arabic-char">شج</span><span class="char-pronounce">شین جیم</span></div>
+      <div class="char-card"><span class="arabic-char">صع</span><span class="char-pronounce">صاد عین</span></div>
+      <div class="char-card"><span class="arabic-char">ضغ</span><span class="char-pronounce">ضاد غین</span></div>
+      <div class="char-card"><span class="arabic-char">طک</span><span class="char-pronounce">طا کاف</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 3. HARAKAT ================= -->
+  <div id="lesson-3" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۳: حرکات (زبر، زیر، پیش)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> زبر، زیر، پیش کو حرکات کہتے ہیں۔ متحرک حرف کو بغیر جھٹکے اور بغیر کھینچے معروف آواز کے ساتھ جلدی پڑھیں۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَ</span><span class="char-pronounce">ہمزہ زبر اَ</span></div>
+      <div class="char-card"><span class="arabic-char">إِ</span><span class="char-pronounce">ہمزہ زیر اِ</span></div>
+      <div class="char-card"><span class="arabic-char">أُ</span><span class="char-pronounce">ہمزہ پیش اُ</span></div>
+      <div class="char-card"><span class="arabic-char">بَ</span><span class="char-pronounce">با زبر بَ</span></div>
+
+      <div class="char-card"><span class="arabic-char">بِ</span><span class="char-pronounce">با زیر بِ</span></div>
+      <div class="char-card"><span class="arabic-char">بُ</span><span class="char-pronounce">با پیش بُ</span></div>
+      <div class="char-card"><span class="arabic-char">تَ</span><span class="char-pronounce">تا زبر تَ</span></div>
+      <div class="char-card"><span class="arabic-char">تِ</span><span class="char-pronounce">تا زیر تِ</span></div>
+
+      <div class="char-card"><span class="arabic-char">تُ</span><span class="char-pronounce">تا پیش تُ</span></div>
+      <div class="char-card"><span class="arabic-char">دَ</span><span class="char-pronounce">دال زبر دَ</span></div>
+      <div class="char-card"><span class="arabic-char">دِ</span><span class="char-pronounce">دال زیر دِ</span></div>
+      <div class="char-card"><span class="arabic-char">دُ</span><span class="char-pronounce">دال پیش دُ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 4. TANWEEN ================= -->
+  <div id="lesson-4" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۴: تنوین (دو زبر، دو زیر، دو پیش)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> دو زبر ( ً )، دو زیر ( ٍ )، دو پیش ( ٌ ) کو تنوین کہتے ہیں۔ تنوین کی آواز دراصل نون ساکن جیسی ہوتی ہے (جیسے: بً = بَن)۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">مً</span><span class="char-pronounce">میم دو زبر مَنْ</span></div>
+      <div class="char-card"><span class="arabic-char">مٍ</span><span class="char-pronounce">میم دو زیر مِنْ</span></div>
+      <div class="char-card"><span class="arabic-char">مٌ</span><span class="char-pronounce">میم دو پیش مُنْ</span></div>
+      <div class="char-card"><span class="arabic-char">بً</span><span class="char-pronounce">با دو زبر بَنْ</span></div>
+
+      <div class="char-card"><span class="arabic-char">بٍ</span><span class="char-pronounce">با دو زیر بِنْ</span></div>
+      <div class="char-card"><span class="arabic-char">بٌ</span><span class="char-pronounce">با دو پیش بُنْ</span></div>
+      <div class="char-card"><span class="arabic-char">تً</span><span class="char-pronounce">تا دو زبر تَنْ</span></div>
+      <div class="char-card"><span class="arabic-char">تٍ</span><span class="char-pronounce">تا دو زیر تِنْ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 5. MASHQ HARAKAT & TANWEEN ================= -->
+  <div id="lesson-5" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۵: مشق حرکات و تنوین (الفاظ کی ادائیگی)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> ہر حرف کی حرکت کو الگ الگ ادا کرتے ہوئے رواں ملا کر پڑھیں۔ کسی حرف کو لمبا نہ کریں۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَبَدًا</span><span class="char-pronounce">اَ - بَ - دَنْ</span></div>
+      <div class="char-card"><span class="arabic-char">أَحَدٌ</span><span class="char-pronounce">اَ - حَ - دُنْ</span></div>
+      <div class="char-card"><span class="arabic-char">أَخَذَ</span><span class="char-pronounce">اَ - خَ - ذَ</span></div>
+      <div class="char-card"><span class="arabic-char">بَلَدٍ</span><span class="char-pronounce">بَ - لَ - دِنْ</span></div>
+
+      <div class="char-card"><span class="arabic-char">حَسَدَ</span><span class="char-pronounce">حَ - سَ - دَ</span></div>
+      <div class="char-card"><span class="arabic-char">خَلَقَ</span><span class="char-pronounce">خَ - لَ - قَ</span></div>
+      <div class="char-card"><span class="arabic-char">ذَكَرَ</span><span class="char-pronounce">ذَ - کَ - رَ</span></div>
+      <div class="char-card"><span class="arabic-char">رَقَبَةٍ</span><span class="char-pronounce">رَ - قَ - بَ - تِنْ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 6. KHARI HARAKAT ================= -->
+  <div id="lesson-6" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۶: کھڑی حرکات (کھڑا زبر، کھڑی زیر، الٹا پیش)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> کھڑا زبر ( ٰ )، کھڑی زیر ( ٖ ) اور الٹا پیش ( ٗ ) حروفِ مدہ کے قائم مقام ہوتے ہیں۔ ان کو ایک الف (2 سیکنڈ) کے برابر کھینچا جاتا ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">بٰ</span><span class="char-pronounce">با کھڑا زبر بَا</span></div>
+      <div class="char-card"><span class="arabic-char">بٖ</span><span class="char-pronounce">با کھڑی زیر بِيْ</span></div>
+      <div class="char-card"><span class="arabic-char">بٗ</span><span class="char-pronounce">با الٹا پیش بُوْ</span></div>
+      <div class="char-card"><span class="arabic-char">یٰ</span><span class="char-pronounce">یا کھڑا زبر یَا</span></div>
+
+      <div class="char-card"><span class="arabic-char">هٰذَا</span><span class="char-pronounce">ہَا ذَا</span></div>
+      <div class="char-card"><span class="arabic-char">إِلٰهِ</span><span class="char-pronounce">اِلَاہِ</span></div>
+      <div class="char-card"><span class="arabic-char">مٰلِكِ</span><span class="char-pronounce">مَالِکِ</span></div>
+      <div class="char-card"><span class="arabic-char">لَهُۥ</span><span class="char-pronounce">لَہُوْ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 7. HUROOF MADDAH ================= -->
+  <div id="lesson-7" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۷: حروفِ مدہ (کھینچ کر پڑھنے والے حروف)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> حروف مدہ تین ہیں: الف سے پہلے زبر، واؤ ساکن سے پہلے پیش، یا ساکن سے پہلے زیر ہو۔ ان کو ایک الف کھینچ کر پڑھا جاتا ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">بَا</span><span class="char-pronounce">با الف زبر بَا</span></div>
+      <div class="char-card"><span class="arabic-char">بُوْ</span><span class="char-pronounce">با واؤ پیش بُوْ</span></div>
+      <div class="char-card"><span class="arabic-char">بِيْ</span><span class="char-pronounce">با یا زیر بِيْ</span></div>
+      <div class="char-card"><span class="arabic-char">تَا</span><span class="char-pronounce">تا الف زبر تَا</span></div>
+
+      <div class="char-card"><span class="arabic-char">نُوْحِيْهَا</span><span class="char-pronounce">تینوں مدہ کا مجموعہ</span></div>
+      <div class="char-card"><span class="arabic-char">قَالُوْا</span><span class="char-pronounce">قا - لُوْ</span></div>
+      <div class="char-card"><span class="arabic-char">فِيْهِ</span><span class="char-pronounce">فِيْ - ہِ</span></div>
+      <div class="char-card"><span class="arabic-char">يَقُوْمُ</span><span class="char-pronounce">یَ - قُوْ - مُ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 8. HUROOF LEEN ================= -->
+  <div id="lesson-8" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۸: حروفِ لین (نرمی سے ادا ہونے والے)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> حروف لین دو ہیں: واؤ ساکن سے پہلے زبر ہو یا یا ساکن سے پہلے زبر ہو۔ ان کو بغیر کھینچے نرمی سے جلدی ادا کیا جاتا ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَوْ</span><span class="char-pronounce">ہمزہ واؤ زبر اَوْ</span></div>
+      <div class="char-card"><span class="arabic-char">أَيْ</span><span class="char-pronounce">ہمزہ یا زبر اَیْ</span></div>
+      <div class="char-card"><span class="arabic-char">بَوْ</span><span class="char-pronounce">با واؤ زبر بَوْ</span></div>
+      <div class="char-card"><span class="arabic-char">بَيْ</span><span class="char-pronounce">با یا زبر بَیْ</span></div>
+
+      <div class="char-card"><span class="arabic-char">خَوْفٍ</span><span class="char-pronounce">خَوْفٍ</span></div>
+      <div class="char-card"><span class="arabic-char">قُرَيْشٍ</span><span class="char-pronounce">قُرَیْشٍ</span></div>
+      <div class="char-card"><span class="arabic-char">صَيْفٍ</span><span class="char-pronounce">صَیْفٍ</span></div>
+      <div class="char-card"><span class="arabic-char">بَيْتٍ</span><span class="char-pronounce">بَیْتٍ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 9. MASHQ MADDAH & LEEN ================= -->
+  <div id="lesson-9" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۹: مشق حروفِ مدہ، لین و کھڑی حرکات</div>
+      <div class="lesson-rule"><strong>اصول:</strong> اس تختی میں مدہ (لمبا کرنا) اور لین (نرمی سے جلدی پڑھنا) کا فرق واضح کیا گیا ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">دَاوُۥدُ</span><span class="char-pronounce">داؤد</span></div>
+      <div class="char-card"><span class="arabic-char">طَغَىٰ</span><span class="char-pronounce">طغیٰ</span></div>
+      <div class="char-card"><span class="arabic-char">قَوْلٌ</span><span class="char-pronounce">قول</span></div>
+      <div class="char-card"><span class="arabic-char">عَيْنَانِ</span><span class="char-pronounce">عینان</span></div>
+
+      <div class="char-card"><span class="arabic-char">أَلْقَيْتُ</span><span class="char-pronounce">القیت</span></div>
+      <div class="char-card"><span class="arabic-char">يَوْمَئِذٍ</span><span class="char-pronounce">یومئذ</span></div>
+      <div class="char-card"><span class="arabic-char">لَارَيْبَ</span><span class="char-pronounce">لاریب</span></div>
+      <div class="char-card"><span class="arabic-char">تِلْكَ</span><span class="char-pronounce">تلک</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 10. JAZM / SUKOON ================= -->
+  <div id="lesson-10" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۱۰: جزم یعنی سکون ( ْ ) مع قلقلہ</div>
+      <div class="lesson-rule"><strong>اصول:</strong> جس حرف پر جزم ہو وہ ساکن کہلاتا ہے۔ حروفِ قلقلہ پانچ ہیں: <strong>ق، ط، ب، ج، د</strong> (قطب جد)۔ جب یہ ساکن ہوں تو مخرج پر جنبش (echo) پیدا ہوتی ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَبْ</span><span class="char-pronounce">اَبْ</span><span class="tajweed-tag tag-qalqala">قلقلہ</span></div>
+      <div class="char-card"><span class="arabic-char">أَتْ</span><span class="char-pronounce">اَتْ (بغیر قلقلہ)</span></div>
+      <div class="char-card"><span class="arabic-char">أَجْ</span><span class="char-pronounce">اَجْ</span><span class="tajweed-tag tag-qalqala">قلقلہ</span></div>
+      <div class="char-card"><span class="arabic-char">أَدْ</span><span class="char-pronounce">اَدْ</span><span class="tajweed-tag tag-qalqala">قلقلہ</span></div>
+
+      <div class="char-card"><span class="arabic-char">قُلْ</span><span class="char-pronounce">قاف لام پیش قُلْ</span></div>
+      <div class="char-card"><span class="arabic-char">فَلَقٍ</span><span class="char-pronounce">فَلَقْ (قلقلہ)</span></div>
+      <div class="char-card"><span class="arabic-char">أَنْعَمْتَ</span><span class="char-pronounce">انعمت</span></div>
+      <div class="char-card"><span class="arabic-char">يَلِدْ</span><span class="char-pronounce">یلدْ (قلقلہ)</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 11. TASHDEED ================= -->
+  <div id="lesson-11" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۱۱: تشدید ( ّ ) مشدد حروف</div>
+      <div class="lesson-rule"><strong>اصول:</strong> مشدد حرف کو مضبوطی سے دو مرتبہ پڑھا جاتا ہے۔ نون اور میم پر تشدید ہو تو <strong>غنہ</strong> (ناک میں آواز لے جانا) واجب ہوتا ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">إِنَّ</span><span class="char-pronounce">اِنَّ</span><span class="tajweed-tag tag-ghunna">غنہ واجب</span></div>
+      <div class="char-card"><span class="arabic-char">ثُمَّ</span><span class="char-pronounce">ثُمَّ</span><span class="tajweed-tag tag-ghunna">غنہ واجب</span></div>
+      <div class="char-card"><span class="arabic-char">رَبِّ</span><span class="char-pronounce">رَبِّ</span></div>
+      <div class="char-card"><span class="arabic-char">مَدَّ</span><span class="char-pronounce">مَدَّ</span></div>
+
+      <div class="char-card"><span class="arabic-char">قَدَّمَ</span><span class="char-pronounce">قدّم</span></div>
+      <div class="char-card"><span class="arabic-char">تَبَّتْ</span><span class="char-pronounce">تبّت</span></div>
+      <div class="char-card"><span class="arabic-char">سُجِّرَتْ</span><span class="char-pronounce">سجّرت</span></div>
+      <div class="char-card"><span class="arabic-char">حَقُّ</span><span class="char-pronounce">حقّ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 12. MASHQ TASHDEED WITH JAZM ================= -->
+  <div id="lesson-12" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۱۲: مشق تشدید مع جزم</div>
+      <div class="lesson-rule"><strong>اصول:</strong> جب تشدید اور جزم دونوں اکٹھے آئیں تو پہلے ساکن حرف کو ادا کریں اور پھر مشدد حرف کو بغیر جھٹکے کے مضبوطی سے جوڑیں۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">وَالْعٰدِيٰتِ</span><span class="char-pronounce">العادیات</span></div>
+      <div class="char-card"><span class="arabic-char">مُدَّثِّرُ</span><span class="char-pronounce">مدثر</span></div>
+      <div class="char-card"><span class="arabic-char">مُزَّمِّلُ</span><span class="char-pronounce">مزمل</span></div>
+      <div class="char-card"><span class="arabic-char">كَلَّا لَيُنبَذَنَّ</span><span class="char-pronounce">لینبذنّ</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 13. NOON SAAKIN & TANWEEN ================= -->
+  <div id="lesson-13" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۱۳: احکامِ نون ساکن و تنوین</div>
+      <div class="lesson-rule"><strong>اصول:</strong> نون ساکن اور تنوین کے 4 بنیادی احکام ہیں: <strong>اظہار</strong> (حروفِ حلقی پر بغیر غنہ صاف پڑھنا)، <strong>ادغام</strong> (یرملون میں ملانا)، <strong>اقلاب</strong> (میم سے بدلنا)، اور <strong>اخفاء</strong> (چھپا کر غنہ کرنا)۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">مَنْ ءَامَنَ</span><span class="char-pronounce">اظہار (حرف حلق)</span></div>
+      <div class="char-card"><span class="arabic-char">مَن يَّقُولُ</span><span class="char-pronounce">ادغام مع الغنہ</span></div>
+      <div class="char-card"><span class="arabic-char">مِن بَعْدِ</span><span class="char-pronounce">اقلاب (میم بدلنا)</span></div>
+      <div class="char-card"><span class="arabic-char">مِن قَبْلُ</span><span class="char-pronounce">اخفاء (غنہ چھپانا)</span></div>
+
+      <div class="char-card"><span class="arabic-char">عَلِيمٌ حَكِيمٌ</span><span class="char-pronounce">اظہار</span></div>
+      <div class="char-card"><span class="arabic-char">مِّن رَّبِّهِمْ</span><span class="char-pronounce">ادغام بلا غنہ</span></div>
+      <div class="char-card"><span class="arabic-char">أَنبِئْهُم</span><span class="char-pronounce">اقلاب</span></div>
+      <div class="char-card"><span class="arabic-char">أَنتُمْ</span><span class="char-pronounce">اخفاء</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 14. HUROOF MUQATTA'AT ================= -->
+  <div id="lesson-14" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">تختی نمبر ۱۴: حروفِ مقطعات (قرآنی رموز)</div>
+      <div class="lesson-rule"><strong>اصول:</strong> سورتوں کے شروع میں آنے والے وہ حروف جن کو الگ الگ اور مد کو لمبا (3 سے 5 الف) کھینچ کر پڑھا جاتا ہے۔</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">الم</span><span class="char-pronounce">الف - لام - میم</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">المر</span><span class="char-pronounce">الف - لام - میم - را</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">كهيعص</span><span class="char-pronounce">کاف-ہا-یا-عین-صاد</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">طه</span><span class="char-pronounce">طا - ہا</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">يس</span><span class="char-pronounce">یا - سین</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">حم</span><span class="char-pronounce">حا - میم</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ق</span><span class="char-pronounce">قاف</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ن</span><span class="char-pronounce">نون</span></div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Tabs Switch -->
+  <script>
+    function switchLesson(num) {
+      const allContents = document.querySelectorAll('.lesson-content');
+      allContents.forEach(c => c.classList.add('hidden'));
+
+      const allBtns = document.querySelectorAll('.lesson-btn');
+      allBtns.forEach(b => b.classList.remove('active'));
+
+      const targetContent = document.getElementById(`lesson-${num}`);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
+      allBtns[num - 1].classList.add('active');
+
+      // Auto scroll active tab into view
+      allBtns[num - 1].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

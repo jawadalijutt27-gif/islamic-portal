@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قبلہ نما - Qibla Compass</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+      text-align: center;
+      user-select: none;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .info-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .qibla-angle {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1a4fba;
+      margin-top: 4px;
+    }
+    .angle-label {
+      font-size: 13px;
+      color: #718096;
+    }
+    /* Compass Container */
+    .compass-wrapper {
+      position: relative;
+      width: 270px;
+      height: 270px;
+      margin: 0 auto 25px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border: 8px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      touch-action: none;
+    }
+    .compass-wrapper:active {
+      cursor: grabbing;
+    }
+    .compass-dial {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease-out;
+    }
+    .dir-mark {
+      position: absolute;
+      font-weight: 700;
+      font-size: 15px;
+      color: #718096;
+    }
+    .mark-n { top: 10px; color: #e53e3e; }
+    .mark-s { bottom: 10px; }
+    .mark-e { right: 14px; }
+    .mark-w { left: 14px; }
+
+    /* Needle Pointer */
+    .qibla-needle {
+      position: absolute;
+      width: 8px;
+      height: 210px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      transition: transform 0.15s ease-out;
+    }
+    .needle-pointer {
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 28px solid #1a4fba;
+      filter: drop-shadow(0 2px 4px rgba(26, 79, 186, 0.4));
+    }
+    .kaaba-icon {
+      font-size: 26px;
+      position: absolute;
+      top: -34px;
+    }
+    .needle-tail {
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 20px solid #cbd5e0;
+    }
+    .compass-center {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #1a202c;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      z-index: 10;
+    }
+    .status-text {
+      font-size: 13px;
+      color: #4a5568;
+      line-height: 1.6;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">قبلہ نما (Qibla Compass)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <div class="info-card">
+    <div class="angle-label">آپ کے مقام سے قبلہ کا زاویہ</div>
+    <div class="qibla-angle" id="qiblaDegreeText">258°</div>
+    <div class="angle-label" id="cityName">مقام معلوم ہو گیا ہے</div>
+  </div>
+
+  <!-- Interactive Compass Wrapper -->
+  <div class="compass-wrapper" id="compassContainer">
+    <div class="compass-dial" id="dial">
+      <span class="dir-mark mark-n">N</span>
+      <span class="dir-mark mark-e">E</span>
+      <span class="dir-mark mark-s">S</span>
+      <span class="dir-mark mark-w">W</span>
+    </div>
+
+    <div class="qibla-needle" id="needle">
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+        <span class="kaaba-icon">🕋</span>
+        <div class="needle-pointer"></div>
+      </div>
+      <div class="needle-tail"></div>
+    </div>
+
+    <div class="compass-center"></div>
+  </div>
+
+  <div class="status-text" id="statusMessage">
+    سوئی پر بنا کعبہ کا نشان قبلہ رخ کی سمت واضح کر رہا ہے۔
+  </div>
+
+  <script>
+    const KAABA_LAT = 21.422487;
+    const KAABA_LON = 39.826206;
+    let qiblaAngle = 258;
+    let currentHeading = 0;
+
+    function calculateQibla(lat, lon) {
+      const phi1 = (lat * Math.PI) / 180;
+      const phi2 = (KAABA_LAT * Math.PI) / 180;
+      const deltaLambda = ((KAABA_LON - lon) * Math.PI) / 180;
+
+      const y = Math.sin(deltaLambda);
+      const x = Math.cos(phi1) * Math.tan(phi2) - Math.sin(phi1) * Math.cos(deltaLambda);
+      let q = (Math.atan2(y, x) * 180) / Math.PI;
+      return Math.round((q + 360) % 360);
+    }
+
+    function renderRotation(headingDeg) {
+      currentHeading = headingDeg;
+      document.getElementById('dial').style.transform = `rotate(${-headingDeg}deg)`;
+      const needleRot = (qiblaAngle - headingDeg + 360) % 360;
+      document.getElementById('needle').style.transform = `rotate(${needleRot}deg)`;
+    }
+
+    // GPS Handler
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        qiblaAngle = calculateQibla(lat, lon);
+        document.getElementById('qiblaDegreeText').innerText = `${qiblaAngle}°`;
+        document.getElementById('cityName').innerText = `درست لوکیشن محفوظ ہو گئی (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`;
+        renderRotation(0);
+      });
+    }
+
+    // Mobile Device Orientation
+    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+    window.addEventListener('deviceorientation', handleOrientation, true);
+
+    function handleOrientation(e) {
+      let compassHeading = null;
+      if (e.webkitCompassHeading) {
+        compassHeading = e.webkitCompassHeading;
+      } else if (e.alpha !== null) {
+        compassHeading = 360 - e.alpha;
+      }
+      if (compassHeading !== null) {
+        renderRotation(compassHeading);
+      }
+    }
+
+    // Desktop/Touch Drag Interaction
+    const container = document.getElementById('compassContainer');
+    let isDragging = false;
+    let startAngle = 0;
+    let baseHeading = 0;
+
+    function getAngleFromCenter(e) {
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      const rad = Math.atan2(clientY - centerY, clientX - centerX);
+      return (rad * 180 / Math.PI + 360) % 360;
+    }
+
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startAngle = getAngleFromCenter(e);
+      baseHeading = currentHeading;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const angle = getAngleFromCenter(e);
+      const diff = angle - startAngle;
+      renderRotation((baseHeading - diff + 360) % 360);
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+  </script>
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

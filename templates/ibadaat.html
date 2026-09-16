@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عبادات کی راہنمائی - Ibadaat Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+body {
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0 0 90px 0;
+    color: #111827;
+}
+
+.top-bar {
+    background: linear-gradient(135deg, #064e3b, #047857);
+    color: #ffffff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.top-bar h1, .top-bar div, .top-bar a {
+    color: #ffffff !important;
+}
+    .back-btn {
+            text-decoration: none;
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff !important;
+        }
+
+        /* Responsive Center Layout */
+        .container, .tabs-container, main {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 14px;
+        }
+
+    /* Horizontal Category Tabs */
+    .tab-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 14px 2px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+    }
+    .tab-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .tab-btn {
+      white-space: nowrap;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      color: #4a5568;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .tab-btn.active {
+      background: #1a4fba;
+      color: #ffffff;
+      border-color: #1a4fba;
+      box-shadow: 0 3px 8px rgba(26, 79, 186, 0.25);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+    }
+    .badge-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #ebf8ff;
+      color: #2b6cb0;
+      margin-bottom: 10px;
+    }
+    .item-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+    .ref-box {
+      background: #f7fafc;
+      border-right: 4px solid #1a4fba;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin: 12px 0 16px 0;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .ref-arabic {
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      font-size: 19px;
+      color: #1a202c;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .ref-source {
+      font-size: 11px;
+      color: #718096;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+    .steps-list {
+      list-style-position: inside;
+      padding: 0;
+      margin: 12px 0;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #4a5568;
+    }
+    .steps-list li {
+      margin-bottom: 8px;
+    }
+    .hidden {
+      display: none !important;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      z-index: 100;
+      direction: ltr;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #718096;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .nav-item.active {
+      color: #1a4fba;
+    }
+    .nav-icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <div class="top-bar">
+    <a href="/" class="back-btn">← Back to Home</a>
+    <div class="page-title">عبادات و ارکانِ اسلام</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <!-- Category Selection Bar -->
+  <div class="tab-scroll">
+    <button class="tab-btn active" onclick="switchTab('namaz')">نماز کا طریقہ</button>
+    <button class="tab-btn" onclick="switchTab('janaza')">نمازِ جنازہ</button>
+    <button class="tab-btn" onclick="switchTab('roza')">روزہ (احکام و فضائل)</button>
+    <button class="tab-btn" onclick="switchTab('zakat')">زکوٰۃ (مسائل و نصاب)</button>
+    <button class="tab-btn" onclick="switchTab('hajj')">حج (ارکان و طریقہ)</button>
+  </div>
+
+  <!-- ================= 1. NAMAZ ================= -->
+  <div id="tab-namaz" class="tab-content">
+    <div class="section-card">
+      <span class="badge-pill">رکنِ ثانی</span>
+      <div class="item-title">نماز کی اہمیت و مسنون طریقہ</div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ</div>
+        <div><strong>ترجمہ:</strong> اور نماز قائم کرو اور زکوٰۃ دو اور رکوع کرنے والوں کے ساتھ رکوع کرو۔</div>
+        <div class="ref-source">📖 سورۃ البقرۃ: 43</div>
+      </div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">صَلُّوا كَمَا رَأَيْتُمُونِي أُصَلِّي</div>
+        <div><strong>ترجمہ:</strong> نماز اسی طرح پڑھو جس طرح تم نے مجھے نماز پڑھتے ہوئے دیکھا ہے۔</div>
+        <div class="ref-source">📖 صحیح بخاری: 631</div>
+      </div>
+
+      <h4 style="margin-top: 15px; margin-bottom: 8px;">مفصل طریقہ کار:</h4>
+      <ol class="steps-list">
+        <li><strong>طہارت و قبلہ رخ:</strong> باوضو ہو کر باحیاء لباس میں قبلہ رخ سیدھے کھڑے ہوں۔</li>
+        <li><strong>تکبیرِ تحریمہ:</strong> دل میں نماز کی نیت کرتے ہوئے دونوں ہاتھ کانوں کی لو تک (عورتیں سینے تک) اٹھائیں اور "اللَّهُ أَكْبَرُ" کہتے ہوئے ہاتھ ناف کے نیچے باندھ لیں۔</li>
+        <li><strong>ثناء، تعوذ و تسمیہ:</strong> سبحانک اللھم (ثناء)، پھر اعوذ باللہ اور بسم اللہ پڑھیں۔</li>
+        <li><strong>قرأت:</strong> سورۃ الفاتحہ پڑھیں، آخر میں آہستہ سے آمین کہیں، اور کوئی سورت یا کم از کم 3 چھوٹی آیات تلاوت کریں۔</li>
+        <li><strong>رکوع:</strong> "اللَّهُ أَكْبَرُ" کہہ کر رکوع میں جائیں، دونوں ہاتھوں سے گھٹنوں کو مضبوط پکڑیں، پیٹھ سیدھی رکھیں اور کم از کم 3 مرتبہ "سُبْحَانَ رَبِّيَ الْعَظِيمِ" پڑھیں۔</li>
+        <li><strong>قومہ:</strong> "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ" کہتے ہوئے سیدھے کھڑے ہوں اور "رَبَّنَا لَكَ الْحَمْدُ" کہیں۔</li>
+        <li><strong>سجدہ:</strong> "اللَّهُ أَكْبَرُ" کہتے ہوئے سجدے میں جائیں۔ پیشانی، ناک، دونوں ہاتھ، گھٹنے اور پاؤں کی انگلیاں زمین پر جمائیں۔ کم از کم 3 مرتبہ "سُبْحَانَ رَبِّيَ الْأَعْلَىٰ" کہیں۔</li>
+        <li><strong>جلسہ و دوسرا سجدہ:</strong> "اللَّهُ أَكْبَرُ" کہہ کر اطمینان سے بیٹھیں، پھر اسی طرح دوسرا سجدہ مکمل کریں۔ اس سے ایک رکعت مکمل ہو جائے گی۔</li>
+        <li><strong>قعدہ و سلام:</strong> دوسری اور آخری رکعت کے بعد التحیات، درودِ ابراہیمی اور دعائے ماثورہ پڑھ کر دائیں اور بائیں جانب "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ" کہہ کر سلام پھیریں۔</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================= 2. JANAZA ================= -->
+  <div id="tab-janaza" class="tab-content hidden">
+    <div class="section-card">
+      <span class="badge-pill">فرضِ کفایہ</span>
+      <div class="item-title">نمازِ جنازہ کا طریقہ مع دعائیں</div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">مَنْ شَهِدَ الْجَنَازَةَ حَتَّى يُصَلَّى عَلَيْهَا فَلَهُ قِيرَاطٌ ، وَمَنْ شَهِدَهَا حَتَّى تُدْفَنَ فَلَهُ قِيرَاطَانِ</div>
+        <div><strong>ترجمہ:</strong> جو شخص جنازے میں حاضر ہوا یہاں تک کہ نماز پڑھی جائے تو اس کے لیے ایک قیراط ثواب ہے، اور جو تدفین تک حاضر رہا اس کے لیے دو قیراط ثواب ہے۔ (ایک قیراط احد پہاڑ جتنا ہوتا ہے)۔</div>
+        <div class="ref-source">📖 صحیح بخاری: 1325</div>
+      </div>
+
+      <h4 style="margin-top: 15px; margin-bottom: 8px;">چار تکبیروں کا آسان طریقہ:</h4>
+      <ol class="steps-list">
+        <li><strong>پہلی تکبیر:</strong> نیت کے بعد "اللَّهُ أَكْبَرُ" کہہ کر ہاتھ باندھ لیں اور ثناء پڑھیں (ثناء میں "وَجَلَّ ثَنَاؤُكَ" کا اضافہ کریں)۔</li>
+        <li><strong>دوسری تکبیر:</strong> بغیر ہاتھ اٹھائے "اللَّهُ أَكْبَرُ" کہیں اور درودِ ابراہیمی پڑھیں۔</li>
+        <li><strong>تیسری تکبیر:</strong> "اللَّهُ أَكْبَرُ" کہہ کر میت کے لیے مسنون دعا پڑھیں:
+          <div class="ref-box" style="margin-top: 8px;">
+            <div class="ref-arabic" style="font-size: 17px;">اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَشَاهِدِنَا وَغَائِبِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا</div>
+            <div>(اے اللہ! بخش دے ہمارے زندوں کو، ہمارے فوت شدگان کو، ہمارے حاضر کو، ہمارے غائب کو، ہمارے چھوٹوں کو، ہمارے بڑوں کو اور ہمارے مردوں و عورتوں کو)۔</div>
+          </div>
+        </li>
+        <li><strong>چوتھی تکبیر:</strong> "اللَّهُ أَكْبَرُ" کہیں اور بغیر کچھ پڑھے دائیں اور بائیں طرف سلام پھیر کر ہاتھ کھول دیں۔</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================= 3. ROZA ================= -->
+  <div id="tab-roza" class="tab-content hidden">
+    <div class="section-card">
+      <span class="badge-pill">رکنِ سوم</span>
+      <div class="item-title">روزہ: احکام، نیت اور فضائل</div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ</div>
+        <div><strong>ترجمہ:</strong> اے ایمان والو! تم پر روزے فرض کیے گئے ہیں جیسے تم سے پہلے لوگوں پر فرض کیے گئے تھے تاکہ تم پرہیزگار بن جاؤ۔</div>
+        <div class="ref-source">📖 سورۃ البقرۃ: 183</div>
+      </div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">الصِّيَامُ جُنَّةٌ فَلَا يَرْفُثْ وَلَا يَجْهَلْ</div>
+        <div><strong>ترجمہ:</strong> روزہ گناہوں سے بچاؤ کے لیے ڈھال ہے، پس روزہ دار نہ بیہودہ بات کرے اور نہ جہالت کا مظاہرہ کرے۔</div>
+        <div class="ref-source">📖 صحیح بخاری: 1894</div>
+      </div>
+
+      <h4 style="margin-top: 15px; margin-bottom: 8px;">بنیادی ارکان و دعائیں:</h4>
+      <ul class="steps-list" style="list-style-type: square;">
+        <li><strong>روزے کی حقیقت:</strong> صبح صادق سے لے کر غروبِ آفتاب تک عبادت کی نیت سے کھانے پینے اور نفسانی خواہشات سے رکے رہنے کا نام روزہ ہے۔</li>
+        <li><strong>سحری (روزہ رکھنے) کی دعا:</strong>
+          <div class="ref-box">
+            <div class="ref-arabic" style="font-size: 17px;">وَبِصَوْمِ غَدٍ نَّوَيْتُ مِنْ شَهْرِ رَمَضَانَ</div>
+          </div>
+        </li>
+        <li><strong>افطار کی دعا:</strong>
+          <div class="ref-box">
+            <div class="ref-arabic" style="font-size: 17px;">اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَىٰ رِزْقِكَ أَفْطَرْتُ</div>
+            <div>(اے اللہ! میں نے تیرے ہی لیے روزہ رکھا اور تیرے ہی رزق پر افطار کیا)۔</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================= 4. ZAKAT ================= -->
+  <div id="tab-zakat" class="tab-content hidden">
+    <div class="section-card">
+      <span class="badge-pill">مالی عبادت</span>
+      <div class="item-title">زکوٰۃ: نصاب اور مصارف</div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِم بِهَا</div>
+        <div><strong>ترجمہ:</strong> آپ ان کے مالوں میں سے صدقہ (زکوٰۃ) وصول کیجیے جس کے ذریعے آپ انہیں پاک اور صاف کر دیں۔</div>
+        <div class="ref-source">📖 سورۃ التوبہ: 103</div>
+      </div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ وَتُرَدُّ عَلَى فُقَرَائِهِمْ</div>
+        <div><strong>ترجمہ:</strong> زکوٰۃ ان کے مالداروں سے وصول کی جائے گی اور ان کے ناداروں میں تقسیم کی جائے گی۔</div>
+        <div class="ref-source">📖 صحیح بخاری: 1395</div>
+      </div>
+
+      <h4 style="margin-top: 15px; margin-bottom: 8px;">اہم مسائل و شرائط:</h4>
+      <ol class="steps-list">
+        <li><strong>نصاب:</strong> ساڑھے سات (7.5) تولہ سونا یا باون تولہ ساڑھے بارہ ماشہ (52.5 تولہ) چاندی یا اس کی مالیت کے برابر نقدی و مالِ تجارت جس پر مکمل ایک قمری سال گزر چکا ہو۔</li>
+        <li><strong>شرحِ زکوٰۃ:</strong> کل بچت یا مالیت کا اڑھائی فیصد (2.5% یعنی 40 واں حصہ) ادا کرنا فرض ہے۔</li>
+        <li><strong>مصارفِ زکوٰۃ:</strong> فقراء، مساکین، مقروض افراد، اور فی سبیل اللہ کے کاموں میں مستحق مسلمانوں کو مالک بنا کر دینا۔ اپنے والدین، اولاد، یا میاں بیوی ایک دوسرے کو زکوٰۃ نہیں دے سکتے۔</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================= 5. HAJJ ================= -->
+  <div id="tab-hajj" class="tab-content hidden">
+    <div class="section-card">
+      <span class="badge-pill">رکنِ پنجم</span>
+      <div class="item-title">حجِ بیت اللہ: فرضیت و مناسک</div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا</div>
+        <div><strong>ترجمہ:</strong> اور اللہ کے لیے لوگوں پر اس گھر کا حج فرض ہے جو اس تک پہنچنے کی استطاعت رکھتا ہو۔</div>
+        <div class="ref-source">📖 سورۃ آل عمران: 97</div>
+      </div>
+
+      <div class="ref-box">
+        <div class="ref-arabic">الْحَجُّ الْمَبْرُورُ لَيْسَ لَهُ جَزَاءٌ إِلَّا الْجَنَّةُ</div>
+        <div><strong>ترجمہ:</strong> اور حجِ مبرور (مقبول حج) کا بدلہ صرف اور صرف جنت ہے۔</div>
+        <div class="ref-source">📖 صحیح بخاری: 1773</div>
+      </div>
+
+      <h4 style="margin-top: 15px; margin-bottom: 8px;">حج کے بنیادی ایام (8 تا 12 ذوالحجہ):</h4>
+      <ol class="steps-list">
+        <li><strong>احرام و تلبیہ:</strong> میقات سے احرام باندھ کر تلبیہ "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ..." پڑھنا۔</li>
+        <li><strong>8 ذوالحجہ (منیٰ):</strong> منیٰ پہنچ کر ظہر، عصر، مغرب، عشاء اور فجر کی نمازیں ادا کرنا۔</li>
+        <li><strong>9 ذوالحجہ (عرفات - وقوفِ عرفہ):</strong> حج کا سب سے بڑا رکن، میدانِ عرفات میں زوال سے غروب تک ٹھہرنا اور دعائیں مانگنا۔</li>
+        <li><strong>مزدلفہ کی رات:</strong> غروب کے بعد مزدلفہ جا کر مغرب اور عشاء اکٹھی پڑھنا اور کنکریاں چننا۔</li>
+        <li><strong>10 ذوالحجہ:</strong> رمی جمار (بڑے شیطان کو کنکریاں مارنا)، قربانی کرنا، سر کے بال منڈوانا اور طوافِ زیارت کرنا۔</li>
+        <li><strong>11 اور 12 ذوالحجہ:</strong> منیٰ میں قیام اور تینوں جمرات کو کنکریاں مارنا۔</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Fixed Bottom Navigation Bar -->
+  <div class="bottom-nav">
+    <a href="/surah/1" class="nav-item">
+      <div class="nav-icon">📖</div>
+      <div>Quran</div>
+    </a>
+    <a href="/more" class="nav-item">
+      <div class="nav-icon">۞</div>
+      <div>Hadith</div>
+    </a>
+    <a href="/" class="nav-item">
+      <div class="nav-icon">🏠</div>
+      <div>Home</div>
+    </a>
+    <a href="/ibadaat" class="nav-item active">
+      <div class="nav-icon">🕌</div>
+      <div>Ibadaat</div>
+    </a>
+    <a href="/more" class="nav-item">
+      <div class="nav-icon">⋮⋮⋮</div>
+      <div>More</div>
+    </a>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      const allTabs = document.querySelectorAll('.tab-content');
+      allTabs.forEach(t => t.classList.add('hidden'));
+
+      const allBtns = document.querySelectorAll('.tab-btn');
+      allBtns.forEach(b => b.classList.remove('active'));
+
+      const activeContent = document.getElementById(`tab-${tabId}`);
+      if (activeContent) {
+        activeContent.classList.remove('hidden');
+      }
+      event.target.classList.add('active');
+    }
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

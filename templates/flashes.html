@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اسلامی چمکتے موتی - Flashes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .update-banner {
+      background: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      direction: rtl;
+    }
+    .update-text {
+      font-size: 13px;
+      color: #2b6cb0;
+      font-weight: 500;
+    }
+    .btn-refresh {
+      background: #1a4fba;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-refresh:active {
+      transform: scale(0.96);
+    }
+    .flash-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .flash-category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cat-quran { background: #ebf8ff; color: #2b6cb0; }
+    .cat-hadith { background: #feebc8; color: #9c4221; }
+    .cat-wisdom { background: #c6f6d5; color: #22543d; }
+
+    .flash-arabic {
+      font-size: 21px;
+      line-height: 1.9;
+      text-align: right;
+      direction: rtl;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      color: #1a202c;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .flash-urdu {
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: right;
+      direction: rtl;
+      color: #4a5568;
+      margin-bottom: 14px;
+    }
+    .flash-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #edf2f7;
+      padding-top: 10px;
+    }
+    .flash-ref {
+      font-size: 12px;
+      color: #a0aec0;
+      font-weight: 500;
+    }
+    .btn-action {
+      background: #edf2f7;
+      border: none;
+      color: #4a5568;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.15s ease;
+    }
+    .btn-action:hover {
+      background: #e2e8f0;
+      color: #1a4fba;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">چمکتے موتی (Flashes)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <!-- 24-Hours Auto Update Banner -->
+  <div class="update-banner">
+    <div class="update-text" id="updateIndicator">🔄 روزانہ 24 گھنٹے بعد خودکار تبدیل</div>
+    <button class="btn-refresh" onclick="shuffleFlashes()">نئی نصیحتیں ⟳</button>
+  </div>
+
+  <!-- Container for dynamically injected flashes -->
+  <div id="flashesContainer"></div>
+
+  <script>
+    // Rich database of Quranic Verses, Hadiths & Islamic Wisdom
+    const flashesDatabase = [
+      {
+        cat: "cat-quran",
+        catName: "قرآنی پیغام",
+        arabic: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ، إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+        urdu: "پس یقیناً تنگی کے ساتھ آسانی ہے، بے شک تنگی کے ساتھ ہی آسانی ہے۔",
+        ref: "سورۃ الشرح: 5-6"
+      },
+      {
+        cat: "cat-hadith",
+        catName: "فرمانِ مصطفیٰ ﷺ",
+        arabic: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+        urdu: "جو شخص اللہ اور یومِ آخرت پر ایمان رکھتا ہے اسے چاہیے کہ اچھی بات کہے یا خاموش رہے۔",
+        ref: "صحیح بخاری: 6018"
+      },
+      {
+        cat: "cat-quran",
+        catName: "قرآنی پیغام",
+        arabic: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",
+        urdu: "یاد رکھو! اللہ کے ذکر ہی سے دلوں کو اطمینان حاصل ہوتا ہے۔",
+        ref: "سورۃ الرعد: 28"
+      },
+      {
+        cat: "cat-hadith",
+        catName: "فرمانِ مصطفیٰ ﷺ",
+        arabic: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+        urdu: "اپنے بھائی کے سامنے تمہارا مسکرا دینا بھی تمہارے لیے صدقہ ہے۔",
+        ref: "جامع ترمذی: 1956"
+      },
+      {
+        cat: "cat-wisdom",
+        catName: "حکمت کی بات",
+        arabic: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ",
+        urdu: "بے شک اللہ تعالیٰ پسند فرماتا ہے کہ جب تم میں سے کوئی شخص کوئی کام کرے تو اسے مہارت اور مضبوطی سے کرے۔",
+        ref: "شعب الایمان: 4930"
+      },
+      {
+        cat: "cat-quran",
+        catName: "قرآنی پیغام",
+        arabic: "وَقُولُوا لِلنَّاسِ حُسْنًا",
+        urdu: "اور لوگوں سے اچھی اور میٹھی بات کہا کرو۔",
+        ref: "سورۃ البقرۃ: 83"
+      },
+      {
+        cat: "cat-hadith",
+        catName: "فرمانِ مصطفیٰ ﷺ",
+        arabic: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+        urdu: "تم میں سے سب سے بہتر وہ شخص ہے جس نے قرآن سیکھا اور اسے دوسروں کو سکھایا۔",
+        ref: "صحیح بخاری: 5027"
+      },
+      {
+        cat: "cat-quran",
+        catName: "قرآنی پیغام",
+        arabic: "إِنَّ رَحْمَتَ اللَّهِ قَرِيبٌ مِّنَ الْمُحْسِنِينَ",
+        urdu: "بے شک اللہ کی رحمت احسان کرنے والے نیکوکاروں کے بالکل قریب ہے۔",
+        ref: "سورۃ الاعراف: 56"
+      },
+      {
+        cat: "cat-hadith",
+        catName: "فرمانِ مصطفیٰ ﷺ",
+        arabic: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
+        urdu: "حقیقی مسلمان وہ ہے جس کی زبان اور ہاتھ کے شر سے دوسرے مسلمان محفوظ رہیں۔",
+        ref: "صحیح بخاری: 10"
+      },
+      {
+        cat: "cat-wisdom",
+        catName: "حکمت کی بات",
+        arabic: "الدُّنْيَا سَاعَةٌ فَاجْعَلْهَا طَاعَةً",
+        urdu: "دنیا کی زندگی چند لمحوں کی ہے، پس اسے اللہ کی اطاعت میں گزار دو۔",
+        ref: "اقوالِ سلف"
+      }
+    ];
+
+    // Seeded Daily Rotation Logic (Automatically rotates every 24 hours based on calendar day)
+    function getDailyFlashes() {
+      const today = new Date();
+      // Generates a unique seed for the day (e.g., 20260908)
+      const dateSeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+      
+      let cloned = [...flashesDatabase];
+      // Deterministic daily shuffle
+      for (let i = cloned.length - 1; i > 0; i--) {
+        const j = (dateSeed + i * 7) % (i + 1);
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+      return cloned.slice(0, 4); // Show top 4 for today
+    }
+
+    function renderFlashes(list) {
+      const container = document.getElementById('flashesContainer');
+      container.innerHTML = '';
+
+      list.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'flash-card';
+        card.innerHTML = `
+          <span class="flash-category ${item.cat}">${item.catName}</span>
+          <div class="flash-arabic">${item.arabic}</div>
+          <div class="flash-urdu">${item.urdu}</div>
+          <div class="flash-footer">
+            <span class="flash-ref">${item.ref}</span>
+            <button class="btn-action" onclick="copyFlash(this)">کاپی کریں 📋</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Manual Refresh Option
+    function shuffleFlashes() {
+      const shuffled = [...flashesDatabase].sort(() => 0.5 - Math.random());
+      renderFlashes(shuffled.slice(0, 4));
+      document.getElementById('updateIndicator').innerText = "✓ نئی نصیحتیں لوڈ ہو گئیں";
+    }
+
+    function copyFlash(button) {
+      const card = button.closest('.flash-card');
+      const arabic = card.querySelector('.flash-arabic').innerText;
+      const urdu = card.querySelector('.flash-urdu').innerText;
+      const ref = card.querySelector('.flash-ref').innerText;
+
+      const fullText = `${arabic}\n\n${urdu}\n\n(${ref})`;
+
+      navigator.clipboard.writeText(fullText).then(() => {
+        const originalText = button.innerText;
+        button.innerText = "کاپی ہو گیا! ✓";
+        setTimeout(() => {
+          button.innerText = originalText;
+        }, 1800);
+      });
+    }
+
+    // Initial load based on current 24-hour date
+    renderFlashes(getDailyFlashes());
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

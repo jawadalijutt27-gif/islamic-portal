@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اوقاتِ نماز - Prayer Times</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, #1a4fba, #2b6cb0);
+      color: white;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(26, 79, 186, 0.25);
+    }
+    .hero-location {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+    .hero-date {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 12px;
+    }
+    .next-prayer-label {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .next-prayer-time {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+    .next-countdown {
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .prayer-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .prayer-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .prayer-icon {
+      font-size: 24px;
+    }
+    .prayer-name-en {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a202c;
+    }
+    .prayer-name-ur {
+      font-size: 12px;
+      color: #718096;
+    }
+    .prayer-time-val {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a4fba;
+    }
+    .loading-spinner {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #718096;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">اوقاتِ نماز (Prayer Times)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <div class="hero-banner">
+    <div class="hero-location" id="locCity">📍 Detecting Location...</div>
+    <div class="hero-date" id="gregDate">--</div>
+    <div class="next-prayer-label" id="nextName">Upcoming Prayer</div>
+    <div class="next-prayer-time" id="nextTime">--:--</div>
+    <div class="next-countdown" id="timeRemaining">Calculating...</div>
+  </div>
+
+  <div id="loadingBox" class="loading-spinner">Fetching live prayer timings...</div>
+
+  <div id="timingsList" style="display: none;">
+    <div class="prayer-card">
+      <div class="prayer-info">
+        <div class="prayer-icon">🌅</div>
+        <div>
+          <div class="prayer-name-en">Fajr</div>
+          <div class="prayer-name-ur">فجر</div>
+        </div>
+      </div>
+      <div class="prayer-time-val" id="timeFajr">--:--</div>
+    </div>
+
+    <div class="prayer-card">
+      <div class="prayer-info">
+        <div class="prayer-icon">☀️</div>
+        <div>
+          <div class="prayer-name-en">Sunrise</div>
+          <div class="prayer-name-ur">طلوعِ آفتاب</div>
+        </div>
+      </div>
+      <div class="prayer-time-val" id="timeSunrise">--:--</div>
+    </div>
+
+    <div class="prayer-card">
+      <div class="prayer-info">
+        <div class="prayer-icon">🌤️</div>
+        <div>
+          <div class="prayer-name-en">Dhuhr</div>
+          <div class="prayer-name-ur">ظہر</div>
+        </div>
+      </div>
+      <div class="prayer-time-val" id="timeDhuhr">--:--</div>
+    </div>
+
+    <div class="prayer-card">
+      <div class="prayer-info">
+        <div class="prayer-icon">⛅</div>
+        <div>
+          <div class="prayer-name-en">Asr</div>
+          <div class="prayer-name-ur">عصر</div>
+        </div>
+      </div>
+      <div class="prayer-time-val" id="timeAsr">--:--</div>
+    </div>
+
+    <div class="prayer-card">
+      <div class="prayer-info">
+        <div class="prayer-icon">🌇</div>
+        <div>
+          <div class="prayer-name-en">Maghrib</div>
+          <div class="prayer-name-ur">مغرب</div>
+        </div>
+      </div>
+      <div class="prayer-time-val" id="timeMaghrib">--:--</div>
+    </div>
+
+    <div class="prayer-card">
+      <div class="prayer-info">
+        <div class="prayer-icon">🌙</div>
+        <div>
+          <div class="prayer-name-en">Isha</div>
+          <div class="prayer-name-ur">عشاء</div>
+        </div>
+      </div>
+      <div class="prayer-time-val" id="timeIsha">--:--</div>
+    </div>
+  </div>
+
+  <script>
+    let prayerTimesObj = null;
+
+    function format12Hour(time24) {
+      if (!time24) return "--:--";
+      let [h, m] = time24.split(':');
+      let hour = parseInt(h);
+      let ampm = hour >= 12 ? 'PM' : 'AM';
+      hour = hour % 12 || 12;
+      return `${hour}:${m} ${ampm}`;
+    }
+
+    async function fetchPrayerTimes(lat = 31.5204, lon = 74.3587, cityName = "Default Location") {
+      try {
+        const today = new Date();
+        const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+        
+        // Method 1 = University of Islamic Sciences, Karachi (Pakistan Standard)
+        const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lon}&method=1`);
+        const data = await res.json();
+        
+        if (data.code === 200) {
+          prayerTimesObj = data.data.timings;
+          document.getElementById('locCity').innerText = `📍 ${cityName}`;
+          document.getElementById('gregDate').innerText = `${data.data.date.readable} (${data.data.date.hijri.day} ${data.data.date.hijri.month.en} ${data.data.date.hijri.year} AH)`;
+
+          document.getElementById('timeFajr').innerText = format12Hour(prayerTimesObj.Fajr);
+          document.getElementById('timeSunrise').innerText = format12Hour(prayerTimesObj.Sunrise);
+          document.getElementById('timeDhuhr').innerText = format12Hour(prayerTimesObj.Dhuhr);
+          document.getElementById('timeAsr').innerText = format12Hour(prayerTimesObj.Asr);
+          document.getElementById('timeMaghrib').innerText = format12Hour(prayerTimesObj.Maghrib);
+          document.getElementById('timeIsha').innerText = format12Hour(prayerTimesObj.Isha);
+
+          document.getElementById('loadingBox').style.display = 'none';
+          document.getElementById('timingsList').style.display = 'block';
+
+          updateUpcomingPrayer();
+          setInterval(updateUpcomingPrayer, 1000);
+        }
+      } catch (err) {
+        document.getElementById('loadingBox').innerText = "Unable to load timings. Check internet connection.";
+      }
+    }
+
+    function updateUpcomingPrayer() {
+      if (!prayerTimesObj) return;
+
+      const now = new Date();
+      const prayers = [
+        { name: "Fajr", time: prayerTimesObj.Fajr },
+        { name: "Dhuhr", time: prayerTimesObj.Dhuhr },
+        { name: "Asr", time: prayerTimesObj.Asr },
+        { name: "Maghrib", time: prayerTimesObj.Maghrib },
+        { name: "Isha", time: prayerTimesObj.Isha }
+      ];
+
+      let nextPrayer = null;
+      let nextDate = null;
+
+      for (let p of prayers) {
+        const [h, m] = p.time.split(':');
+        const pDate = new Date();
+        pDate.setHours(parseInt(h), parseInt(m), 0, 0);
+
+        if (pDate > now) {
+          nextPrayer = p;
+          nextDate = pDate;
+          break;
+        }
+      }
+
+      if (!nextPrayer) {
+        nextPrayer = prayers[0];
+        const [h, m] = nextPrayer.time.split(':');
+        nextDate = new Date();
+        nextDate.setDate(nextDate.getDate() + 1);
+        nextDate.setHours(parseInt(h), parseInt(m), 0, 0);
+      }
+
+      document.getElementById('nextName').innerText = `Upcoming: ${nextPrayer.name}`;
+      document.getElementById('nextTime').innerText = format12Hour(nextPrayer.time);
+
+      const diffMs = nextDate - now;
+      const hrs = Math.floor(diffMs / (1000 * 60 * 60));
+      const mins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+      document.getElementById('timeRemaining').innerText = `in ${hrs}h ${mins}m ${secs}s`;
+    }
+
+    // Auto GPS Location Handler
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          fetchPrayerTimes(pos.coords.latitude, pos.coords.longitude, "Your Current Location");
+        },
+        err => {
+          fetchPrayerTimes(); // Fallback
+        }
+      );
+    } else {
+      fetchPrayerTimes();
+    }
+  </script>
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>
