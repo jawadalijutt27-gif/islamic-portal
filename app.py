@@ -1,7 +1,68 @@
 from flask import Flask, render_template, redirect, url_for, request, send_from_directory
 import requests
+import datetime
 
 app = Flask(__name__)
+
+# Daily Routine & Complete Azkar with Arabic Text & Urdu Meaning
+DAILY_ROUTINE = {
+    "Sunday": {
+        "day_ur": "اتوار (Sunday)",
+        "surah_name": "سورۃ الملک (رات کو) اور آیت الکرسی",
+        "zikr_title": "یَا حَیُّ یَا قَیُّومُ (100 مرتبہ)",
+        "zikr_arabic": "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ",
+        "zikr_urdu": "اے زندہ اور قائم رہنے والے! میں تیری ہی رحمت کے ذریعے فریاد کرتا ہوں۔",
+        "fazeelat": "ہر نماز کے بعد آیت الکرسی پڑھنے کی عادت بنائیں۔"
+    },
+    "Monday": {
+        "day_ur": "پیر (Monday)",
+        "surah_name": "سورۃ الواقعہ اور سورۃ الملک",
+        "zikr_title": "دُرود شریف (100 مرتبہ)",
+        "zikr_arabic": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ",
+        "zikr_urdu": "اے اللہ! محمد ﷺ اور ان کی آل پر رحمت نازل فرما۔",
+        "fazeelat": "پیر کا دن سنت روزے اور کثرتِ درود کا دن ہے۔"
+    },
+    "Tuesday": {
+        "day_ur": "منگل (Tuesday)",
+        "surah_name": "سورۃ الملک اور سورۃ یٰس",
+        "zikr_title": "استغفار (100 مرتبہ)",
+        "zikr_arabic": "أَسْتَغْفِرُ اللَّهَ رَبِّي مِنْ كُلِّ ذَنْبٍ وَأَتُوبُ إِلَيْهِ",
+        "zikr_urdu": "میں اللہ سے اپنے تمام گناہوں کی معافی مانگتا ہوں جو میرا رب ہے اور اسی کی طرف رجوع کرتا ہوں۔",
+        "fazeelat": "استغفار سے رزق میں برکت اور دل کو سکون ملتا ہے۔"
+    },
+    "Wednesday": {
+        "day_ur": "بدھ (Wednesday)",
+        "surah_name": "سورۃ الملک اور آخری چار قل",
+        "zikr_title": "تیسرا کلمہ (100 مرتبہ)",
+        "zikr_arabic": "سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ",
+        "zikr_urdu": "اللہ پاک ہے، تمام تعریفیں اللہ کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں اور اللہ سب سے بڑا ہے۔",
+        "fazeelat": "یہ کلمات جنت کے پودے ہیں۔"
+    },
+    "Thursday": {
+        "day_ur": "جمعرات (Thursday)",
+        "surah_name": "سورۃ الملک اور سورۃ الدخان",
+        "zikr_title": "سبحان اللہ و بحمدہ (100 مرتبہ)",
+        "zikr_arabic": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+        "zikr_urdu": "اللہ اپنی خوبیوں سمیت پاک ہے، عظمت والا اللہ پاک ہے۔",
+        "fazeelat": "زبان پر ہلکے اور ترازو میں بہت بھاری کلمات۔"
+    },
+    "Friday": {
+        "day_ur": "جمعہ (Friday)",
+        "surah_name": "سورۃ الکہف اور سورۃ الملک",
+        "zikr_title": "کثرتِ درودِ ابراہیمی (300+ مرتبہ)",
+        "zikr_arabic": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        "zikr_urdu": "جمعہ کے دن درود شریف کثرت سے پڑھیں، یہ بارگاہِ رسالت ﷺ میں پیش کیا جاتا ہے۔",
+        "fazeelat": "جمعہ کے دن سورۃ الکہف پڑھنے والے کے لیے اگلے جمعہ تک نور روشن رہتا ہے۔"
+    },
+    "Saturday": {
+        "day_ur": "ہفتہ (Saturday)",
+        "surah_name": "سورۃ الملک اور سورۃ الفاتحہ تدبر کے ساتھ",
+        "zikr_title": "لا حول ولا قوة إلا بالله (100 مرتبہ)",
+        "zikr_arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+        "zikr_urdu": "گناہوں سے بچنے کی طاقت اور نیکی کرنے کی قوت صرف بلند و برتر اللہ کی طرف سے ہے۔",
+        "fazeelat": "یہ کلمہ عرش کے نیچے کے خزانوں میں سے ایک خزانہ ہے۔"
+    }
+}
 
 # Surah list cache
 SURAH_LIST = []
@@ -28,7 +89,7 @@ QURAN_TRANSLATIONS = [
     {"id": "ur.junagarhi", "name": "اردو - محمد جوناگڑھی", "lang": "ur", "dir": "rtl"},
     {"id": "ur.qadri", "name": "اردو - طاہر القادری", "lang": "ur", "dir": "rtl"},
     {"id": "en.sahih", "name": "English - Saheeh International", "lang": "en", "dir": "ltr"},
-    {"id": "hi.hindi", "name": "हिन्दी (Hindi) - फ़ارूक़ ख़ان", "lang": "hi", "dir": "ltr"},
+    {"id": "hi.hindi", "name": "हिन्दी (Hindi) - फ़ारूक़ ख़ान", "lang": "hi", "dir": "ltr"},
     {"id": "bn.bengali", "name": "বাংলা (Bengali) - মুহিউদ্দীন خان", "lang": "bn", "dir": "ltr"},
     {"id": "sd.amroti", "name": "سنڌي (Sindhi) - امروٽي", "lang": "sd", "dir": "rtl"},
     {"id": "ps.abdulwali", "name": "پښتو (Pashto) - عبد الولي", "lang": "ps", "dir": "rtl"},
@@ -67,10 +128,14 @@ BISMILLAH_PREFIX = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلر�
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    current_day = datetime.datetime.now().strftime("%A")
+    today_routine = DAILY_ROUTINE.get(current_day, DAILY_ROUTINE["Sunday"])
+    return render_template('home.html', today_routine=today_routine, current_day=current_day)
+
 @app.route('/more')
 def more_features():
     return render_template('more.html')
+
 @app.route('/supplications')
 def supplications():
     return render_template('supplications.html')
@@ -122,9 +187,11 @@ def allah_names():
 @app.route('/qibla')
 def qibla_dir():
     return render_template('qibla.html')
+
 @app.route('/ibadaat')
 def ibadaat():
     return render_template('ibadaat.html')
+
 @app.route('/surah/<int:surah_id>')
 def view_surah(surah_id):
     if surah_id < 1 or surah_id > 114:
@@ -246,9 +313,7 @@ def manifest():
 @app.route('/sw.js')
 def service_worker():
     return send_from_directory('static', 'sw.js')
-@app.route('/favorites')
-def favorites_page():
-    return render_template('favourite.html')
+
 TILAWAT_RECITERS = {
     "afs": {"name": "Mishary Rashid Alafasy", "server": "https://server8.mp3quran.net/afs"},
     "basit": {"name": "Abdul Basit Abdul Samad", "server": "https://server7.mp3quran.net/basit"},
@@ -258,10 +323,10 @@ TILAWAT_RECITERS = {
     "husary": {"name": "Mahmoud Khalil Al-Husary", "server": "https://server13.mp3quran.net/husr"},
     "minsh": {"name": "Mohamed Siddiq Al-Minshawi", "server": "https://server10.mp3quran.net/minsh"}
 }
+
 @app.route('/tilawat')
 @app.route('/tilawat/<int:surah_id>')
 def tilawat(surah_id=1):
-    from flask import request
     reciter_key = request.args.get('reciter', 'afs')
     if reciter_key not in TILAWAT_RECITERS:
         reciter_key = 'afs'
@@ -274,4 +339,3 @@ def tilawat(surah_id=1):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
