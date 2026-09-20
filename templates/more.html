@@ -95,6 +95,7 @@
       color: #718096 !important;
       font-size: 11px !important;
       flex: 1 !important;
+      cursor: pointer !important;
     }
     .nav-item.active {
       color: #1a4fba !important;
@@ -217,7 +218,7 @@
 
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
-    <a href="/surah/1" class="nav-item">
+    <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
       <span style="margin-top:3px;">Quran</span>
     </a>
@@ -239,15 +240,57 @@
     </a>
   </div>
 
+  <!-- Global Eye Care Preference Loader -->
+  <script>
+      (function() {
+          if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+              document.body.classList.add('eyecare-mode');
+          }
+      })();
+  </script>
 
-    <!-- Global Eye Care Preference Loader -->
-    <script>
-        (function() {
-            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
-                document.body.classList.add('eyecare-mode');
-            }
-        })();
-    </script>
+  <!-- Quran Selection Popup Modal -->
+  <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+      <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+          <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+          <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Option 1: Translation -->
+              <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+                  <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+                  <div style="text-align: left;">
+                      <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+                      <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+                  </div>
+              </a>
+
+              <!-- Option 2: Tilawat Audio -->
+              <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+                  <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+                  <div style="text-align: left;">
+                      <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+                      <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+                  </div>
+              </a>
+          </div>
+
+          <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+              Close
+          </button>
+      </div>
+  </div>
+
+  <script>
+  function openQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'flex'; }
+  }
+  function closeQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'none'; }
+  }
+  </script>
 
 </body>
 </html>

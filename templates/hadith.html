@@ -2,6 +2,7 @@
 <html lang="{{ current_lang.code if current_lang else 'ur' }}" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ current_book.name if current_book else 'Hadith Books' }} - Hadith Sharif</title>
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,14 +38,14 @@
             background-color: var(--bg-color);
             font-family: 'Segoe UI', 'Noto Sans', Tahoma, sans-serif;
             color: var(--text-main);
-            padding-bottom: 60px;
+            padding-bottom: 85px;
             transition: background-color 0.2s, color 0.2s;
         }
 
         header {
             background: var(--header-bg);
             color: white;
-            padding: 16px 12px;
+            padding: 16px 14px;
             text-align: center;
             position: sticky;
             top: 0;
@@ -62,7 +63,7 @@
         }
 
         select, input[type="text"], .action-btn {
-            padding: 7px 12px;
+            padding: 8px 14px;
             font-size: 13px;
             border-radius: 8px;
             border: 1px solid #d1d5db;
@@ -75,26 +76,27 @@
         }
 
         .container {
-            max-width: 920px;
-            margin: 20px auto;
-            padding: 0 12px;
+            max-width: 650px;
+            margin: 16px auto;
+            padding: 0 14px;
+            width: 100%;
         }
 
         .book-header-card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 14px;
+            padding: 18px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             border-top: 4px solid #10b981;
         }
 
         .hadith-box {
             background: var(--card-bg);
-            padding: 22px;
-            margin-bottom: 18px;
-            border-radius: 12px;
+            padding: 20px 16px;
+            margin-bottom: 16px;
+            border-radius: 14px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color);
         }
@@ -120,7 +122,7 @@
             color: var(--badge-text);
             padding: 4px 12px;
             border-radius: 16px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
         }
 
@@ -148,7 +150,7 @@
 
         .arabic-text {
             font-family: 'Amiri Quran', serif;
-            font-size: 24px;
+            font-size: 22px;
             line-height: 2.1;
             color: var(--text-main);
             text-align: right;
@@ -156,8 +158,8 @@
         }
 
         .translation-text {
-            font-size: 17px;
-            line-height: 2.2;
+            font-size: 16px;
+            line-height: 2;
             color: var(--text-sub);
             border-top: 1px dashed var(--border-color);
             padding-top: 12px;
@@ -182,53 +184,45 @@
             gap: 12px;
             margin-top: 25px;
         }
-        /* Header ko Sticky aur Islamic Theme Look dena */
-.top-bar, .app-header, header {
-    background: var(--header-bg) !important;
-    color: #ffffff !important;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 14px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
 
-.top-bar h1, .top-bar h2, .top-bar a, .top-bar span {
-    color: #ffffff !important;
-}
-
-/* Books Grid Cards ko Clean Green Border aur Hover dena */
-.book-card, .hadith-book-card, a.card {
-    background: var(--card-bg) !important;
-    border: 1.5px solid #d1fae5 !important;
-    border-radius: 14px !important;
-    padding: 22px 14px !important;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(6, 78, 59, 0.05) !important;
-    transition: all 0.25s ease-in-out !important;
-}
-
-/* Hover aur Click effect */
-.book-card:hover, .hadith-book-card:hover, a.card:hover {
-    border-color: #047857 !important;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(6, 78, 59, 0.15) !important;
-}
-
-/* Book Icon aur Text Colors */
-.book-card svg, .hadith-book-card svg, a.card svg {
-    stroke: #047857 !important;
-    color: #047857 !important;
-}
-
-.book-card h3, .book-card p, .hadith-book-card span, a.card p {
-    color: var(--text-main) !important;
-    font-weight: 700 !important;
-    margin-top: 10px;
-}
+        /* Fixed Bottom Navigation - Standardized Across App */
+        .bottom-nav {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 60px !important;
+            background: #ffffff !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            border-top: 1px solid #e2e8f0 !important;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05) !important;
+            z-index: 999999 !important;
+            direction: ltr !important;
+        }
+        .nav-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+            color: #718096 !important;
+            font-size: 11px !important;
+            flex: 1 !important;
+            cursor: pointer !important;
+        }
+        .nav-item.active {
+            color: #1a4fba !important;
+            font-weight: 600 !important;
+        }
+        .nav-item svg {
+            stroke: currentColor;
+        }
     </style>
 
-    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <!-- Global Eye Care Mode CSS -->
     <style id="eyecare-style">
         body.eyecare-mode {
             background-color: #f6eedb !important;
@@ -237,160 +231,166 @@
         body.eyecare-mode .card,
         body.eyecare-mode .ayat-card,
         body.eyecare-mode .hadith-card,
-        body.eyecare-mode .ibadaat-card,
-        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .hadith-box,
+        body.eyecare-mode .book-header-card,
         body.eyecare-mode .nav-bar,
         body.eyecare-mode .bottom-nav {
             background-color: #ede2c8 !important;
             border-color: #d8c8a7 !important;
         }
-        body.eyecare-mode .top-header {
+        body.eyecare-mode .top-header,
+        body.eyecare-mode header {
             background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
         }
     </style>
-
 </head>
 <body>
+
     {% if show_books %}
         <!-- Header Bar -->
-        <div style="background: linear-gradient(135deg, #064e3b, #047857); position: sticky; top: 0; z-index: 1000; padding: 14px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); margin-bottom: 20px;">
+        <div style="background: linear-gradient(135deg, #064e3b, #047857); position: sticky; top: 0; z-index: 1000; padding: 15px 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
             <h2 style="text-align: center; font-size: 19px; font-weight: 700; color: #ffffff; margin: 0;">كتب احادیث نبویہ ﷺ</h2>
         </div>
 
-        <!-- 2-Column Grid -->
-        <div style="max-width: 520px; margin: 0 auto; padding: 0 16px 90px;">
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+        <!-- Hadith Books Container (Clean Full-Width Mobile Cards) -->
+        <div style="max-width: 500px; margin: 0 auto; padding: 16px 14px 110px; width: 100%; box-sizing: border-box;">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
                 {% for b in books %}
-                <a href="/hadith/{{ b['id'] }}" style="background: #ffffff; border: 1.5px solid #d1fae5; border-radius: 16px; padding: 22px 14px; text-decoration: none; text-align: center; box-shadow: 0 3px 10px rgba(6, 78, 59, 0.05); display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <div style="font-size: 32px; margin-bottom: 10px; color: #047857;">📖</div>
-                    <div style="font-size: 15px; font-weight: 700; color: #064e3b; font-family: 'Noto Sans Arabic', Tahoma, sans-serif;">{{ b.get('name_ar', b.get('name')) }}</div>
-                    <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-top: 4px;">{{ b.get('name', '') }}</div>
+                <a href="/hadith/{{ b['id'] }}" style="background: #ffffff; border: 1.5px solid #d1fae5; border-radius: 16px; padding: 16px 14px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 3px 12px rgba(6, 78, 59, 0.06); transition: transform 0.15s ease;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div style="width: 48px; height: 48px; background: #ecfdf5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">
+                            📖
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 18px; font-weight: 800; color: #064e3b; line-height: 1.3;">
+                                {{ (b['name'].split('(')[0]).strip() }}
+                            </div>
+                            <div style="font-size: 13px; font-weight: 600; color: #047857; margin-top: 3px;">
+                                {% if '(' in b['name'] %}
+                                    {{ (b['name'].split('(')[1].replace(')', '')).strip() }}
+                                {% else %}
+                                    {{ b['id']|title }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 18px; color: #059669; font-weight: bold; padding-left: 6px;">
+                        ❮
+                    </div>
                 </a>
                 {% endfor %}
             </div>
-        </div>
+        </div> 
     {% else %}
-    <!-- Back to Books Button jab user kisi specific book ke andar ho -->
-    <div style="padding: 12px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9;">
-        <a href="/hadith" style="text-decoration: none; color: #059669; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
-            ← All Hadith Books
+        <!-- Back to Books Button -->
+        <div style="padding: 12px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9;">
+            <a href="/hadith" style="text-decoration: none; color: #059669; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+                ← All Hadith Books
+            </a>
+        </div>
+
+        <header>
+            <h1 style="font-size: 18px; font-weight: 700;">کتبِ احادیث نبویہ ﷺ</h1>
+            
+            <div class="controls-row">
+                <!-- Select Book -->
+                <select id="bookSelect" onchange="updateHadithView()">
+                    {% for b in books %}
+                        <option value="{{ b.id }}" {% if b.id == current_book.id %}selected{% endif %}>
+                            📚 {{ b.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <!-- Select Language -->
+                <select id="langSelect" onchange="updateHadithView()">
+                    {% for l in languages %}
+                        <option value="{{ l.code }}" {% if l.code == current_lang.code %}selected{% endif %}>
+                            🌐 {{ l.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="book-header-card">
+                <h2 style="color:#10b981; margin-bottom: 6px; font-size: 18px;">{{ current_book.name }}</h2>
+                <p style="color:var(--text-sub); font-size:13px;">صفحہ: {{ page }} | کل احادیث: {{ current_book.total }} | زبان: {{ current_lang.name }}</p>
+            </div>
+
+            <div id="hadithList">
+                {% for h in hadiths %}
+                <div class="hadith-box">
+                    <div class="hadith-top">
+                        <div class="meta-badges">
+                            <span class="hadith-number">🌍 Intl Hadith No: #{{ h.intl_number }}</span>
+                            
+                            {% set st = h.status | lower %}
+                            <span class="grade-badge {% if 'sahih' in st or 'صحیح' in st %}sahih{% elif 'daif' in st or 'ضعیف' in st %}daif{% endif %}">
+                                حکم / درجہ: {{ h.status }}
+                            </span>
+                        </div>
+
+                        <button class="action-btn" onclick="shareHadith(this)">📲 Share</button>
+                    </div>
+                    {% if h.arabic %}
+                    <div class="arabic-text">{{ h.arabic }}</div>
+                    {% endif %}
+                    <div class="translation-text {{ current_lang.dir }}">{{ h.translation }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="pagination-row">
+                {% if page > 1 %}
+                <a href="/hadith/{{ current_book.id }}?page={{ page - 1 }}&lang={{ current_lang.code }}" class="action-btn">⬅️ Previous</a>
+                {% endif %}
+                <a href="/hadith/{{ current_book.id }}?page={{ page + 1 }}&lang={{ current_lang.code }}" class="action-btn" style="background:#10b981; color:#fff;">Next ➡️</a>
+            </div>
+        </div>
+
+        <script>
+            function updateHadithView() {
+                var b = document.getElementById('bookSelect').value;
+                var l = document.getElementById('langSelect').value;
+                window.location.href = '/hadith/' + b + '?lang=' + l;
+            }
+
+            function shareHadith(btn) {
+                var box = btn.closest('.hadith-box');
+                var num = box.querySelector('.hadith-number').innerText;
+                var grade = box.querySelector('.grade-badge').innerText;
+                var text = box.querySelector('.translation-text').innerText;
+                var shareText = "📚 " + num + " (" + grade + ")\n\n" + text + "\n\n🔗 Islamic Web Portal";
+                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText), '_blank');
+            }
+        </script>
+    {% endif %}
+
+    <!-- Fixed Bottom Navigation Bar (Matched with other pages) -->
+    <div class="bottom-nav">
+        <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span style="margin-top:3px;">Quran</span>
+        </a>
+        <a href="/hadith" class="nav-item active">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <span style="margin-top:3px;">Hadith</span>
+        </a>
+        <a href="/" class="nav-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span style="margin-top:3px;">Home</span>
+        </a>
+        <a href="/ibadaat" class="nav-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span style="margin-top:3px;">Ibadaat</span>
+        </a>
+        <a href="/more" class="nav-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            <span style="margin-top:3px;">More</span>
         </a>
     </div>
-
-    <header>
-        <h1>کتبِ احادیث نبویہ ﷺ (Hadith Collection)</h1>
-        
-        <div class="controls-row">
-            <!-- Select Book -->
-            <select id="bookSelect" onchange="updateHadithView()">
-                {% for b in books %}
-                    <option value="{{ b.id }}" {% if b.id == current_book.id %}selected{% endif %}>
-                        📚 {{ b.name }}
-                    </option>
-                {% endfor %}
-            </select>
-
-            <!-- Select Language -->
-            <select id="langSelect" onchange="updateHadithView()">
-                {% for l in languages %}
-                    <option value="{{ l.code }}" {% if l.code == current_lang.code %}selected{% endif %}>
-                        🌐 {{ l.name }}
-                    </option>
-                {% endfor %}
-            </select>
-
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="book-header-card">
-            <h2 style="color:#10b981; margin-bottom: 6px;">{{ current_book.name }}</h2>
-            <p style="color:var(--text-sub); font-size:14px;">صفحہ: {{ page }} | کل احادیث: {{ current_book.total }} | زبان: {{ current_lang.name }}</p>
-        </div>
-
-        <div id="hadithList">
-            {% for h in hadiths %}
-            <div class="hadith-box">
-                <div class="hadith-top">
-                    <div class="meta-badges">
-                        <span class="hadith-number">🌍 Intl Hadith No: #{{ h.intl_number }}</span>
-                        
-                        {% set st = h.status | lower %}
-                        <span class="grade-badge {% if 'sahih' in st or 'صحیح' in st %}sahih{% elif 'daif' in st or 'ضعیف' in st %}daif{% endif %}">
-                            حکم / درجہ: {{ h.status }}
-                        </span>
-                    </div>
-
-                    <button class="action-btn" onclick="shareHadith(this)">📲 Share</button>
-                </div>
-                {% if h.arabic %}
-                <div class="arabic-text">{{ h.arabic }}</div>
-                {% endif %}
-                <div class="translation-text {{ current_lang.dir }}">{{ h.translation }}</div>
-            </div>
-            {% endfor %}
-        </div>
-
-        <div class="pagination-row">
-            {% if page > 1 %}
-            <a href="/hadith/{{ current_book.id }}?page={{ page - 1 }}&lang={{ current_lang.code }}" class="action-btn">⬅️ Previous</a>
-            {% endif %}
-            <a href="/hadith/{{ current_book.id }}?page={{ page + 1 }}&lang={{ current_lang.code }}" class="action-btn" style="background:#10b981; color:#fff;">Next ➡️</a>
-        </div>
-    </div>
-
-    <script>
-        function updateHadithView() {
-            var b = document.getElementById('bookSelect').value;
-            var l = document.getElementById('langSelect').value;
-            window.location.href = '/hadith/' + b + '?lang=' + l;
-        }
-
-        function toggleTheme() {
-            var isDark = document.body.classList.toggle('dark-mode');
-            document.getElementById('themeBtn').innerText = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-            try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e){}
-        }
-        try {
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('themeBtn').innerText = '☀️ Light Mode';
-            }
-        } catch(e){}
-
-        function shareHadith(btn) {
-            var box = btn.closest('.hadith-box');
-            var num = box.querySelector('.hadith-number').innerText;
-            var grade = box.querySelector('.grade-badge').innerText;
-            var text = box.querySelector('.translation-text').innerText;
-            var shareText = "📚 " + num + " (" + grade + ")\n\n" + text + "\n\n🔗 Islamic Web Portal";
-            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText), '_blank');
-        }
-    </script>
-    {% endif %}
-    <!-- Fixed Bottom Navigation Bar -->
-  <div class="bottom-nav" style="position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; direction: ltr;">
-    <a href="/surah/1" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
-      <span style="font-size: 20px; margin-bottom: 2px;">📖</span>
-      <span>Quran</span>
-    </a>
-    <a href="/hadith" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #1a4fba; font-size: 11px; font-weight: 700;">
-      <span style="font-size: 20px; margin-bottom: 2px;">۞</span>
-      <span>Hadith</span>
-    </a>
-    <a href="/" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
-      <span style="font-size: 20px; margin-bottom: 2px;">🏠</span>
-      <span>Home</span>
-    </a>
-    <a href="/ibadaat" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
-      <span style="font-size: 20px; margin-bottom: 2px;">🕌</span>
-      <span>Ibadaat</span>
-    </a>
-    <a href="/more" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #718096; font-size: 11px; font-weight: 600;">
-      <span style="font-size: 20px; margin-bottom: 2px;">⋮⋮⋮</span>
-      <span>More</span>
-    </a>
-  </div>
 
     <!-- Global Eye Care Preference Loader -->
     <script>
@@ -399,6 +399,49 @@
                 document.body.classList.add('eyecare-mode');
             }
         })();
+    </script>
+
+    <!-- Quran Selection Popup Modal -->
+    <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+        <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+            <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+            <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Option 1: Translation -->
+                <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+                    <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+                    <div style="text-align: left;">
+                        <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+                        <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+                    </div>
+                </a>
+
+                <!-- Option 2: Tilawat Audio -->
+                <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+                    <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+                    <div style="text-align: left;">
+                        <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+                        <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+                    </div>
+                </a>
+            </div>
+
+            <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+    function openQuranModal() {
+        var modal = document.getElementById('quranModal');
+        if (modal) { modal.style.display = 'flex'; }
+    }
+    function closeQuranModal() {
+        var modal = document.getElementById('quranModal');
+        if (modal) { modal.style.display = 'none'; }
+    }
     </script>
 
 </body>
