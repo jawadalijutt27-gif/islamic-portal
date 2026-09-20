@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noorani Qaida (English)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 90px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a202c;
+    }
+    /* Horizontal Scrolling Lessons Bar */
+    .lesson-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 14px 2px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+    }
+    .lesson-scroll::-webkit-scrollbar {
+      height: 5px;
+    }
+    .lesson-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e0;
+      border-radius: 4px;
+    }
+    .lesson-btn {
+      white-space: nowrap;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #4a5568;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .lesson-btn.active {
+      background: #1a4fba;
+      color: #ffffff;
+      border-color: #1a4fba;
+      box-shadow: 0 3px 8px rgba(26, 79, 186, 0.3);
+    }
+    /* Lesson Header */
+    .lesson-header {
+      background: #ebf8ff;
+      border-left: 4px solid #3182ce;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+    .lesson-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2b6cb0;
+      margin-bottom: 6px;
+    }
+    .lesson-rule {
+      font-size: 13px;
+      color: #4a5568;
+      line-height: 1.5;
+    }
+    /* Responsive Grid */
+    .qaida-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .char-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      min-height: 82px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .char-card:hover {
+      border-color: #1a4fba;
+      background: #f0f7ff;
+    }
+    .char-card:active {
+      transform: scale(0.96);
+    }
+    .arabic-char {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1a202c;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      line-height: 1.3;
+      direction: rtl;
+    }
+    .char-pronounce {
+      font-size: 11px;
+      color: #718096;
+      margin-top: 4px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .tajweed-tag {
+      font-size: 9px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-top: 3px;
+      font-weight: bold;
+    }
+    .tag-bold { background: #fed7d7; color: #9b2c2c; }
+    .tag-qalqala { background: #feebc8; color: #9c4221; }
+    .tag-ghunna { background: #c6f6d5; color: #22543d; }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">Noorani Qaida (English)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <!-- Lesson Navigation Scroll Bar -->
+  <div class="lesson-scroll">
+    <button class="lesson-btn active" onclick="switchLesson(1)">Lesson 1: Alphabets</button>
+    <button class="lesson-btn" onclick="switchLesson(2)">Lesson 2: Compounds</button>
+    <button class="lesson-btn" onclick="switchLesson(3)">Lesson 3: Harakat</button>
+    <button class="lesson-btn" onclick="switchLesson(4)">Lesson 4: Tanween</button>
+    <button class="lesson-btn" onclick="switchLesson(5)">Lesson 5: Exercises</button>
+    <button class="lesson-btn" onclick="switchLesson(6)">Lesson 6: Standing Harakat</button>
+    <button class="lesson-btn" onclick="switchLesson(7)">Lesson 7: Maddah Letters</button>
+    <button class="lesson-btn" onclick="switchLesson(8)">Lesson 8: Leen Letters</button>
+    <button class="lesson-btn" onclick="switchLesson(9)">Lesson 9: Maddah/Leen Practice</button>
+    <button class="lesson-btn" onclick="switchLesson(10)">Lesson 10: Sukoon (Jazm)</button>
+    <button class="lesson-btn" onclick="switchLesson(11)">Lesson 11: Tashdeed</button>
+    <button class="lesson-btn" onclick="switchLesson(12)">Lesson 12: Tashdeed with Sukoon</button>
+    <button class="lesson-btn" onclick="switchLesson(13)">Lesson 13: Noon Sakin Rules</button>
+    <button class="lesson-btn" onclick="switchLesson(14)">Lesson 14: Muqatta'at</button>
+  </div>
+
+  <!-- ================= 1. INDIVIDUAL ALPHABETS ================= -->
+  <div id="lesson-1" class="lesson-content">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 1: The Arabic Alphabets (Huroof Mufradat)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> There are 29 letters. 7 letters are always pronounced with a heavy/bold tone: <strong>خ, ص, ض, ط, ظ, غ, ق</strong>.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">ا</span><span class="char-pronounce">Alif</span></div>
+      <div class="char-card"><span class="arabic-char">ب</span><span class="char-pronounce">Baa</span></div>
+      <div class="char-card"><span class="arabic-char">ت</span><span class="char-pronounce">Taa</span></div>
+      <div class="char-card"><span class="arabic-char">ث</span><span class="char-pronounce">Thaa (Soft)</span></div>
+
+      <div class="char-card"><span class="arabic-char">ج</span><span class="char-pronounce">Jeem</span></div>
+      <div class="char-card"><span class="arabic-char">ح</span><span class="char-pronounce">Haa (Throat)</span></div>
+      <div class="char-card"><span class="arabic-char">خ</span><span class="char-pronounce">Khaa</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+      <div class="char-card"><span class="arabic-char">د</span><span class="char-pronounce">Daal</span></div>
+
+      <div class="char-card"><span class="arabic-char">ذ</span><span class="char-pronounce">Dhaal (Soft)</span></div>
+      <div class="char-card"><span class="arabic-char">ر</span><span class="char-pronounce">Raa</span></div>
+      <div class="char-card"><span class="arabic-char">ز</span><span class="char-pronounce">Zaa (Whistle)</span></div>
+      <div class="char-card"><span class="arabic-char">س</span><span class="char-pronounce">Seen</span></div>
+
+      <div class="char-card"><span class="arabic-char">ش</span><span class="char-pronounce">Sheen</span></div>
+      <div class="char-card"><span class="arabic-char">ص</span><span class="char-pronounce">Saad</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+      <div class="char-card"><span class="arabic-char">ض</span><span class="char-pronounce">Daad</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+      <div class="char-card"><span class="arabic-char">ط</span><span class="char-pronounce">Taa</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+
+      <div class="char-card"><span class="arabic-char">ظ</span><span class="char-pronounce">Zaa</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+      <div class="char-card"><span class="arabic-char">ع</span><span class="char-pronounce">'Ayn</span></div>
+      <div class="char-card"><span class="arabic-char">غ</span><span class="char-pronounce">Ghayn</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+      <div class="char-card"><span class="arabic-char">ف</span><span class="char-pronounce">Faa</span></div>
+
+      <div class="char-card"><span class="arabic-char">ق</span><span class="char-pronounce">Qaaf</span><span class="tajweed-tag tag-bold">Heavy</span></div>
+      <div class="char-card"><span class="arabic-char">ك</span><span class="char-pronounce">Kaaf</span></div>
+      <div class="char-card"><span class="arabic-char">ل</span><span class="char-pronounce">Laam</span></div>
+      <div class="char-card"><span class="arabic-char">م</span><span class="char-pronounce">Meem</span></div>
+
+      <div class="char-card"><span class="arabic-char">ن</span><span class="char-pronounce">Noon</span></div>
+      <div class="char-card"><span class="arabic-char">و</span><span class="char-pronounce">Waw</span></div>
+      <div class="char-card"><span class="arabic-char">ه</span><span class="char-pronounce">Haa</span></div>
+      <div class="char-card"><span class="arabic-char">ء</span><span class="char-pronounce">Hamzah</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ي</span><span class="char-pronounce">Yaa</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ى</span><span class="char-pronounce">Alif Maqsurah</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 2. COMPOUND LETTERS ================= -->
+  <div id="lesson-2" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 2: Compound Letters (Murakkabat)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> When two or more letters are joined, their shapes change. Identify each letter by its unique dots and head form.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">لا</span><span class="char-pronounce">Laam - Alif</span></div>
+      <div class="char-card"><span class="arabic-char">با</span><span class="char-pronounce">Baa - Alif</span></div>
+      <div class="char-card"><span class="arabic-char">بل</span><span class="char-pronounce">Baa - Laam</span></div>
+      <div class="char-card"><span class="arabic-char">کف</span><span class="char-pronounce">Kaaf - Faa</span></div>
+
+      <div class="char-card"><span class="arabic-char">لح</span><span class="char-pronounce">Laam - Haa</span></div>
+      <div class="char-card"><span class="arabic-char">بلب</span><span class="char-pronounce">Baa-Laam-Baa</span></div>
+      <div class="char-card"><span class="arabic-char">کتب</span><span class="char-pronounce">Kaaf-Taa-Baa</span></div>
+      <div class="char-card"><span class="arabic-char">نح</span><span class="char-pronounce">Noon - Haa</span></div>
+
+      <div class="char-card"><span class="arabic-char">یب</span><span class="char-pronounce">Yaa - Baa</span></div>
+      <div class="char-card"><span class="arabic-char">ثج</span><span class="char-pronounce">Thaa - Jeem</span></div>
+      <div class="char-card"><span class="arabic-char">بح</span><span class="char-pronounce">Baa - Haa</span></div>
+      <div class="char-card"><span class="arabic-char">سخ</span><span class="char-pronounce">Seen - Khaa</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 3. HARAKAT ================= -->
+  <div id="lesson-3" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 3: Short Vowels (Harakat)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Fathah (Zabar), Kasrah (Zair), and Dammah (Paish) are short vowels. Read them promptly without stretching or sudden jerks.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَ</span><span class="char-pronounce">A</span></div>
+      <div class="char-card"><span class="arabic-char">إِ</span><span class="char-pronounce">I</span></div>
+      <div class="char-card"><span class="arabic-char">أُ</span><span class="char-pronounce">U</span></div>
+      <div class="char-card"><span class="arabic-char">بَ</span><span class="char-pronounce">Ba</span></div>
+
+      <div class="char-card"><span class="arabic-char">بِ</span><span class="char-pronounce">Bi</span></div>
+      <div class="char-card"><span class="arabic-char">بُ</span><span class="char-pronounce">Bu</span></div>
+      <div class="char-card"><span class="arabic-char">تَ</span><span class="char-pronounce">Ta</span></div>
+      <div class="char-card"><span class="arabic-char">تِ</span><span class="char-pronounce">Ti</span></div>
+
+      <div class="char-card"><span class="arabic-char">تُ</span><span class="char-pronounce">Tu</span></div>
+      <div class="char-card"><span class="arabic-char">دَ</span><span class="char-pronounce">Da</span></div>
+      <div class="char-card"><span class="arabic-char">دِ</span><span class="char-pronounce">Di</span></div>
+      <div class="char-card"><span class="arabic-char">دُ</span><span class="char-pronounce">Du</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 4. TANWEEN ================= -->
+  <div id="lesson-4" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 4: Double Vowels (Tanween)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Double Fathah ( ً ), Double Kasrah ( ٍ ), and Double Dammah ( ٌ ) produce an 'N' sound (Nunation). E.g. Ban, Bin, Bun.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">مً</span><span class="char-pronounce">Man</span></div>
+      <div class="char-card"><span class="arabic-char">مٍ</span><span class="char-pronounce">Min</span></div>
+      <div class="char-card"><span class="arabic-char">مٌ</span><span class="char-pronounce">Mun</span></div>
+      <div class="char-card"><span class="arabic-char">بً</span><span class="char-pronounce">Ban</span></div>
+
+      <div class="char-card"><span class="arabic-char">بٍ</span><span class="char-pronounce">Bin</span></div>
+      <div class="char-card"><span class="arabic-char">بٌ</span><span class="char-pronounce">Bun</span></div>
+      <div class="char-card"><span class="arabic-char">تً</span><span class="char-pronounce">Tan</span></div>
+      <div class="char-card"><span class="arabic-char">تٍ</span><span class="char-pronounce">Tin</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 5. EXERCISES ================= -->
+  <div id="lesson-5" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 5: Exercises on Harakat & Tanween</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Connect letter sounds smoothly. Pronounce each letter clearly according to its vowel.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَبَدًا</span><span class="char-pronounce">A-ba-dan</span></div>
+      <div class="char-card"><span class="arabic-char">أَحَدٌ</span><span class="char-pronounce">A-ha-dun</span></div>
+      <div class="char-card"><span class="arabic-char">أَخَذَ</span><span class="char-pronounce">A-kha-dha</span></div>
+      <div class="char-card"><span class="arabic-char">بَلَدٍ</span><span class="char-pronounce">Ba-la-din</span></div>
+
+      <div class="char-card"><span class="arabic-char">حَسَدَ</span><span class="char-pronounce">Ha-sa-da</span></div>
+      <div class="char-card"><span class="arabic-char">خَلَقَ</span><span class="char-pronounce">Kha-la-qa</span></div>
+      <div class="char-card"><span class="arabic-char">ذَكَرَ</span><span class="char-pronounce">Dha-ka-ra</span></div>
+      <div class="char-card"><span class="arabic-char">رَقَبَةٍ</span><span class="char-pronounce">Ra-qa-ba-tin</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 6. STANDING HARAKAT ================= -->
+  <div id="lesson-6" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 6: Standing Vowels (Khari Harakat)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Standing Fathah, Standing Kasrah, and Inverted Dammah represent Maddah letters. Prolong them for 1 Alif (approx. 2 beats).</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">بٰ</span><span class="char-pronounce">Baa</span></div>
+      <div class="char-card"><span class="arabic-char">بٖ</span><span class="char-pronounce">Bee</span></div>
+      <div class="char-card"><span class="arabic-char">بٗ</span><span class="char-pronounce">Boo</span></div>
+      <div class="char-card"><span class="arabic-char">يٰ</span><span class="char-pronounce">Yaa</span></div>
+
+      <div class="char-card"><span class="arabic-char">هٰذَا</span><span class="char-pronounce">Haa-dhaa</span></div>
+      <div class="char-card"><span class="arabic-char">إِلٰهِ</span><span class="char-pronounce">I-laa-hi</span></div>
+      <div class="char-card"><span class="arabic-char">مٰلِكِ</span><span class="char-pronounce">Maa-li-ki</span></div>
+      <div class="char-card"><span class="arabic-char">لَهُۥ</span><span class="char-pronounce">La-hoo</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 7. MADDAH LETTERS ================= -->
+  <div id="lesson-7" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 7: Maddah Letters (Long Vowels)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Maddah letters are Alif preceded by Fathah, Waw Saakin preceded by Dammah, and Yaa Saakin preceded by Kasrah. Elongate by 1 Alif.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">بَا</span><span class="char-pronounce">Baa</span></div>
+      <div class="char-card"><span class="arabic-char">بُوْ</span><span class="char-pronounce">Boo</span></div>
+      <div class="char-card"><span class="arabic-char">بِيْ</span><span class="char-pronounce">Bee</span></div>
+      <div class="char-card"><span class="arabic-char">تَا</span><span class="char-pronounce">Taa</span></div>
+
+      <div class="char-card"><span class="arabic-char">نُوْحِيْهَا</span><span class="char-pronounce">Noo-hee-haa</span></div>
+      <div class="char-card"><span class="arabic-char">قَالُوْا</span><span class="char-pronounce">Qaa-loo</span></div>
+      <div class="char-card"><span class="arabic-char">فِيْهِ</span><span class="char-pronounce">Fee-hi</span></div>
+      <div class="char-card"><span class="arabic-char">يَقُوْمُ</span><span class="char-pronounce">Ya-qoo-mu</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 8. LEEN LETTERS ================= -->
+  <div id="lesson-8" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 8: Soft Letters (Huroof Leen)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Waw Saakin preceded by Fathah (Aw) or Yaa Saakin preceded by Fathah (Ay). Pronounce softly without prolongation.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَوْ</span><span class="char-pronounce">Aw</span></div>
+      <div class="char-card"><span class="arabic-char">أَيْ</span><span class="char-pronounce">Ay</span></div>
+      <div class="char-card"><span class="arabic-char">بَوْ</span><span class="char-pronounce">Baw</span></div>
+      <div class="char-card"><span class="arabic-char">بَيْ</span><span class="char-pronounce">Bay</span></div>
+
+      <div class="char-card"><span class="arabic-char">خَوْفٍ</span><span class="char-pronounce">Khawf</span></div>
+      <div class="char-card"><span class="arabic-char">قُرَيْشٍ</span><span class="char-pronounce">Quraysh</span></div>
+      <div class="char-card"><span class="arabic-char">صَيْفٍ</span><span class="char-pronounce">Sayf</span></div>
+      <div class="char-card"><span class="arabic-char">بَيْتٍ</span><span class="char-pronounce">Bayt</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 9. PRACTICE MADDAH & LEEN ================= -->
+  <div id="lesson-9" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 9: Practice Maddah, Leen & Standing Vowels</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Pay attention to the subtle distinction between prolonged vowels (Maddah) and quick soft vowels (Leen).</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">دَاوُۥدُ</span><span class="char-pronounce">Daa-woo-du</span></div>
+      <div class="char-card"><span class="arabic-char">طَغَىٰ</span><span class="char-pronounce">Ta-ghaa</span></div>
+      <div class="char-card"><span class="arabic-char">قَوْلٌ</span><span class="char-pronounce">Qaw-lun</span></div>
+      <div class="char-card"><span class="arabic-char">عَيْنَانِ</span><span class="char-pronounce">'Ay-naa-ni</span></div>
+
+      <div class="char-card"><span class="arabic-char">أَلْقَيْتُ</span><span class="char-pronounce">Al-qay-tu</span></div>
+      <div class="char-card"><span class="arabic-char">يَوْمَئِذٍ</span><span class="char-pronounce">Yaw-ma-i-dhin</span></div>
+      <div class="char-card"><span class="arabic-char">لَارَيْبَ</span><span class="char-pronounce">Laa Ray-ba</span></div>
+      <div class="char-card"><span class="arabic-char">تِلْكَ</span><span class="char-pronounce">Til-ka</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 10. SUKOON (JAZM) ================= -->
+  <div id="lesson-10" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 10: Sukoon / Jazm (Resting Sign) & Qalqala</div>
+      <div class="lesson-rule"><strong>Rule:</strong> A letter with Sukoon ( ْ ) is joined with the preceding vowel. Echo letters (Qalqala) are: <strong>ق, ط, ب, ج, د</strong>.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">أَبْ</span><span class="char-pronounce">Ab</span><span class="tajweed-tag tag-qalqala">Echo (Qalqala)</span></div>
+      <div class="char-card"><span class="arabic-char">أَتْ</span><span class="char-pronounce">At</span></div>
+      <div class="char-card"><span class="arabic-char">أَجْ</span><span class="char-pronounce">Aj</span><span class="tajweed-tag tag-qalqala">Echo (Qalqala)</span></div>
+      <div class="char-card"><span class="arabic-char">أَدْ</span><span class="char-pronounce">Ad</span><span class="tajweed-tag tag-qalqala">Echo (Qalqala)</span></div>
+
+      <div class="char-card"><span class="arabic-char">قُلْ</span><span class="char-pronounce">Qul</span></div>
+      <div class="char-card"><span class="arabic-char">فَلَقٍ</span><span class="char-pronounce">Falaq</span><span class="tajweed-tag tag-qalqala">Echo</span></div>
+      <div class="char-card"><span class="arabic-char">أَنْعَمْتَ</span><span class="char-pronounce">An-'am-ta</span></div>
+      <div class="char-card"><span class="arabic-char">يَلِدْ</span><span class="char-pronounce">Yalid</span><span class="tajweed-tag tag-qalqala">Echo</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 11. TASHDEED ================= -->
+  <div id="lesson-11" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 11: Tashdeed (Emphasis Sign)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> A letter with Tashdeed ( ّ ) is pronounced twice firmly. Noon and Meem with Tashdeed must have nasal sound (Ghunna).</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">إِنَّ</span><span class="char-pronounce">Inna</span><span class="tajweed-tag tag-ghunna">Ghunna</span></div>
+      <div class="char-card"><span class="arabic-char">ثُمَّ</span><span class="char-pronounce">Thumma</span><span class="tajweed-tag tag-ghunna">Ghunna</span></div>
+      <div class="char-card"><span class="arabic-char">رَبِّ</span><span class="char-pronounce">Rabbi</span></div>
+      <div class="char-card"><span class="arabic-char">مَدَّ</span><span class="char-pronounce">Madda</span></div>
+
+      <div class="char-card"><span class="arabic-char">قَدَّمَ</span><span class="char-pronounce">Qaddama</span></div>
+      <div class="char-card"><span class="arabic-char">تَبَّتْ</span><span class="char-pronounce">Tabbat</span></div>
+      <div class="char-card"><span class="arabic-char">سُجِّرَتْ</span><span class="char-pronounce">Sujjirat</span></div>
+      <div class="char-card"><span class="arabic-char">حَقُّ</span><span class="char-pronounce">Haqqu</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 12. TASHDEED WITH SUKOON ================= -->
+  <div id="lesson-12" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 12: Tashdeed Combined with Sukoon</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Connect the resting letter first, then articulate the doubled letter with firm stability.</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">وَالْعٰدِيٰتِ</span><span class="char-pronounce">Wal-'Aadi-yaat</span></div>
+      <div class="char-card"><span class="arabic-char">مُدَّثِّرُ</span><span class="char-pronounce">Muddath-thir</span></div>
+      <div class="char-card"><span class="arabic-char">مُزَّمِّلُ</span><span class="char-pronounce">Muz-zam-mil</span></div>
+      <div class="char-card"><span class="arabic-char">كَلَّا لَيُنبَذَنَّ</span><span class="char-pronounce">Kallaa Layumbadhan-na</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 13. NOON SAAKIN RULES ================= -->
+  <div id="lesson-13" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 13: Rules of Noon Saakin & Tanween</div>
+      <div class="lesson-rule"><strong>Rule:</strong> 4 Tajweed principles apply: <strong>Izhar</strong> (clear reading), <strong>Idgham</strong> (merging), <strong>Iqlab</strong> (changing to Meem), and <strong>Ikhfa</strong> (hidden nasal tone).</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card"><span class="arabic-char">مَنْ ءَامَنَ</span><span class="char-pronounce">Izhar (Clear)</span></div>
+      <div class="char-card"><span class="arabic-char">مَن يَّقُولُ</span><span class="char-pronounce">Idgham (Merge)</span></div>
+      <div class="char-card"><span class="arabic-char">مِن بَعْدِ</span><span class="char-pronounce">Iqlab ('M' Sound)</span></div>
+      <div class="char-card"><span class="arabic-char">مِن قَبْلُ</span><span class="char-pronounce">Ikhfa (Conceal)</span></div>
+
+      <div class="char-card"><span class="arabic-char">عَلِيمٌ حَكِيمٌ</span><span class="char-pronounce">Izhar</span></div>
+      <div class="char-card"><span class="arabic-char">مِّن رَّبِّهِمْ</span><span class="char-pronounce">Idgham without Ghunna</span></div>
+      <div class="char-card"><span class="arabic-char">أَنبِئْهُم</span><span class="char-pronounce">Iqlab</span></div>
+      <div class="char-card"><span class="arabic-char">أَنتُمْ</span><span class="char-pronounce">Ikhfa</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 14. MUQATTA'AT ================= -->
+  <div id="lesson-14" class="lesson-content hidden">
+    <div class="lesson-header">
+      <div class="lesson-title">Lesson 14: Disjointed Letters (Huroof Muqatta'at)</div>
+      <div class="lesson-rule"><strong>Rule:</strong> Mystical letters opening Quranic Surahs. Read individually with maximum length (3 to 5 Alifs).</div>
+    </div>
+    <div class="qaida-grid">
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">الم</span><span class="char-pronounce">Alif - Laaaam - Meeeem</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">المر</span><span class="char-pronounce">Alif-Laaaam-Meeeem-Raa</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">كهيعص</span><span class="char-pronounce">Kaaaf-Haa-Yaa-'Ayyyn-Saaad</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">طه</span><span class="char-pronounce">Taa - Haa</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">يس</span><span class="char-pronounce">Yaa - Seeeen</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">حم</span><span class="char-pronounce">Haa - Meeeem</span></div>
+
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ق</span><span class="char-pronounce">Qaaaf</span></div>
+      <div class="char-card" style="grid-column: span 2;"><span class="arabic-char">ن</span><span class="char-pronounce">Nooon</span></div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Tabs Switch -->
+  <script>
+    function switchLesson(num) {
+      const allContents = document.querySelectorAll('.lesson-content');
+      allContents.forEach(c => c.classList.add('hidden'));
+
+      const allBtns = document.querySelectorAll('.lesson-btn');
+      allBtns.forEach(b => b.classList.remove('active'));
+
+      const targetContent = document.getElementById(`lesson-${num}`);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
+      allBtns[num - 1].classList.add('active');
+
+      allBtns[num - 1].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

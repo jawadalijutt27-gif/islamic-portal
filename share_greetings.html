@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اسلامی مبارکباد و پیغامات - Share Greetings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    /* Filter Categories Tabs */
+    .cat-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+      direction: rtl;
+    }
+    .cat-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .cat-btn {
+      white-space: nowrap;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #4a5568;
+      font-weight: 600;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .cat-btn.active {
+      background: #1a4fba;
+      color: #ffffff;
+      border-color: #1a4fba;
+      box-shadow: 0 2px 6px rgba(26,79,186,0.3);
+    }
+    .greeting-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+      position: relative;
+    }
+    .card-header-badge {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      direction: rtl;
+    }
+    .badge-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 15px;
+      background: #ebf8ff;
+      color: #2b6cb0;
+    }
+    .greeting-arabic {
+      font-size: 20px;
+      line-height: 1.8;
+      text-align: right;
+      direction: rtl;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      color: #1a4fba;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .greeting-urdu {
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: right;
+      direction: rtl;
+      color: #4a5568;
+      margin-bottom: 14px;
+    }
+    .action-row {
+      display: flex;
+      gap: 10px;
+      border-top: 1px solid #edf2f7;
+      padding-top: 12px;
+      justify-content: flex-end;
+    }
+    .btn-share {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-copy {
+      background: #edf2f7;
+      color: #4a5568;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-copy:hover {
+      background: #e2e8f0;
+      color: #1a202c;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">پیغامات و مبارکباد (Greetings)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div class="cat-scroll">
+    <button class="cat-btn active" onclick="filterCategory('all')">تمام (All)</button>
+    <button class="cat-btn" onclick="filterCategory('jummah')">جمعہ مبارک</button>
+    <button class="cat-btn" onclick="filterCategory('morning')">صبح بخیر</button>
+    <button class="cat-btn" onclick="filterCategory('eid')">عید مبارک</button>
+    <button class="cat-btn" onclick="filterCategory('dua')">دعائیہ پیغامات</button>
+  </div>
+
+  <div id="greetingsContainer">
+
+    <!-- Card 1: Jummah -->
+    <div class="greeting-card" data-cat="jummah">
+      <div class="card-header-badge">
+        <span class="badge-tag">جمعہ مبارک</span>
+        <span style="font-size: 18px;">🕌</span>
+      </div>
+      <div class="greeting-arabic">جُمُعَةٌ مُبَارَكَةٌ ، اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ</div>
+      <div class="greeting-urdu">
+        آپ کو اور آپ کے اہل خانہ کو جمعہ کا بابرکت دن مبارک ہو۔ اللہ پاک آپ کی تمام دعائیں قبول فرمائے اور زندگی میں آسانیاں پیدا فرمائے۔
+      </div>
+      <div class="action-row">
+        <button class="btn-copy" onclick="copyGreeting(this)">کاپی کریں 📋</button>
+        <button class="btn-share" onclick="shareWhatsApp(this)">WhatsApp 💬</button>
+      </div>
+    </div>
+
+    <!-- Card 2: Jummah -->
+    <div class="greeting-card" data-cat="jummah">
+      <div class="card-header-badge">
+        <span class="badge-tag">جمعہ مبارک</span>
+        <span style="font-size: 18px;">✨</span>
+      </div>
+      <div class="greeting-arabic">إِنَّ يَوْمَ الْجُمُعَةِ سَيِّدُ الْأَيَّامِ</div>
+      <div class="greeting-urdu">
+        جمعۃ المبارک! اللہ کرے یہ مبارک دن آپ کے لیے صحت، سلامتی، اور رزق میں خیر و برکت لے کر آئے۔ درود شریف کا کثرت سے اہتمام کریں۔
+      </div>
+      <div class="action-row">
+        <button class="btn-copy" onclick="copyGreeting(this)">کاپی کریں 📋</button>
+        <button class="btn-share" onclick="shareWhatsApp(this)">WhatsApp 💬</button>
+      </div>
+    </div>
+
+    <!-- Card 3: Morning -->
+    <div class="greeting-card" data-cat="morning">
+      <div class="card-header-badge">
+        <span class="badge-tag">صبح بخیر</span>
+        <span style="font-size: 18px;">🌅</span>
+      </div>
+      <div class="greeting-arabic">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ</div>
+      <div class="greeting-urdu">
+        السلام علیکم، صبح بخیر! اللہ تعالیٰ آپ کے دن کا آغاز خیر و عافیت سے فرمائے، اور ہر لمحہ اپنی رحمتوں اور نعمتوں کے سائے میں رکھے۔
+      </div>
+      <div class="action-row">
+        <button class="btn-copy" onclick="copyGreeting(this)">کاپی کریں 📋</button>
+        <button class="btn-share" onclick="shareWhatsApp(this)">WhatsApp 💬</button>
+      </div>
+    </div>
+
+    <!-- Card 4: Morning -->
+    <div class="greeting-card" data-cat="morning">
+      <div class="card-header-badge">
+        <span class="badge-tag">صبح بخیر</span>
+        <span style="font-size: 18px;">☀️</span>
+      </div>
+      <div class="greeting-arabic">اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا</div>
+      <div class="greeting-urdu">
+        صبح بخیر! اے اللہ! ہم تجھ سے نفع بخش علم، پاکیزہ رزق، اور قبول ہونے والے اعمال کا سوال کرتے ہیں۔ آپ کا دن خوشگوار گزرے۔
+      </div>
+      <div class="action-row">
+        <button class="btn-copy" onclick="copyGreeting(this)">کاپی کریں 📋</button>
+        <button class="btn-share" onclick="shareWhatsApp(this)">WhatsApp 💬</button>
+      </div>
+    </div>
+
+    <!-- Card 5: Eid -->
+    <div class="greeting-card" data-cat="eid">
+      <div class="card-header-badge">
+        <span class="badge-tag">عید مبارک</span>
+        <span style="font-size: 18px;">🌙</span>
+      </div>
+      <div class="greeting-arabic">تَقَبَّلَ اللّٰهُ مِنَّا وَمِنكُمُ الصَّالِحَاتِ ، عِيْدٌ مُبَارَكٌ</div>
+      <div class="greeting-urdu">
+        آپ کو اور آپ کے پیاروں کو دل کی اتھاہ گہرائیوں سے عید مبارک! اللہ پاک ہماری اور آپ کی تمام عبادات اور دعائیں اپنی بارگاہ میں قبول فرمائے۔
+      </div>
+      <div class="action-row">
+        <button class="btn-copy" onclick="copyGreeting(this)">کاپی کریں 📋</button>
+        <button class="btn-share" onclick="shareWhatsApp(this)">WhatsApp 💬</button>
+      </div>
+    </div>
+
+    <!-- Card 6: Dua -->
+    <div class="greeting-card" data-cat="dua">
+      <div class="card-header-badge">
+        <span class="badge-tag">دعائیہ پیغام</span>
+        <span style="font-size: 18px;">🤲</span>
+      </div>
+      <div class="greeting-arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
+      <div class="greeting-urdu">
+        دعا ہے کہ اللہ تعالیٰ آپ کو دنیا اور آخرت دونوں جہاں کی بھلائیاں اور کامیابیاں نصیب فرمائے اور ہر غم و پریشانی سے دور رکھے۔ آمین!
+      </div>
+      <div class="action-row">
+        <button class="btn-copy" onclick="copyGreeting(this)">کاپی کریں 📋</button>
+        <button class="btn-share" onclick="shareWhatsApp(this)">WhatsApp 💬</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function filterCategory(cat) {
+      const cards = document.querySelectorAll('.greeting-card');
+      const btns = document.querySelectorAll('.cat-btn');
+
+      btns.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function getCardText(btn) {
+      const card = btn.closest('.greeting-card');
+      const ar = card.querySelector('.greeting-arabic').innerText;
+      const ur = card.querySelector('.greeting-urdu').innerText;
+      return `${ar}\n\n${ur}\n\n(Sent via Islamic App)`;
+    }
+
+    function copyGreeting(btn) {
+      const text = getCardText(btn);
+      navigator.clipboard.writeText(text).then(() => {
+        const oldText = btn.innerText;
+        btn.innerText = "کاپی ہو گیا! ✓";
+        setTimeout(() => { btn.innerText = oldText; }, 1800);
+      });
+    }
+
+    function shareWhatsApp(btn) {
+      const text = getCardText(btn);
+      const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+      window.open(url, '_blank');
+    }
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

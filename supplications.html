@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مسنون دعائیں - Supplications</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .search-box {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      outline: none;
+      background: #ffffff;
+    }
+    .search-box:focus {
+      border-color: #1a4fba;
+    }
+    .dua-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    }
+    .dua-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #edf2f7;
+      padding-bottom: 8px;
+    }
+    .dua-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a4fba;
+    }
+    .dua-ref {
+      font-size: 11px;
+      background: #edf2f7;
+      color: #718096;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+    .dua-arabic {
+      font-size: 22px;
+      line-height: 1.8;
+      text-align: right;
+      direction: rtl;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      color: #1a202c;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .dua-urdu {
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: right;
+      direction: rtl;
+      color: #4a5568;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">مسنون دعائیں (Supplications)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <input type="text" id="searchInput" class="search-box" placeholder="دعا تلاش کریں / Search Dua..." onkeyup="filterDuas()">
+
+  <div id="duasList">
+
+    <!-- Dua 1 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">نیند سے بیدار ہونے کی دعا</span>
+        <span class="dua-ref">صحیح بخاری: 6312</span>
+      </div>
+      <div class="dua-arabic">
+        اَلْحَمْدُ لِلّٰهِ الَّذِيْ أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُوْرُ
+      </div>
+      <div class="dua-urdu">
+        تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں مارنے کے بعد زندہ کیا اور اسی کی طرف اٹھ کر جانا ہے۔
+      </div>
+    </div>
+
+    <!-- Dua 2 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">سوتے وقت کی دعا</span>
+        <span class="dua-ref">صحیح بخاری: 6324</span>
+      </div>
+      <div class="dua-arabic">
+        بِاسْمِكَ رَبِّيْ وَضَعْتُ جَنْبِيْ ، وَبِكَ أَرْفَعُهُ ، فَإِنْ أَمْسَكْتَ نَفْسِيْ فَارْحَمْهَا ، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِيْنَ
+      </div>
+      <div class="dua-urdu">
+        اے میرے رب! تیرے نام کے ساتھ ہی میں نے اپنا پہلو رکھا اور تیرے ہی سہارے اسے اٹھاؤں گا۔ اگر تو میری جان روک لے تو اس پر رحم فرما اور اگر اسے چھوڑ دے تو اس کی اسی طرح حفاظت فرما جس طرح تو اپنے نیک بندوں کی حفاظت کرتا ہے۔
+      </div>
+    </div>
+
+    <!-- Dua 3 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">بیت الخلاء میں داخل ہونے کی دعا</span>
+        <span class="dua-ref">صحیح بخاری: 142</span>
+      </div>
+      <div class="dua-arabic">
+        اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ
+      </div>
+      <div class="dua-urdu">
+        اے اللہ! میں خبیث جنوں (مردوں) اور خبیث جننیوں (عورتوں) سے تیری پناہ مانگتا ہوں۔
+      </div>
+    </div>
+
+    <!-- Dua 4 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">بیت الخلاء سے نکلنے کی دعا</span>
+        <span class="dua-ref">ابو داؤد: 17</span>
+      </div>
+      <div class="dua-arabic">
+        غُفْرَانَكَ ، الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَىٰ وَعَافَانِي
+      </div>
+      <div class="dua-urdu">
+        اے اللہ! میں تیری بخشش چاہتا ہوں۔ تمام تعریفیں اللہ کے لیے ہیں جس نے مجھ سے تکلیف دور کی اور مجھے عافیت بخشی۔
+      </div>
+    </div>
+
+    <!-- Dua 5 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">کھانے سے پہلے کی دعا</span>
+        <span class="dua-ref">ابو داؤد: 3767</span>
+      </div>
+      <div class="dua-arabic">
+        بِسْمِ اللَّهِ وَعَلَىٰ بَرَكَةِ اللَّهِ
+      </div>
+      <div class="dua-urdu">
+        اللہ کے نام سے اور اللہ کی برکت پر (ہم نے کھانا شروع کیا)۔
+      </div>
+    </div>
+
+    <!-- Dua 6 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">کھانے کے بعد کی دعا</span>
+        <span class="dua-ref">ترمذی: 3457</span>
+      </div>
+      <div class="dua-arabic">
+        الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ
+      </div>
+      <div class="dua-urdu">
+        تمام تعریفیں اللہ تعالیٰ کے لیے ہیں جس نے ہمیں کھلایا اور پلایا اور ہمیں مسلمان بنایا۔
+      </div>
+    </div>
+
+    <!-- Dua 7 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">گھر سے نکلتے وقت کی دعا</span>
+        <span class="dua-ref">ترمذی: 3426</span>
+      </div>
+      <div class="dua-arabic">
+        بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ
+      </div>
+      <div class="dua-urdu">
+        اللہ کے نام کے ساتھ، میں نے اللہ پر بھروسہ کیا، گناہوں سے بچنے کی طاقت اور نیکی کرنے کی قوت صرف اللہ ہی کی توفیق سے ہے۔
+      </div>
+    </div>
+
+    <!-- Dua 8 -->
+    <div class="dua-card">
+      <div class="dua-header">
+        <span class="dua-title">سفر کی دعا</span>
+        <span class="dua-ref">صحیح مسلم: 1342</span>
+      </div>
+      <div class="dua-arabic">
+        سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ
+      </div>
+      <div class="dua-urdu">
+        پاک ہے وہ ذات جس نے اس (سواری) کو ہمارے قابو میں کر دیا حالانکہ ہم اسے قابو میں لانے والے نہ تھے، اور یقیناً ہم اپنے رب ہی کی طرف لوٹنے والے ہیں۔
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function filterDuas() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.getElementsByClassName('dua-card');
+
+      for (let i = 0; i < cards.length; i++) {
+        let text = cards[i].innerText.toLowerCase();
+        if (text.includes(input)) {
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

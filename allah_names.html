@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اسماء الحسنىٰ - 99 Names of Allah</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #cbd5e0;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      outline: none;
+      background: #ffffff;
+    }
+    .search-input:focus {
+      border-color: #1a4fba;
+    }
+    .names-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .name-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      position: relative;
+    }
+    .name-number {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #a0aec0;
+      background: #edf2f7;
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+    .name-arabic {
+      font-size: 26px;
+      font-weight: bold;
+      color: #1a4fba;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      direction: rtl;
+    }
+    .name-trans {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+    .name-urdu {
+      font-size: 12px;
+      color: #718096;
+      line-height: 1.4;
+      direction: rtl;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">اسماء الحسنىٰ (99 Names)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <input type="text" id="nameSearch" class="search-input" placeholder="نام یا ترجمہ تلاش کریں / Search name..." onkeyup="filterNames()">
+
+  <div class="names-grid" id="namesContainer"></div>
+
+  <script>
+    const allahNames = [
+      { id: 1, ar: "الرَّحْمٰنُ", en: "Ar-Rahman", ur: "بے حد رحم کرنے والا" },
+      { id: 2, ar: "الرَّحِيمُ", en: "Ar-Raheem", ur: "نہایت مہربان" },
+      { id: 3, ar: "الْمَلِكُ", en: "Al-Malik", ur: "حقیقی بادشاہ" },
+      { id: 4, ar: "الْقُدُّوسُ", en: "Al-Quddus", ur: "نہایت پاک ذات" },
+      { id: 5, ar: "السَّلَامُ", en: "As-Salam", ur: "سلامتی والا" },
+      { id: 6, ar: "الْمُؤْمِنُ", en: "Al-Mu'min", ur: "امن و امان دینے والا" },
+      { id: 7, ar: "الْمُهَيْمِنُ", en: "Al-Muhaymin", ur: "نگہبان و محافظ" },
+      { id: 8, ar: "الْعَزِيزُ", en: "Al-Aziz", ur: "سب پر غالب و زبردست" },
+      { id: 9, ar: "الْجَبَّارُ", en: "Al-Jabbar", ur: "زبردست، بگڑے کام سنوارنے والا" },
+      { id: 10, ar: "الْمُتَكَبِّرُ", en: "Al-Mutakabbir", ur: "بزرگی اور بڑائی والا" },
+      { id: 11, ar: "الْخَالِقُ", en: "Al-Khaliq", ur: "پیدا کرنے والا" },
+      { id: 12, ar: "الْبَارِئُ", en: "Al-Bari", ur: "عدم سے وجود میں لانے والا" },
+      { id: 13, ar: "الْمُصَوِّرُ", en: "Al-Musawwir", ur: "صورت گری کرنے والا" },
+      { id: 14, ar: "الْغَفَّارُ", en: "Al-Ghaffar", ur: "بہت بخشنے والا" },
+      { id: 15, ar: "الْقَهَّارُ", en: "Al-Qahhar", ur: "سب پر زبردست قابو رکھنے والا" },
+      { id: 16, ar: "الْوَهَّابُ", en: "Al-Wahhab", ur: "بے غرض عطا کرنے والا" },
+      { id: 17, ar: "الرَّزَّاقُ", en: "Ar-Razzaq", ur: "سب کو روزی دینے والا" },
+      { id: 18, ar: "الْفَتَّاحُ", en: "Al-Fattah", ur: "رحمت کے دروازے کھولنے والا" },
+      { id: 19, ar: "الْعَلِيمُ", en: "Al-Aleem", ur: "سب کچھ جاننے والا" },
+      { id: 20, ar: "الْقَابِضُ", en: "Al-Qabid", ur: "تنگی کرنے والا" },
+      { id: 21, ar: "الْبَاسِطُ", en: "Al-Basit", ur: "فراخی اور کشادگی دینے والا" },
+      { id: 22, ar: "الْخَافِضُ", en: "Al-Khafid", ur: "پست کرنے والا" },
+      { id: 23, ar: "الرَّافِعُ", en: "Ar-Rafi", ur: "بلند کرنے والا" },
+      { id: 24, ar: "الْمُعِزُّ", en: "Al-Mu'izz", ur: "عزت دینے والا" },
+      { id: 25, ar: "الْمُذِلُّ", en: "Al-Muzill", ur: "ذلت دینے والا" },
+      { id: 26, ar: "السَّمِيعُ", en: "As-Sami", ur: "سب کچھ سننے والا" },
+      { id: 27, ar: "الْبَصِيرُ", en: "Al-Baseer", ur: "سب کچھ دیکھنے والا" },
+      { id: 28, ar: "الْحَكَمُ", en: "Al-Hakam", ur: "فیصلہ کرنے والا حاکم" },
+      { id: 29, ar: "الْعَدْلُ", en: "Al-Adl", ur: "سراپا انصاف و عدل" },
+      { id: 30, ar: "اللَّطِيفُ", en: "Al-Lateef", ur: "باریک بین اور لطف و کرم والا" },
+      { id: 31, ar: "الْخَبِيرُ", en: "Al-Khabeer", ur: "ہر بات سے باخبر" },
+      { id: 32, ar: "الْحَلِيمُ", en: "Al-Haleem", ur: "نہایت بردبار اور حلم والا" },
+      { id: 33, ar: "الْعَظِيمُ", en: "Al-Azeem", ur: "بہت بڑی عظمت والا" },
+      { id: 34, ar: "الْغَفُورُ", en: "Al-Ghafoor", ur: "بہت معاف فرمانے والا" },
+      { id: 35, ar: "الشَّكُورُ", en: "Ash-Shakoor", ur: "قدردانی کرنے والا" },
+      { id: 36, ar: "الْعَلِيُّ", en: "Al-Ali", ur: "سب سے اعلیٰ و برتر" },
+      { id: 37, ar: "الْكَبِيرُ", en: "Al-Kabeer", ur: "سب سے بڑا اور عالی شان" },
+      { id: 38, ar: "الْحَفِيظُ", en: "Al-Hafeez", ur: "سب کا نگہبان و محافظ" },
+      { id: 39, ar: "الْمُقِيتُ", en: "Al-Muqeet", ur: "سب کو خوراک و توانائی دینے والا" },
+      { id: 40, ar: "الْحَسِيبُ", en: "Al-Haseeb", ur: "سب کے حساب کے لیے کافی" },
+      { id: 41, ar: "الْجَلِيلُ", en: "Al-Jaleel", ur: "بزرگی اور جلال والا" },
+      { id: 42, ar: "الْكَرِيمُ", en: "Al-Kareem", ur: "بے حد فیاض اور سخی" },
+      { id: 43, ar: "الرَّقِيبُ", en: "Ar-Raqeeb", ur: "ہر لمحہ نگران" },
+      { id: 44, ar: "الْمُجِيبُ", en: "Al-Mujeeb", ur: "دعائیں قبول کرنے والا" },
+      { id: 45, ar: "الْوَاسِعُ", en: "Al-Wasi", ur: "لامحدود وسعت والا" },
+      { id: 46, ar: "الْحَكِيمُ", en: "Al-Hakeem", ur: "حکمت والا" },
+      { id: 47, ar: "الْوَدُودُ", en: "Al-Wadood", ur: "سب سے زیادہ محبت کرنے والا" },
+      { id: 48, ar: "الْمَجِيدُ", en: "Al-Majeed", ur: "بزرگی اور شان والا" },
+      { id: 49, ar: "الْبَاعِثُ", en: "Al-Ba'ith", ur: "موت کے بعد زندہ اٹھانے والا" },
+      { id: 50, ar: "الشَّهِيدُ", en: "Ash-Shaheed", ur: "ہر جگہ حاضر و ناظر" },
+      { id: 51, ar: "الْحَقُّ", en: "Al-Haqq", ur: "بالکل سچا اور ثابت" },
+      { id: 52, ar: "الْوَكِيلُ", en: "Al-Wakeel", ur: "سب سے بہتر کارساز" },
+      { id: 53, ar: "الْقَوِيُّ", en: "Al-Qawi", ur: "قوت اور طاقت والا" },
+      { id: 54, ar: "الْمَتِينُ", en: "Al-Mateen", ur: "نہایت مضبوط اور زبردست" },
+      { id: 55, ar: "الْوَلِيُّ", en: "Al-Wali", ur: "دوست اور مددگار" },
+      { id: 56, ar: "الْحَمِيدُ", en: "Al-Hameed", ur: "قابلِ تعریف و ثناء" },
+      { id: 57, ar: "الْمُحْصِي", en: "Al-Muhsi", ur: "ہر چیز کو شمار میں رکھنے والا" },
+      { id: 58, ar: "الْمُبْدِئُ", en: "Al-Mubdi", ur: "پہلی بار پیدا کرنے والا" },
+      { id: 59, ar: "الْمُعِيدُ", en: "Al-Mu'eed", ur: "دوبارہ پیدا کرنے والا" },
+      { id: 60, ar: "الْمُحْيِي", en: "Al-Muhyi", ur: "زندگی بخشنے والا" },
+      { id: 61, ar: "الْمُمِيتُ", en: "Al-Mumeet", ur: "موت دینے والا" },
+      { id: 62, ar: "الْحَيُّ", en: "Al-Hayy", ur: "ہمیشہ زندہ رہنے والا" },
+      { id: 63, ar: "الْقَيُّومُ", en: "Al-Qayyum", ur: "سب کو قائم رکھنے والا" },
+      { id: 64, ar: "الْوَاجِدُ", en: "Al-Wajid", ur: "ہر چیز کو پا لینے والا" },
+      { id: 65, ar: "الْمَاجِدُ", en: "Al-Majid", ur: "عزت و عظمت والا" },
+      { id: 66, ar: "الْوَاحِدُ", en: "Al-Wahid", ur: "اکیلا، یکتا" },
+      { id: 67, ar: "الْأَحَدُ", en: "Al-Ahad", ur: "اپنی ذات میں تنہا" },
+      { id: 68, ar: "الصَّمَدُ", en: "As-Samad", ur: "سب کا بے نیاز سہارا" },
+      { id: 69, ar: "الْقَادِرُ", en: "Al-Qadir", ur: "ہر چیز پر قدرت رکھنے والا" },
+      { id: 70, ar: "الْمُقْتَدِرُ", en: "Al-Muqtadir", ur: "کامل طاقت کا مالک" },
+      { id: 71, ar: "الْمُقَدِّمُ", en: "Al-Muqaddim", ur: "آگے بڑھانے والا" },
+      { id: 72, ar: "الْمُؤَخِّرُ", en: "Al-Mu'akhkhir", ur: "پیچھے کرنے والا" },
+      { id: 73, ar: "الْأَوَّلُ", en: "Al-Awwal", ur: "سب سے پہلا، ازلی" },
+      { id: 74, ar: "الْآخِرُ", en: "Al-Akhir", ur: "سب کے بعد باقی رہنے والا" },
+      { id: 75, ar: "الظَّاهِرُ", en: "Az-Zahir", ur: "اپنی نشانیوں سے ظاہر" },
+      { id: 76, ar: "الْبَاطِنُ", en: "Al-Batin", ur: "نگاہوں سے پوشیدہ" },
+      { id: 77, ar: "الْوَالِي", en: "Al-Wali", ur: "کائنات کا نظام سنبھالنے والا" },
+      { id: 78, ar: "الْمُتَعَالِي", en: "Al-Muta'ali", ur: "سب سے بلند مرتبہ" },
+      { id: 79, ar: "الْبَرُّ", en: "Al-Barr", ur: "احسان اور نیکی کرنے والا" },
+      { id: 80, ar: "التَّوَّابُ", en: "At-Tawwab", ur: "توبہ قبول کرنے والا" },
+      { id: 81, ar: "الْمُنْتَقِمُ", en: "Al-Muntaqim", ur: "سرکشوں سے بدلہ لینے والا" },
+      { id: 82, ar: "الْعَفُوُّ", en: "Al-Afuww", ur: "گناہ معاف کرنے والا" },
+      { id: 83, ar: "الرَّءُوفُ", en: "Ar-Ra'oof", ur: "انتہائی شفیق و مہربان" },
+      { id: 84, ar: "مَالِكُ الْمُلْكِ", en: "Malik-ul-Mulk", ur: "ساری کائنات کا حقیقی مالک" },
+      { id: 85, ar: "ذُو الْجَلَالِ وَالْإِكْرَامِ", en: "Dhul-Jalali-wal-Ikram", ur: "جلال، بزرگی اور انعام والا" },
+      { id: 86, ar: "الْمُقْسِطُ", en: "Al-Muqsit", ur: "انصاف قائم کرنے والا" },
+      { id: 87, ar: "الْجَامِعُ", en: "Al-Jami", ur: "سب کو اکٹھا کرنے والا" },
+      { id: 88, ar: "الْغَنِيُّ", en: "Al-Ghani", ur: "بے نیاز اور خود کفیل" },
+      { id: 89, ar: "الْمُغْنِي", en: "Al-Mughni", ur: "سب کو دولت و بے نیازی دینے والا" },
+      { id: 90, ar: "الْمَانِعُ", en: "Al-Mani", ur: "روک دینے والا" },
+      { id: 91, ar: "الضَّارُّ", en: "Ad-Darr", ur: "نقصان پہنچانے پر قادر" },
+      { id: 92, ar: "النَّافِعُ", en: "An-Nafi", ur: "نفع اور بھلائی دینے والا" },
+      { id: 93, ar: "النُّورُ", en: "An-Noor", ur: "کائنات کو روشن کرنے والا نور" },
+      { id: 94, ar: "الْهَادِي", en: "Al-Hadi", ur: "ہدایت اور سیدھی راہ دکھانے والا" },
+      { id: 95, ar: "الْبَدِيعُ", en: "Al-Badi", ur: "بغیر نمونے کے کائنات بنانے والا" },
+      { id: 96, ar: "الْبَاقِي", en: "Al-Baqi", ur: "ہمیشہ باقی رہنے والا" },
+      { id: 97, ar: "الْوَارِثُ", en: "Al-Warith", ur: "سب کے بعد باقی رہنے والا وارث" },
+      { id: 98, ar: "الرَّشِيدُ", en: "Ar-Rasheed", ur: "درست راہ پر چلانے والا" },
+      { id: 99, ar: "الصَّبُورُ", en: "As-Saboor", ur: "بہت زیادہ صبر کرنے والا" }
+    ];
+
+    function renderCards(list) {
+      const container = document.getElementById('namesContainer');
+      container.innerHTML = '';
+      list.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'name-card';
+        card.innerHTML = `
+          <span class="name-number">#${item.id}</span>
+          <div class="name-arabic">${item.ar}</div>
+          <div class="name-trans">${item.en}</div>
+          <div class="name-urdu">${item.ur}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterNames() {
+      const q = document.getElementById('nameSearch').value.toLowerCase();
+      const filtered = allahNames.filter(n => 
+        n.en.toLowerCase().includes(q) || 
+        n.ur.includes(q) || 
+        n.ar.includes(q)
+      );
+      renderCards(filtered);
+    }
+
+    renderCards(allahNames);
+  </script>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

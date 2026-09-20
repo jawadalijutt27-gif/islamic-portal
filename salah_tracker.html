@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نماز ٹریکر - Salah Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .progress-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      text-align: center;
+    }
+    .progress-title {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      background: #edf2f7;
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #38a169;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .progress-stats {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    .salah-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .salah-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .salah-icon {
+      font-size: 26px;
+    }
+    .salah-name-ur {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a202c;
+    }
+    .salah-name-en {
+      font-size: 12px;
+      color: #718096;
+    }
+    .status-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .status-btn {
+      border: 1px solid #cbd5e0;
+      background: #ffffff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #4a5568;
+      transition: all 0.15s ease;
+    }
+    .status-btn.offered {
+      background: #38a169;
+      color: #ffffff;
+      border-color: #38a169;
+    }
+    .status-btn.missed {
+      background: #e53e3e;
+      color: #ffffff;
+      border-color: #e53e3e;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">نماز ٹریکر (Salah Tracker)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <div class="progress-box">
+    <div class="progress-title">آج کی ادا شدہ نمازیں (Today's Progress)</div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <div class="progress-stats" id="progressText">0 / 5 مکمل</div>
+  </div>
+
+  <div id="salahContainer">
+    <!-- Fajr -->
+    <div class="salah-card" data-salah="fajr">
+      <div class="salah-info">
+        <div class="salah-icon">🌅</div>
+        <div>
+          <div class="salah-name-ur">فجر</div>
+          <div class="salah-name-en">Fajr</div>
+        </div>
+      </div>
+      <div class="status-btns">
+        <button class="status-btn" onclick="setSalahStatus('fajr', 'offered')">ادا کی ✓</button>
+        <button class="status-btn" onclick="setSalahStatus('fajr', 'missed')">قضاء ✕</button>
+      </div>
+    </div>
+
+    <!-- Dhuhr -->
+    <div class="salah-card" data-salah="dhuhr">
+      <div class="salah-info">
+        <div class="salah-icon">☀️</div>
+        <div>
+          <div class="salah-name-ur">ظہر</div>
+          <div class="salah-name-en">Dhuhr</div>
+        </div>
+      </div>
+      <div class="status-btns">
+        <button class="status-btn" onclick="setSalahStatus('dhuhr', 'offered')">ادا کی ✓</button>
+        <button class="status-btn" onclick="setSalahStatus('dhuhr', 'missed')">قضاء ✕</button>
+      </div>
+    </div>
+
+    <!-- Asr -->
+    <div class="salah-card" data-salah="asr">
+      <div class="salah-info">
+        <div class="salah-icon">🌤️</div>
+        <div>
+          <div class="salah-name-ur">عصر</div>
+          <div class="salah-name-en">Asr</div>
+        </div>
+      </div>
+      <div class="status-btns">
+        <button class="status-btn" onclick="setSalahStatus('asr', 'offered')">ادا کی ✓</button>
+        <button class="status-btn" onclick="setSalahStatus('asr', 'missed')">قضاء ✕</button>
+      </div>
+    </div>
+
+    <!-- Maghrib -->
+    <div class="salah-card" data-salah="maghrib">
+      <div class="salah-info">
+        <div class="salah-icon">🌇</div>
+        <div>
+          <div class="salah-name-ur">مغرب</div>
+          <div class="salah-name-en">Maghrib</div>
+        </div>
+      </div>
+      <div class="status-btns">
+        <button class="status-btn" onclick="setSalahStatus('maghrib', 'offered')">ادا کی ✓</button>
+        <button class="status-btn" onclick="setSalahStatus('maghrib', 'missed')">قضاء ✕</button>
+      </div>
+    </div>
+
+    <!-- Isha -->
+    <div class="salah-card" data-salah="isha">
+      <div class="salah-info">
+        <div class="salah-icon">🌙</div>
+        <div>
+          <div class="salah-name-ur">عشاء</div>
+          <div class="salah-name-en">Isha</div>
+        </div>
+      </div>
+      <div class="status-btns">
+        <button class="status-btn" onclick="setSalahStatus('isha', 'offered')">ادا کی ✓</button>
+        <button class="status-btn" onclick="setSalahStatus('isha', 'missed')">قضاء ✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+    let statusData = JSON.parse(localStorage.getItem('salah_status') || '{}');
+
+    function renderStatus() {
+      let offeredCount = 0;
+
+      prayers.forEach(p => {
+        const card = document.querySelector(`.salah-card[data-salah="${p}"]`);
+        const btns = card.querySelectorAll('.status-btn');
+        btns[0].classList.remove('offered');
+        btns[1].classList.remove('missed');
+
+        if (statusData[p] === 'offered') {
+          btns[0].classList.add('offered');
+          offeredCount++;
+        } else if (statusData[p] === 'missed') {
+          btns[1].classList.add('missed');
+        }
+      });
+
+      const percentage = (offeredCount / 5) * 100;
+      document.getElementById('progressBar').style.width = percentage + '%';
+      document.getElementById('progressText').innerText = `${offeredCount} / 5 ادا شدہ`;
+    }
+
+    function setSalahStatus(prayer, status) {
+      if (statusData[prayer] === status) {
+        delete statusData[prayer];
+      } else {
+        statusData[prayer] = status;
+      }
+      localStorage.setItem('salah_status', JSON.stringify(statusData));
+      renderStatus();
+    }
+
+    renderStatus();
+  </script>
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

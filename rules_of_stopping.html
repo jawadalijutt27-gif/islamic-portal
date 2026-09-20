@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رموز اوقاف - Rules of Stopping</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f7fafc;
+      padding: 16px 16px 85px 16px;
+      color: #2d3748;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #1a4fba;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .page-title {
+      font-size: 18px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+    .intro-box {
+      background: #ebf8ff;
+      border-right: 4px solid #3182ce;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2b6cb0;
+      text-align: right;
+      direction: rtl;
+      margin-bottom: 18px;
+    }
+    .rule-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      direction: rtl;
+      text-align: right;
+    }
+    .symbol-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #f0f4ff;
+      border: 2px solid #1a4fba;
+      color: #1a4fba;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: bold;
+      font-family: 'Amiri', 'Traditional Arabic', serif;
+      flex-shrink: 0;
+      margin-left: 14px;
+    }
+    .rule-content {
+      flex: 1;
+    }
+    .rule-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a202c;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .tag-stop { background: #fed7d7; color: #9b2c2c; }
+    .tag-better { background: #feebc8; color: #9c4221; }
+    .tag-optional { background: #c6f6d5; color: #22543d; }
+    .tag-nostop { background: #e2e8f0; color: #4a5568; }
+
+    .rule-desc {
+      font-size: 13px;
+      color: #4a5568;
+      line-height: 1.5;
+    }
+  </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="/more" class="back-btn">← Back to Menu</a>
+    <div class="page-title">رموز اوقاف (Rules of Stopping)</div>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <div class="intro-box">
+    قرآن مجید کی تلاوت کے دوران کہاں رکنا چاہیے اور کہاں ملا کر پڑھنا چاہیے، اس کے بنیادی اصول اور علامات درج ذیل ہیں:
+  </div>
+
+  <!-- م (Waqf Lazim) -->
+  <div class="rule-card">
+    <div class="symbol-circle">مـ</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        وقفِ لازم
+        <span class="tag tag-stop">ضروری وقف</span>
+      </div>
+      <div class="rule-desc">یہاں ٹھہرنا لازمی ہے، نہ ٹھہرنے سے کلام کے معنی فاسد یا تبدیل ہونے کا سخت اندیشہ ہوتا ہے۔</div>
+    </div>
+  </div>
+
+  <!-- ط (Waqf Mutlaq) -->
+  <div class="rule-card">
+    <div class="symbol-circle">ط</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        وقفِ مطلق
+        <span class="tag tag-better">ٹھہرنا بہتر</span>
+      </div>
+      <div class="rule-desc">یہاں بات مکمل ہو جاتی ہے، اس لیے یہاں سانس توڑ کر رکنا سب سے بہتر ہے۔</div>
+    </div>
+  </div>
+
+  <!-- ج (Waqf Jaiz) -->
+  <div class="rule-card">
+    <div class="symbol-circle">ج</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        وقفِ جائز
+        <span class="tag tag-optional">اختیاری</span>
+      </div>
+      <div class="rule-desc">یہاں ٹھہرنا اور ملا کر پڑھنا دونوں جائز ہیں، البتہ ٹھہر جانا زیادہ مناسب ہے۔</div>
+    </div>
+  </div>
+
+  <!-- ز (Waqf Mujawwaz) -->
+  <div class="rule-card">
+    <div class="symbol-circle">ز</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        وقفِ مجوز
+        <span class="tag tag-optional">ملا کر پڑھنا بہتر</span>
+      </div>
+      <div class="rule-desc">یہاں ٹھہرنے کی گنجائش ہے، لیکن نہ ٹھہرنا اور ملا کر آگے پڑھنا زیادہ بہتر ہے۔</div>
+    </div>
+  </div>
+
+  <!-- ص (Waqf Murakh-khas) -->
+  <div class="rule-card">
+    <div class="symbol-circle">ص</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        وقفِ مرخص
+        <span class="tag tag-optional">رخصت ہے</span>
+      </div>
+      <div class="rule-desc">اگر لمبی آیت کی وجہ سے سانس ٹوٹ جائے تو یہاں رکنے کی رخصت ہے، ورنہ ملا کر پڑھنا چاہیے۔</div>
+    </div>
+  </div>
+
+  <!-- قف (Qif) -->
+  <div class="rule-card">
+    <div class="symbol-circle">قف</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        قف (وقف کا امر)
+        <span class="tag tag-better">ٹھہر جائیں</span>
+      </div>
+      <div class="rule-desc">اس کا مطلب ہے "ٹھہرو"، یعنی یہاں تلاوت کرتے ہوئے رکنا بہتر ہے۔</div>
+    </div>
+  </div>
+
+  <!-- لا (Laa) -->
+  <div class="rule-card">
+    <div class="symbol-circle">لا</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        لا تقف
+        <span class="tag tag-nostop">نہ ٹھہریں</span>
+      </div>
+      <div class="rule-desc">یہاں درمیانِ آیت میں نہ ٹھہریں بلکہ ملا کر پڑھیں۔ اگر آیت کے اختتام پر ہو تو رکنا جائز ہے۔</div>
+    </div>
+  </div>
+
+  <!-- سکتہ (Saktah) -->
+  <div class="rule-card">
+    <div class="symbol-circle">سکتہ</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        سکتہ
+        <span class="tag tag-stop">تھوڑا رکیں</span>
+      </div>
+      <div class="rule-desc">بغیر سانس توڑے تھوڑی دیر کے لیے آواز کو روکنا اور پھر تلاوت جاری رکھنا۔</div>
+    </div>
+  </div>
+
+  <!-- وقفہ (Waqfah) -->
+  <div class="rule-card">
+    <div class="symbol-circle">وقفہ</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        وقفہ
+        <span class="tag tag-stop">طویل سکتہ</span>
+      </div>
+      <div class="rule-desc">سکتہ کی طرح آواز کو روکنا مگر سکتہ سے قدرے زیادہ وقت کے لیے، بغیر سانس توڑے رکنا۔</div>
+    </div>
+  </div>
+
+  <!-- معانقہ (Muanaqah) -->
+  <div class="rule-card">
+    <div class="symbol-circle">∴ ∴</div>
+    <div class="rule-content">
+      <div class="rule-title">
+        معانقہ / مراقبہ
+        <span class="tag tag-better">ایک جگہ وقف</span>
+      </div>
+      <div class="rule-desc">تین تین نقطوں کے دو جوڑے ہوتے ہیں۔ دونوں میں سے کسی ایک جگہ وقف کریں، دونوں جگہ اکٹھا نہ رکیں۔</div>
+    </div>
+  </div>
+
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+    </script>
+
+</body>
+</html>

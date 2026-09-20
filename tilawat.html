@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تلاوت قرآن مجید - Tilawat Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0 0 80px 0;
+            background-color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            color: #1e293b;
+        }
+        .header-bar {
+            background: #ffffff;
+            padding: 14px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            direction: ltr;
+        }
+        .back-btn {
+            text-decoration: none;
+            color: #0d9488;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .controls-card {
+            background: #ffffff;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            text-align: center;
+            direction: ltr;
+        }
+        .selectors-grid {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        select {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            font-size: 14px;
+            outline: none;
+            background: #ffffff;
+            color: #334155;
+            min-width: 220px;
+            font-family: inherit;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+            outline: none;
+            border-radius: 30px;
+            margin-top: 5px;
+        }
+        .quran-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 24px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            text-align: justify;
+            text-align-last: center;
+            line-height: 2.8;
+            font-family: 'Amiri Quran', serif;
+            font-size: 26px;
+            direction: rtl;
+        }
+        .bismillah {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #0f766e;
+        }
+        .ayah-num {
+            display: inline-block;
+            color: #0d9488;
+            margin: 0 8px;
+            font-size: 20px;
+        }
+        .loading-text {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            color: #64748b;
+        }
+        .header-bar {
+        background: linear-gradient(135deg, #064e3b, #047857) !important;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        padding: 12px 16px;
+        color: #ffffff !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .header-bar h3, .header-bar span, .header-bar a {
+        color: #ffffff !important;
+    }
+    .controls-card {
+        position: sticky;
+        top: 55px;
+        z-index: 999;
+        background: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+        margin: 10px auto;
+        max-width: 650px;
+    }
+    </style>
+
+    <!-- Global Eye Care Mode CSS (Safe Layout) -->
+    <style id="eyecare-style">
+        body.eyecare-mode {
+            background-color: #f6eedb !important;
+            color: #2d241e !important;
+        }
+        body.eyecare-mode .card,
+        body.eyecare-mode .ayat-card,
+        body.eyecare-mode .hadith-card,
+        body.eyecare-mode .ibadaat-card,
+        body.eyecare-mode .prayer-capsule,
+        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .bottom-nav {
+            background-color: #ede2c8 !important;
+            border-color: #d8c8a7 !important;
+        }
+        body.eyecare-mode .top-header {
+            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="/" class="back-btn">⬅ Home</a>
+        <h3 style="margin: 0; font-size: 17px; color: #0f172a;">تلاوت قرآن (Full Surah Audio)</h3>
+        <span style="font-size: 13px; color: #64748b;">Audio Mode</span>
+    </div>
+
+    <div class="controls-card">
+        <div class="selectors-grid">
+            <select id="surahSelect" onchange="updatePlayer()">
+                <!-- JS se populate hoga -->
+            </select>
+            <button type="button" 
+        id="favSurahBtn" 
+        onclick="toggleTilawatFav()" 
+        style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 22px; cursor: pointer; padding: 6px 12px; margin-right: 6px;">
+    🤍
+</button>
+
+            <select id="reciterSelect" onchange="updatePlayer()">
+                {% for key, rec in reciters.items() %}
+                    <option value="{{ key }}" {% if key == current_reciter %}selected{% endif %}>
+                        🎙️ {{ rec.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <audio id="fullAudioPlayer" controls controlsList="nodownload">
+            <source id="audioSource" src="{{ audio_url }}" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+    </div>
+
+    <div class="quran-container">
+        <div class="bismillah" id="bismillahBox">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
+        <div id="quranText" class="loading-text">Tilawat text load ho raha hai...</div>
+    </div>
+
+    <script>
+        function toggleTilawatFav() {
+    const sel = document.getElementById("surahSelect");
+    const sNum = parseInt(sel ? sel.value : 1);
+    const sName = (typeof surahNames !== 'undefined' && surahNames[sNum - 1]) ? surahNames[sNum - 1] : ("Surah " + sNum);
+
+    let favs = [];
+    try {
+        favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
+    } catch(e) { favs = []; }
+
+    let idx = favs.findIndex(item => item.number === sNum);
+    const btn = document.getElementById('favSurahBtn');
+
+    if (idx > -1) {
+        favs.splice(idx, 1);
+        if (btn) btn.innerText = '🤍';
+    } else {
+        favs.push({ number: sNum, name: sName });
+        if (btn) btn.innerText = '❤️';
+    }
+
+    localStorage.setItem('fav_surahs', JSON.stringify(favs));
+}
+
+function checkCurrentFavStatus() {
+    const sel = document.getElementById("surahSelect");
+    const sNum = parseInt(sel ? sel.value : 1);
+    let favs = [];
+    try {
+        favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
+    } catch(e) { favs = []; }
+
+    const isFav = favs.some(item => item.number === sNum);
+    const btn = document.getElementById('favSurahBtn');
+    if (btn) {
+        btn.innerText = isFav ? '❤️' : '🤍';
+    }
+}
+
+setTimeout(() => {
+    checkCurrentFavStatus();
+    const sel = document.getElementById("surahSelect");
+    if (sel) {
+        sel.addEventListener('change', checkCurrentFavStatus);
+    }
+}, 300);
+        const surahNames = [
+            "Al-Faatiha", "Al-Baqara", "Aal-i-Imraan", "An-Nisaa", "Al-Maaida", "Al-An'aam", "Al-A'raaf", "Al-Anfaal",
+            "At-Tawba", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Israa", "Al-Kahf",
+            "Maryam", "Taa-Haa", "Al-Anbiyaa", "Al-Hajj", "Al-Mu'minoon", "An-Noor", "Al-Furqaan", "Ash-Shu'araa",
+            "An-Naml", "Al-Qasas", "Al-Ankaboot", "Ar-Room", "Luqman", "As-Sajda", "Al-Ahzaab", "Saba", "Faatir",
+            "Yaseen", "As-Saaffaat", "Saad", "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shoora", "Az-Zukhruf", "Ad-Dukhaan",
+            "Al-Jaathiya", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujuraat", "Qaaf", "Adh-Dhaariyaat", "At-Toor",
+            "An-Najm", "Al-Qamar", "Ar-Rahmaan", "Al-Waaqia", "Al-Hadeed", "Al-Mujaadila", "Al-Hashr", "Al-Mumtahana",
+            "As-Saff", "Al-Jumu'a", "Al-Munaafiqoon", "At-Taghaabun", "At-Talaaq", "At-Tahreem", "Al-Mulk", "Al-Qalam",
+            "Al-Haaqqa", "Al-Ma'aarij", "Nooh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyaama", "Al-Insaan",
+            "Al-Mursalaat", "An-Naba", "An-Naazi'aat", "Abasa", "At-Takweer", "Al-Infitaar", "Al-Mutaffifeen", "Al-Inshiqaaq",
+            "Al-Burooj", "At-Taariq", "Al-A'laa", "Al-Ghaashiya", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Lail",
+            "Ad-Duhaa", "Ash-Sharh", "At-Teen", "Al-Alaq", "Al-Qadr", "Al-Bayyina", "Az-Zalzala", "Al-Aadiyaat",
+            "Al-Qaari'a", "At-Takaathur", "Al-Asr", "Al-Humaza", "Al-Feel", "Quraish", "Al-Maa'oon", "Al-Kawthar",
+            "Al-Kaafiroon", "An-Nasr", "Al-Masad", "Al-Ikhlaas", "Al-Falaq", "An-Naas"
+        ];
+
+        const currentSurah = parseInt("{{ surah_id | default(1) }}");
+        const select = document.getElementById("surahSelect");
+
+        surahNames.forEach((name, idx) => {
+            const opt = document.createElement("option");
+            opt.value = idx + 1;
+            opt.innerText = `${idx + 1}. Surah ${name}`;
+            if (idx + 1 === currentSurah) opt.selected = true;
+            select.appendChild(opt);
+        });
+
+        // Surah At-Tawbah (9) ke liye Bismillah hide karein
+        if (currentSurah === 9) {
+            document.getElementById("bismillahBox").style.display = "none";
+        }
+
+        function updatePlayer() {
+            const surah = document.getElementById("surahSelect").value;
+            const reciter = document.getElementById("reciterSelect").value;
+            window.location.href = `/tilawat/${surah}?reciter=${reciter}`;
+        }
+
+        // Arabic text load karein
+        fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-uthmani`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.data && res.data.ayahs) {
+                    let fullText = "";
+                    res.data.ayahs.forEach(ayah => {
+                        let txt = ayah.text;
+                        if (currentSurah !== 1 && ayah.numberInSurah === 1) {
+                            txt = txt.replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ", "").trim();
+                        }
+                        fullText += `${txt} <span class="ayah-num">۝${ayah.numberInSurah}</span> `;
+                    });
+                    const container = document.getElementById("quranText");
+                    container.className = "";
+                    container.innerHTML = fullText;
+                }
+            })
+            .catch(() => {
+                document.getElementById("quranText").innerText = "Arabic text load karne mein masla hua.";
+            });
+
+        // Ek Surah complete hone par automatic next Surah play karein
+        const player = document.getElementById("fullAudioPlayer");
+        player.onended = function() {
+            const reciter = document.getElementById("reciterSelect").value;
+            if (currentSurah < 114) {
+                window.location.href = `/tilawat/${currentSurah + 1}?reciter=${reciter}`;
+            }
+        };
+    </script>
+
+    <!-- Global Eye Care Preference Loader -->
+    <script>
+        (function() {
+            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+                document.body.classList.add('eyecare-mode');
+            }
+        })();
+       function toggleTilawatFav() {
+        const sel = document.getElementById("surahSelect");
+        const num = parseInt(sel ? sel.value : 1);
+        const name = (typeof surahNames !== 'undefined' && surahNames[num - 1]) ? surahNames[num - 1] : ("Surah " + num);
+
+        let favs = [];
+        try {
+            favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
+        } catch(e) { favs = []; }
+
+        let index = favs.findIndex(item => item.number === num);
+        const btn = document.getElementById('favSurahBtn');
+
+        if (index > -1) {
+            favs.splice(index, 1);
+            if (btn) btn.innerText = '🤍';
+        } else {
+            favs.push({ number: num, name: name });
+            if (btn) btn.innerText = '❤️';
+        }
+
+        localStorage.setItem('fav_surahs', JSON.stringify(favs));
+    }
+
+document.addEventListener('DOMContentLoaded', () => {
+    let favs = [];
+    try {
+        favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
+    } catch(e) { favs = []; }
+
+    let currentNum = parseInt(document.getElementById("surahSelect") ? document.getElementById("surahSelect").value : 1);
+    let isFav = favs.some(item => item.number === currentNum);
+    const btn = document.getElementById('favSurahBtn');
+    if (btn && isFav) {
+        btn.innerText = '❤️';
+    }
+});
+    </script>
+
+</body>
+</html>

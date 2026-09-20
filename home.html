@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Islamic App - Home</title>
-<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style> 
     * {
       box-sizing: border-box;
       margin: 0;
@@ -12,88 +17,87 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     body {
-      background-color: #f6f7fb;
-      padding-bottom: 80px;
-      color: #2d3748;
+      background-color: #f8fafc;
+      padding-bottom: 95px;
+      color: #1e293b;
+      overflow-x: hidden;
     }
 
-    /* Top Purple Header */
-   .top-header {
-    background: linear-gradient(180deg, #065f46 0%, #047857 100%);
-    color: #ffffff;
-    padding: 20px 16px 42px 16px;
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
-    text-align: center;
-    position: relative;
-}
-    .header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .menu-icon {
-      font-size: 22px;
-      cursor: pointer;
-      color: #2d3748;
-    }
-    .date-info {
+    /* Fixed Top Sticky Header */
+    .top-header {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%) !important;
+      color: #ffffff !important;
+      padding: 16px 16px 20px 16px;
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 4px 15px rgba(6, 78, 59, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       text-align: center;
     }
-    .hijri-date {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1a202c;
+    .header-content {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 3px;
+    }
+    .header-mosque-icon {
+      font-size: 38px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+      margin-bottom: 2px;
+    }
+    .hijri-date {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.3px;
     }
     .greg-date {
       font-size: 12px;
-      color: #4a5568;
-      margin-top: 2px;
-    }
-    .pro-btn {
-      background: #ffffff;
-      color: #b7791f;
-      border: 1px solid #ecc94b;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
+      color: #d1fae5;
+      font-weight: 500;
     }
 
-    /* Prayer Capsule */
-   .prayer-capsule {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 18px;
-    padding: 12px 18px;
-    margin: -22px 16px 16px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    position: relative;
-    z-index: 5;
-}
+    /* App Container */
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 14px;
+    }
+
+    /* Centered Prayer Capsule */
+    .prayer-capsule {
+      background: #ffffff;
+      border: 1.5px solid #d1fae5;
+      border-radius: 18px;
+      padding: 12px 18px;
+      margin: 14px auto;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     .capsule-left {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .mosque-icon {
-      font-size: 32px;
+    .mosque-mini-icon {
+      font-size: 24px;
+      background: #ecfdf5;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .capsule-status-label {
-      font-size: 11px;
-      color: #718096;
+      font-size: 10px;
+      color: #64748b;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -101,10 +105,8 @@
     .capsule-status-route {
       font-size: 14px;
       font-weight: 800;
-      color: #2d3748;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: #064e3b;
+      margin-top: 1px;
     }
     .capsule-right {
       text-align: right;
@@ -112,57 +114,18 @@
     .next-time {
       font-size: 16px;
       font-weight: 800;
-      color: #2b6cb0;
+      color: #047857;
     }
     .next-name {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 700;
-      color: #4a5568;
+      color: #64748b;
       text-transform: uppercase;
-    }
-
-    /* Quick Stories / Feature Carousel */
-    .feature-carousel {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-    .feature-carousel::-webkit-scrollbar { display: none; }
-    .story-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: #2d3748;
-      flex-shrink: 0;
-    }
-    .story-bubble {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
-      background: #ffffff;
-      border: 2px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.04);
-      margin-bottom: 6px;
-      transition: transform 0.15s ease;
-    }
-    .story-bubble:active { transform: scale(0.95); }
-    .story-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #4a5568;
     }
 
     /* Search Bar */
     .search-wrapper {
-      padding: 0 16px;
-      margin-top: -18px;
+      margin: 10px auto 16px auto;
       display: flex;
       gap: 10px;
       align-items: center;
@@ -170,329 +133,362 @@
     .search-bar {
       flex: 1;
       background: #ffffff;
-      border-radius: 25px;
-      padding: 12px 18px;
+      border-radius: 16px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      border: 1px solid #edf2f7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      border: 1.5px solid #e2e8f0;
     }
     .search-bar input {
       border: none;
       outline: none;
       width: 100%;
       font-size: 13px;
-      color: #2d3748;
+      color: #1e293b;
+      background: transparent;
     }
     .fav-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #edf2f7;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1.5px solid #fed7aa;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
       font-size: 18px;
-      cursor: pointer;
       text-decoration: none;
-      color: #e53e3e;
     }
 
-    /* Icon Strip Bar */
-    .icon-strip {
-      display: flex;
-      justify-content: space-around;
-      padding: 18px 16px 12px;
-      border-bottom: 1px solid #edf2f7;
+    /* Daily Routine Card */
+    .daily-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px 14px;
       margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.05);
+      border: 1.5px solid #d1fae5;
+      direction: rtl;
+      text-align: right;
     }
-    .strip-icon {
+    .card-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #f1f5f9;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .badge-pill {
+      font-size: 11px;
+      background: #ecfdf5;
+      color: #047857;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid #a7f3d0;
+    }
+    .sub-section-box {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .sub-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #064e3b;
+      margin-bottom: 8px;
+    }
+    .arabic-matn {
+      font-family: 'Amiri Quran', serif;
       font-size: 20px;
-      text-decoration: none;
-      color: #718096;
-      transition: color 0.15s;
+      line-height: 2.2;
+      color: #064e3b;
+      font-weight: 700;
+      margin: 6px 0;
+      text-align: right;
     }
-    .strip-icon:hover { color: #1a4fba; }
+    .urdu-matn {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      font-size: 13px;
+      color: #334155;
+      line-height: 2;
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 8px;
+      margin-top: 8px;
+      text-align: right;
+    }
+    .fazeelat-box {
+      background: #fffbeb;
+      border-right: 3px solid #f59e0b;
+      padding: 10px 12px;
+      border-radius: 4px 10px 10px 4px;
+      font-size: 12px;
+      color: #92400e;
+      line-height: 1.6;
+    }
 
     /* Ayat of the Moment Card */
-    .content-area {
-      padding: 0 16px;
-    }
     .ayat-card {
       background: #ffffff;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-      border: 1px solid #edf2f7;
+      border: 1.5px solid #d1fae5;
+      border-radius: 18px;
+      padding: 16px 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.05);
     }
     .ayat-card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 14px;
+      align-items: center;
+      margin-bottom: 10px;
+      direction: ltr;
     }
     .ayat-card-title {
-      font-size: 16px;
+      color: #064e3b;
+      font-size: 15px;
       font-weight: 800;
-      color: #1a202c;
     }
     .ayat-card-sub {
-      font-size: 12px;
-      color: #a0aec0;
-      margin-top: 2px;
-    }
-    .ayat-card-ref {
-      font-size: 13px;
-      color: #718096;
+      font-size: 11px;
+      color: #64748b;
       font-weight: 600;
+      margin-top: 2px;
     }
     .ayat-actions {
       display: flex;
-      gap: 12px;
-      font-size: 18px;
-      color: #718096;
+      gap: 8px;
+    }
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #ecfdf5;
+      color: #047857;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-    }
-    .arabic-box {
-      font-family: 'Amiri', 'Traditional Arabic', serif;
-      font-size: 22px;
-      line-height: 2.1;
-      text-align: right;
-      direction: rtl;
-      color: #1a202c;
-      margin: 16px 0;
-      font-weight: 600;
-    }
-    .urdu-box {
       font-size: 14px;
-      line-height: 1.8;
-      text-align: right;
-      direction: rtl;
-      color: #4a5568;
-      border-top: 1px dashed #e2e8f0;
-      padding-top: 14px;
+      border: 1px solid #a7f3d0;
+      transition: transform 0.15s ease;
+    }
+    .icon-btn:active {
+      transform: scale(0.92);
     }
 
-    /* Fixed Bottom Navigation Bar */
+    /* Premium Bottom Navigation */
     .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #ffffff;
-      border-top: 1px solid #e2e8f0;
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
-      z-index: 100;
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 64px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      border-top: 1.5px solid #e2e8f0 !important;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.06) !important;
+      z-index: 999999 !important;
+      direction: ltr !important;
     }
     .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: #718096;
-      font-size: 11px;
-      font-weight: 600;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      color: #64748b !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      flex: 1 !important;
+      cursor: pointer !important;
+      gap: 3px !important;
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+      stroke: #64748b;
+      fill: none;
+      transition: all 0.2s ease;
     }
     .nav-item.active {
-      color: #1a4fba;
+      color: #047857 !important;
+      font-weight: 800 !important;
     }
-    .nav-icon {
-      font-size: 20px;
-      margin-bottom: 2px;
+    .nav-item.active svg {
+      stroke: #047857 !important;
+      transform: scale(1.1);
     }
-    /* Top Date Bar Styling */
-.top-header {
-    background: linear-gradient(135deg, #064e3b, #047857) !important;
-    color: #ffffff !important;
-    padding: 14px 16px !important;
-    border-radius: 0 0 16px 16px !important;
-    box-shadow: 0 4px 12px rgba(6, 78, 59, 0.15) !important;
-}
-
-.top-header a, .hijri-date, .greg-date {
-    color: #ffffff !important;
-}
-
-.greg-date {
-    opacity: 0.85 !important;
-}
-
-/* Prayer Time Capsule */
-.prayer-capsule {
-    background: #ffffff !important;
-    border: 1.5px solid #d1fae5 !important;
-    border-radius: 14px !important;
-    padding: 12px 16px !important;
-    margin: 14px auto !important;
-    max-width: 520px !important;
-    box-shadow: 0 2px 8px rgba(6, 78, 59, 0.05) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-}
-
-.capsule-status-route {
-    color: #064e3b !important;
-    font-weight: 700 !important;
-}
-
-/* Ayat of the Moment Card */
-.ayat-card {
-    background: #ffffff !important;
-    border: 1.5px solid #d1fae5 !important;
-    border-radius: 18px !important;
-    padding: 20px !important;
-    margin: 16px auto !important;
-    max-width: 520px !important;
-    box-shadow: 0 4px 14px rgba(6, 78, 59, 0.06) !important;
-}
-
-.ayat-card-title {
-    color: #064e3b !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-}
-
-/* Arabic Ayat Text */
-.ayat-card .arabic, .ayat-card [dir="rtl"] {
-    color: #064e3b !important;
-    font-size: 22px !important;
-    line-height: 1.8 !important;
-    margin: 14px 0 !important;
-    text-align: right !important;
-}
-
-/* Translation Text */
-.ayat-card .translation, .ayat-card p {
-    color: #374151 !important;
-    font-size: 14px !important;
-    line-height: 1.6 !important;
-}
-
-/* Favorite Active State (Red glow) */
-.fav-btn.active svg, .fav-btn.active {
-    color: #e11d48 !important;
-    fill: #e11d48 !important;
-    transform: scale(1.1);
-    transition: transform 0.2s ease;
-}
   </style>
 </head>
 <body>
-  <div class="top-header" style="position: relative; text-align: center; padding: 14px 16px 6px;">
-        <a href="/prayer-times" style="text-decoration: none; color: inherit; display: inline-flex; flex-direction: column; align-items: center; cursor: pointer;">
-            <div class="hijri-date" style="font-weight: 700; font-size: 16px;">📅 <span id="hijriDateText">1 Rabi' al-thani, 1448</span></div>
-            <div class="greg-date" id="gregDateText" style="font-size: 12px; color: #64748b;">Sat, 12-09-26</div>
-        </a>
+
+  <!-- Top Sticky Header -->
+  <header class="top-header">
+    <div class="header-content">
+      <div class="header-mosque-icon">🕌</div>
+      <div class="hijri-date" id="hijriDateText">--</div>
+      <div class="greg-date" id="gregDateText">--</div>
     </div>
-    <!-- Prayer Capsule -->
-    <div class="prayer-capsule">
+  </header>
+
+  <!-- Scrollable App Content -->
+  <main class="app-container">
+
+    <!-- Centered Prayer Window Capsule -->
+    <section class="prayer-capsule">
       <div class="capsule-left">
-        <div class="mosque-icon">🕌</div>
+        <div class="mosque-mini-icon">🕌</div>
         <div>
-          <div class="capsule-status-label">Now</div>
-          <div class="capsule-status-route" id="prayerTransition">SUNRISE → DHUHR</div>
+          <div class="capsule-status-label">Prayer Window</div>
+          <div class="capsule-status-route" id="prayerTransition">FAJR ➔ SUNRISE</div>
         </div>
       </div>
       <div class="capsule-right">
-        <div class="next-time" id="nextPrayerTime">12:06 pm</div>
-        <div class="next-name" id="nextPrayerName">DHUHR</div>
+        <div class="next-time" id="nextPrayerTime">--:--</div>
+        <div class="next-name" id="nextPrayerName">SUNRISE</div>
       </div>
-</div>
+    </section>
 
-  <!-- Search Bar with Voice and Favs -->
-  <div class="search-wrapper">
-    <div class="search-bar">
-      <span>🔍</span>
-      <input type="text" placeholder="Search word or ayat in Quran...">
-      <span>🎙️</span>
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <span>🔍</span>
+        <input type="text" placeholder="Search word or ayat in Quran...">
+        <span>🎙️</span>
+      </div>
+      <a href="/favorites" class="fav-btn">❤️</a>
     </div>
-   <a href="/favorites" class="fav-btn" style="text-decoration: none; font-size: 22px;">❤️</a>
-  </div>
 
-  <!-- Main Content: Ayat of the Moment -->
-  <div class="content-area">
-<!-- Daily Zikr & Surah Card -->
-    <div class="daily-zikr-card" style="background: #ffffff; border-radius: 18px; padding: 16px; margin-bottom: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; direction: rtl; text-align: right;">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 12px;">
-            <span id="dailyDayName" style="font-size: 16px; font-weight: 700; color: #047857;">منگل (Tuesday)</span>
-            <span style="font-size: 12px; background: #ecfdf5; color: #047857; padding: 4px 10px; border-radius: 12px; font-weight: 600;">یومیہ معمول</span>
-        </div>
+    <!-- Daily Routine Card (Complete Recitation & Wazifa) -->
+    <section class="daily-card">
+      <div class="card-top-bar">
+        <span id="dailyDayName" style="font-size: 15px; font-weight: 800; color: #064e3b;">📅 آج کا یومیہ معمول</span>
+        <span class="badge-pill">Daily Routine</span>
+      </div>
 
-        <div style="background: #f8fafc; border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 13px; color: #64748b;">مخصوص سورت:</span>
-            <span id="dailySurah" style="font-size: 14px; font-weight: 700; color: #1e293b;">سورۃ یٰس اور سورۃ الملک</span>
+      <!-- Complete Daily Recitation Box -->
+      <div class="sub-section-box">
+        <div class="sub-section-header">
+          <span>📖 آج کی مخصوص تلاوت (صبح و شام):</span>
+          <span id="dailySurahTitle" style="color: #047857;">--</span>
         </div>
+        <div class="arabic-matn" id="dailySurahArabic">--</div>
+        <div class="urdu-matn" id="dailySurahUrdu">--</div>
+      </div>
 
-        <div style="background: #f8fafc; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 13px; color: #64748b;">آج کا ذکر:</span>
-            <span id="dailyZikr" style="font-size: 14px; font-weight: 700; color: #047857;">درود شریف (100 مرتبہ)</span>
+      <!-- Complete Daily Zikr / Tasbeeh Box -->
+      <div class="sub-section-box" style="background: #ecfdf5; border-color: #a7f3d0;">
+        <div class="sub-section-header" style="justify-content: center; margin-bottom: 2px;">
+          <span id="dailyZikrTitle" style="color: #064e3b;">📿 آج کا ذکر / تسبیح</span>
         </div>
+        <div class="arabic-matn" id="dailyZikrArabic" style="text-align: center;">--</div>
+        <div class="urdu-matn" id="dailyZikrUrdu" style="text-align: center; border-color: #a7f3d0;">--</div>
+      </div>
 
-        <div style="background: #fffbeb; border-right: 3px solid #f59e0b; padding: 8px 12px; border-radius: 4px 8px 8px 4px; font-size: 12px; color: #92400e; line-height: 1.5;">
-            <span id="dailyNote">فضیلت: درود پاک کی کثرت دل کو سکون اور فکروں کو دور کرتی ہے۔</span>
-        </div>
-    </div>
-</div>
-    <div class="ayat-card">
+      <!-- Daily Virtues Note -->
+      <div class="fazeelat-box">
+        <span id="dailyNote">--</span>
+      </div>
+    </section>
+
+    <!-- Ayat of the Moment Card -->
+    <section class="ayat-card">
       <div class="ayat-card-header">
         <div>
           <div class="ayat-card-title">Ayat of the Moment</div>
-         <div class="ayat-card-sub" id="ayatSub">Surat-un-Naml [27:88]</div>
-</div>
-<div class="ayat-actions">
-    <span onclick="fetchRandomAyat()" style="cursor: pointer; font-size: 16px; margin-right: 8px;" title="Change Ayat">🔄</span>
-    <span onclick="shareAyat()" style="cursor: pointer;">🔗</span>
-</div>
-</div>
+          <div class="ayat-card-sub" id="ayatSub">Loading Ayat...</div>
+        </div>
+        <div class="ayat-actions">
+          <div class="icon-btn" onclick="fetchRandomAyat()" title="Change Ayat" id="refreshAyatBtn">🔄</div>
+          <div class="icon-btn" onclick="shareAyat()" title="Share Ayat">🔗</div>
+        </div>
+      </div>
 
-<div class="arabic-box" id="ayatArabic">
-    وَتَرَى الْجِبَالَ تَحْسَبُهَا جَامِدَةً وَهِيَ تَمُرُّ مَرَّ السَّحَابِ ۚ صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ ۚ إِنَّهُ خَبِيرٌ بِمَا تَفْعَلُونَ
-</div>
+      <div class="arabic-matn" id="ayatArabic">
+        --
+      </div>
 
-<div class="urdu-box" id="ayatUrdu">
-    اور تم پہاڑوں کو دیکھ کر سمجھتے ہو کہ وہ اپنی جگہ جمے ہوئے ہیں، حالانکہ وہ بادلوں کی طرح اڑتے پھریں گے۔ یہ اللہ کی کاریگری ہے جس نے ہر چیز کو مضبوط بنایا، بے شک وہ تمہارے سب کاموں سے باخبر ہے۔
-</div>
-    </div>
-  </div>
+      <div class="urdu-matn" id="ayatUrdu">
+        --
+      </div>
+    </section>
 
-  <!-- Fixed Bottom Navigation Bar -->
-  <div class="bottom-nav">
+  </main>
+
+  <!-- Polished High-Definition Bottom Navigation Bar -->
+  <nav class="bottom-nav">
     <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
-    <div class="nav-icon">📖</div>
-    <div>Quran</div>
-</a>
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Quran</span>
+    </a>
     <a href="/hadith" class="nav-item">
-      <div class="nav-icon">۞</div>
-      <div>Hadith</div>
+      <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      <span>Hadith</span>
     </a>
     <a href="/" class="nav-item active">
-      <div class="nav-icon">🏠</div>
-      <div>Home</div>
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"></path></svg>
+      <span>Home</span>
     </a>
     <a href="/ibadaat" class="nav-item">
-    <div class="nav-icon">🕌</div>
-    <div>Ibadaat</div>
-</a>
-    <a href="/more" class="nav-item">
-      <div class="nav-icon">⋮⋮⋮</div>
-      <div>More</div>
+      <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V14h3a3 3 0 0 1 3 3v4H4v-4a3 3 0 0 1 3-3h3V9.5A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path></svg>
+      <span>Ibadaat</span>
     </a>
+    <a href="/more" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+      <span>More</span>
+    </a>
+  </nav>
+
+  <!-- Quran Selection Modal -->
+  <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+    <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+      <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+      <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+          </div>
+        </a>
+
+        <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+          </div>
+        </a>
+      </div>
+
+      <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+        Close
+      </button>
+    </div>
   </div>
 
   <script>
     // Live Dates
     const today = new Date();
-    const options = { weekday: 'short', day: '2-digit', month: '2-digit', year: '2-digit' };
-    document.getElementById('gregDateText').innerText = today.toLocaleDateString('en-GB', options).replace(/\//g, '-');
+    const dateOpts = { weekday: 'short', day: '2-digit', month: '2-digit', year: '2-digit' };
+    document.getElementById('gregDateText').innerText = today.toLocaleDateString('en-GB', dateOpts).replace(/\//g, '-');
 
-    // Auto Prayer Timings Capsule API
+    // Auto Prayer Timings API
     async function loadCapsuleTimes(lat = 31.5204, lon = 74.3587) {
       try {
         const d = `${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`;
@@ -505,7 +501,7 @@
           updatePrayerCapsule(t);
         }
       } catch (e) {
-        console.log(e);
+        console.error("Prayer time error:", e);
       }
     }
 
@@ -515,230 +511,196 @@
       loadCapsuleTimes();
     }
 
-    function shareAyat() {
-      const text = "وَتَرَى الْجِبَالَ تَحْسَبُهَا جَامِدَةً وَهِيَ تَمُرُّ مَرَّ السَّحَابِ\n\nSurat-un-Naml [27:88]\n\nSent via Islamic App";
-      navigator.clipboard.writeText(text).then(() => alert("Ayat Copied to Clipboard!"));
-    }
     function updatePrayerCapsule(prayerData) {
-    // prayerData me namazo ke times hon: { Fajr: "04:30", Sunrise: "05:50", Dhuhr: "12:15", Asr: "15:45", Maghrib: "18:20", Isha: "19:45" }
-    const prayers = [
+      const prayers = [
         { name: "FAJR", time: prayerData.Fajr },
         { name: "SUNRISE", time: prayerData.Sunrise },
         { name: "DHUHR", time: prayerData.Dhuhr },
         { name: "ASR", time: prayerData.Asr },
         { name: "MAGHRIB", time: prayerData.Maghrib },
         { name: "ISHA", time: prayerData.Isha }
-    ];
+      ];
 
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
-    let currentPrayer = prayers[prayers.length - 1]; // default Isha
-    let nextPrayer = prayers[0]; // default next day Fajr
+      let currentPrayer = prayers[prayers.length - 1];
+      let nextPrayer = prayers[0];
 
-    for (let i = 0; i < prayers.length; i++) {
+      for (let i = 0; i < prayers.length; i++) {
         const [h, m] = prayers[i].time.split(':').map(Number);
         const prayerMinutes = h * 60 + m;
 
         if (currentMinutes < prayerMinutes) {
-            nextPrayer = prayers[i];
-            currentPrayer = (i === 0) ? prayers[prayers.length - 1] : prayers[i - 1];
-            break;
+          nextPrayer = prayers[i];
+          currentPrayer = (i === 0) ? prayers[prayers.length - 1] : prayers[i - 1];
+          break;
         }
-    }
+      }
 
-    // 1. Left side transition update: "CURRENT ➔ NEXT"
-    const transEl = document.getElementById("prayerTransition");
-    if (transEl) {
-        transEl.innerText = `${currentPrayer.name} ➔ ${nextPrayer.name}`;
-    }
+      const transEl = document.getElementById("prayerTransition");
+      if (transEl) transEl.innerText = `${currentPrayer.name} ➔ ${nextPrayer.name}`;
 
-    // 2. Right side next prayer name update
-    const nextNameEl = document.getElementById("nextPrayerName");
-    if (nextNameEl) {
-        nextNameEl.innerText = nextPrayer.name;
-    }
+      const nextNameEl = document.getElementById("nextPrayerName");
+      if (nextNameEl) nextNameEl.innerText = nextPrayer.name;
 
-    // 3. Right side next prayer time format (12-hour AM/PM)
-    const nextTimeEl = document.getElementById("nextPrayerTime");
-    if (nextTimeEl) {
+      const nextTimeEl = document.getElementById("nextPrayerTime");
+      if (nextTimeEl) {
         const [h, m] = nextPrayer.time.split(':').map(Number);
         const period = h >= 12 ? 'pm' : 'am';
         const hours12 = h % 12 || 12;
         const formattedMinutes = m < 10 ? '0' + m : m;
         nextTimeEl.innerText = `${hours12}:${formattedMinutes} ${period}`;
+      }
     }
-}
-async function fetchRandomAyat() {
-    const subEl = document.getElementById('ayatSub');
-    const arabicEl = document.getElementById('ayatArabic');
-    const urduEl = document.getElementById('ayatUrdu');
 
-    if (!arabicEl || !urduEl) return;
+    // 7 Days Full Daily Routine (Complete Surahs & Azkar with Urdu Meanings)
+    const dailySchedule = {
+      0: { // Sunday (Mukammal Ayat-ul-Kursi Complete + Ya Hayyu Ya Qayyum)
+        day: "اتوار (Sunday)",
+        surahTitle: "آیت الکرسی (مکمل تلاوت)",
+        surahArabic: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+        surahUrdu: "اللہ کے سوا کوئی معبود نہیں، وہ ہمیشہ زندہ اور سب کا نگہبان ہے۔ اسے نہ اونگھ آتی ہے نہ نیند۔ جو کچھ آسمانوں اور زمین میں ہے اسی کا ہے۔ کون ہے جو اس کی اجازت کے بغیر سفارش کر سکے؟ وہ سب کچھ جانتا ہے جو ان کے آگے اور پیچھے ہے۔ وہ اس کے علم میں سے کسی چیز کا احاطہ نہیں کر سکتے مگر جتنا وہ چاہے۔ اس کی کرسی تمام آسمانوں اور زمین پر چھائی ہوئی ہے، اور ان کی حفاظت اسے نہیں تھکاتی، وہ سب سے بلند اور عظمت والا ہے۔",
+        zikrTitle: "یَا حَیُّ یَا قَیُّومُ (100 مرتبہ صبح و شام)",
+        zikrArabic: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",
+        zikrUrdu: "اے زندہ اور قائم رہنے والے! میں تیری ہی رحمت کے ذریعے فریاد کرتا ہوں، میرے تمام معاملات سنوار دے اور مجھے ایک لمحے کے لیے بھی میرے نفس کے حوالے نہ فرما۔",
+        note: "💡 فضیلت: ہر نماز کے بعد اور سوتے وقت آیت الکرسی پڑھنے والا صبح تک شیطان اور ہر آفت سے محفوظ رہتا ہے۔"
+      },
+      1: { // Monday (Surah Al-Fatiha Mukammal + Durood Sharif)
+        day: "پیر (Monday)",
+        surahTitle: "سورۃ الفاتحہ (ام القرآن مکمل)",
+        surahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+        surahUrdu: "شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔ سب تعریفیں اللہ کے لیے ہیں جو تمام جہانوں کا پالنے والا ہے۔ نہایت مہربان بہت رحم کرنے والا ہے۔ جزا کے دن کا مالک ہے۔ ہم تیری ہی عبادت کرتے ہیں اور تجھ ہی سے مدد مانگتے ہیں۔ ہمیں سیدھے راستے کی ہدایت فرما، ان لوگوں کے راستے کی جن پر تو نے انعام فرمایا، نہ کہ ان کے جن پر غضب ہوا اور نہ گمراہوں کے۔",
+        zikrTitle: "دُرود شریف (100 مرتبہ)",
+        zikrArabic: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        zikrUrdu: "اے اللہ! محمد ﷺ اور ان کی آل پر رحمت نازل فرما جیسا کہ تو نے ابراہیم علیہ السلام اور ان کی آل پر رحمت فرمائی، بے شک تو قابل تعریف اور بزرگی والا ہے۔",
+        note: "💡 فضیلت: پیر کے دن نبی اکرم ﷺ کی ولادت ہوئی، اس دن کثرت سے درود پاک پڑھنا دعاؤں کی قبولیت کا سبب ہے۔"
+      },
+      2: { // Tuesday (Surah Al-Ikhlas Mukammal + Astaghfar)
+        day: "منگل (Tuesday)",
+        surahTitle: "سورۃ الاخلاص (مکمل)",
+        surahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+        surahUrdu: "کہہ دیجئے کہ وہ اللہ ایک ہے۔ اللہ بے نیاز ہے۔ نہ اس کی کوئی اولاد ہے اور نہ وہ کسی کی اولاد ہے۔ اور کوئی اس کے برابر نہیں ہے۔",
+        zikrTitle: "استغفار (100 مرتبہ)",
+        zikrArabic: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ",
+        zikrUrdu: "میں اللہ سے معافی مانگتا ہوں جس کے سوا کوئی معبود نہیں، وہ ہمیشہ زندہ اور قائم رہنے والا ہے اور میں اسی کی طرف رجوع کرتا ہوں۔",
+        note: "💡 فضیلت: 3 مرتبہ سورۃ الاخلاص پڑھنے سے مکمل ایک قرآن مجید پڑھنے کا ثواب حاصل ہوتا ہے۔"
+      },
+      3: { // Wednesday (Surah Al-Falaq Mukammal + 3rd Kalima)
+        day: "بدھ (Wednesday)",
+        surahTitle: "سورۃ الفلق (حفاظت و پناہ - مکمل)",
+        surahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+        surahUrdu: "کہہ دیجئے کہ میں صبح کے رب کی پناہ مانگتا ہوں۔ ہر اس چیز کے شر سے جو اس نے پیدا کی۔ اور اندھیری رات کے شر سے جب وہ چھا جائے۔ اور گرہوں میں پھونکنے والیوں کے شر سے۔ اور حسد کرنے والے کے شر سے جب وہ حسد کرے۔",
+        zikrTitle: "تیسرا کلمہ (100 مرتبہ)",
+        zikrArabic: "سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+        zikrUrdu: "اللہ پاک ہے اور تمام تعریفیں اللہ کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں اور اللہ سب سے بڑا ہے، اور گناہوں سے بچنے اور نیکی کرنے کی طاقت صرف اللہ کی مدد سے ہے۔",
+        note: "💡 فضیلت: صبح و شام معوذتین پڑھنے سے انسان جادو، نظر بد اور ہر قسم کے حسد سے محفوظ رہتا ہے۔"
+      },
+      4: { // Thursday (Surah An-Nas Mukammal + SubhanAllah wa Bihamdihi)
+        day: "جمعرات (Thursday)",
+        surahTitle: "سورۃ الناس (وسوسوں سے حفاظت - مکمل)",
+        surahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",
+        surahUrdu: "کہہ دیجئے کہ میں انسانوں کے رب کی پناہ مانگتا ہوں۔ انسانوں کے بادشاہ کی۔ انسانوں کے معبود برحق کی۔ بار بار وسوسہ ڈال کر چھپ جانے والے کے شر سے۔ جو لوگوں کے دلوں میں وسوسے ڈالتا ہے۔ خواہ وہ جنات میں سے ہو یا انسانوں میں سے۔",
+        zikrTitle: "سبحان اللہ و بحمدہ (100 مرتبہ)",
+        zikrArabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+        zikrUrdu: "اللہ اپنی خوبیوں سمیت پاک ہے، عظمت والا اللہ پاک ہے۔",
+        note: "💡 فضیلت: جمعرات کی شام شبِ جمعہ شروع ہو جاتی ہے، اس دوران درود شریف اور تسبیحات کا ثواب دوگنا ہوتا ہے۔"
+      },
+      5: { // Friday (Surah Al-Kahf Starting Ayahs + Durood-e-Ibrahimi)
+        day: "جمعۃ المبارک (Friday)",
+        surahTitle: "سورۃ الکہف (ابتدائی آیاتِ حفاظت)",
+        surahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ الَّذِي أَنزَلَ عَلَىٰ عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَل لَّهُ عِوَجًا ۜ ۝ قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ وَيُبَشِّرَ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا حَسَنًا",
+        surahUrdu: "تمام تعریفیں اللہ کے لیے ہیں جس نے اپنے بندے پر یہ کتاب نازل فرمائی اور اس میں کوئی کجی نہیں رکھی۔ ایک سیدھی کتاب تاکہ اپنی طرف سے سخت عذاب سے خبردار کرے اور ایمان والوں کو خوشخبری دے جو نیک اعمال کرتے ہیں کہ ان کے لیے بہترین اجر ہے۔",
+        zikrTitle: "دُرودِ ابراہیمی (300+ مرتبہ)",
+        zikrArabic: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        zikrUrdu: "اے اللہ! محمد ﷺ اور آلِ محمد ﷺ پر رحمت بھیج جیسے تو نے ابراہیم علیہ السلام اور ان کی آل پر رحمت فرمائی، بیشک تو تعریف کے لائق ہے۔",
+        note: "💡 فضیلت: جمعہ کے دن سورۃ الکہف پڑھنے والے کے لیے دونوں جمعوں کے درمیان نور روشن رہتا ہے اور دجال کے فتنے سے پناہ ملتی ہے۔"
+      },
+      6: { // Saturday (Surah Al-Kafirun Mukammal + Hawqala)
+        day: "ہفتہ (Saturday)",
+        surahTitle: "سورۃ الکافرون (مکمل)",
+        surahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ قُلْ يَا أَيُّهَا الْكَافِرُونَ ۝ لَا أَعْبُدُ مَا تَعْبُدُونَ ۝ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ ۝ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ لَكُمْ دِينُكُمْ وَلِيَ دِينِ",
+        surahUrdu: "کہہ دیجئے کہ اے کافرو! میں ان کی عبادت نہیں کرتا جن کی تم عبادت کرتے ہو۔ اور نہ تم اس کی عبادت کرنے والے ہو جس کی میں عبادت کرتا ہوں۔ اور نہ میں ان کی عبادت کرنے والا ہوں جن کی تم نے عبادت کی۔ اور نہ تم اس کی عبادت کرنے والے ہو جس کی میں عبادت کرتا ہوں۔ تمہارے لیے تمہارا دین ہے اور میرے لیے میرا دین۔",
+        zikrTitle: "لا حول ولا قوة إلا بالله (100 مرتبہ)",
+        zikrArabic: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+        zikrUrdu: "گناہوں سے بچنے کی طاقت اور نیکی کرنے کی قوت صرف بلند و برتر اللہ کی طرف سے ہے۔",
+        note: "💡 فضیلت: سورۃ الکافرون شرک سے مکمل براءت کا اعلان ہے اور چوتھائی قرآن مجید کے برابر ہے۔"
+      }
+    };
 
-    arabicEl.style.opacity = '0.5';
-    urduEl.style.opacity = '0.5';
+    document.addEventListener("DOMContentLoaded", () => {
+      const todayIndex = new Date().getDay();
+      const todayData = dailySchedule[todayIndex];
 
-    try {
+      if (todayData) {
+        document.getElementById("dailyDayName").innerText = "📅 " + todayData.day;
+        document.getElementById("dailySurahTitle").innerText = todayData.surahTitle;
+        document.getElementById("dailySurahArabic").innerText = todayData.surahArabic;
+        document.getElementById("dailySurahUrdu").innerText = todayData.surahUrdu;
+
+        document.getElementById("dailyZikrTitle").innerText = "📿 آج کا ذکر (" + todayData.zikrTitle + ")";
+        document.getElementById("dailyZikrArabic").innerText = todayData.zikrArabic;
+        document.getElementById("dailyZikrUrdu").innerText = todayData.zikrUrdu;
+
+        document.getElementById("dailyNote").innerText = todayData.note;
+      }
+
+      // Initial Ayat load
+      fetchRandomAyat();
+    });
+
+    // Ayat of the Moment API
+    async function fetchRandomAyat() {
+      const subEl = document.getElementById('ayatSub');
+      const arabicEl = document.getElementById('ayatArabic');
+      const urduEl = document.getElementById('ayatUrdu');
+      const refreshBtn = document.getElementById('refreshAyatBtn');
+
+      if (!arabicEl || !urduEl) return;
+      if (refreshBtn) refreshBtn.style.transform = "rotate(360deg)";
+      arabicEl.style.opacity = '0.35';
+      urduEl.style.opacity = '0.35';
+
+      try {
         const randomAyahNumber = Math.floor(Math.random() * 6236) + 1;
         const res = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyahNumber}/editions/quran-uthmani,ur.jalandhry`);
         const data = await res.json();
 
         if (data.code === 200 && data.data) {
-            const arabicData = data.data[0];
-            const urduData = data.data[1];
-
-            arabicEl.innerText = arabicData.text;
-            urduEl.innerText = urduData.text;
-            if (subEl) {
-                subEl.innerText = `${arabicData.surah.englishName} [${arabicData.surah.number}:${arabicData.numberInSurah}]`;
-            }
+          arabicEl.innerText = data.data[0].text;
+          urduEl.innerText = data.data[1].text;
+          if (subEl) {
+            subEl.innerText = `${data.data[0].surah.englishName} [${data.data[0].surah.number}:${data.data[0].numberInSurah}]`;
+          }
         }
-    } catch (err) {
+      } catch (err) {
         console.error("Ayat fetch error:", err);
-    } finally {
+      } finally {
         arabicEl.style.opacity = '1';
         urduEl.style.opacity = '1';
+        if (refreshBtn) refreshBtn.style.transform = "rotate(0deg)";
+      }
     }
-}
-function openQuranModal() {
-    const modal = document.getElementById('quranModal');
-    if (modal) modal.style.display = 'flex';
-}
 
-function closeQuranModal() {
-    const modal = document.getElementById('quranModal');
-    if (modal) modal.style.display = 'none';
-}
+    function shareAyat() {
+      const arabic = document.getElementById('ayatArabic').innerText;
+      const urdu = document.getElementById('ayatUrdu').innerText;
+      const sub = document.getElementById('ayatSub').innerText;
+      const text = `${arabic}\n\n${urdu}\n\n[${sub}]\n\n🔗 Shared via Islamic App`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert("Ayat Copied to Clipboard!"));
+      }
+    }
+
+    function openQuranModal() {
+      const modal = document.getElementById('quranModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeQuranModal() {
+      const modal = document.getElementById('quranModal');
+      if (modal) modal.style.display = 'none';
+    }
   </script>
- <!-- Quran Selection Popup Modal -->
-<div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 99999; align-items: center; justify-content: center; backdrop-filter: blur(3px);">
-    <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; border: 1.5px solid #d1fae5; box-shadow: 0 10px 25px rgba(6, 78, 59, 0.15);">
-        <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
-        <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <!-- Option 1: Translation -->
-            <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #ffffff; border: 1.5px solid #d1fae5; border-radius: 14px; box-shadow: 0 2px 6px rgba(6, 78, 59, 0.04);">
-                <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857; display: inline-flex; align-items: center; justify-content: center;">📖</span>
-                <div style="text-align: left;">
-                    <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
-                    <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
-                </div>
-            </a>
-
-<!-- Option 2: Tilawat Audio -->
-            <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #ffffff; border: 1.5px solid #d1fae5; border-radius: 14px; box-shadow: 0 2px 6px rgba(6, 78, 59, 0.04);">
-                <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857; display: inline-flex; align-items: center; justify-content: center;">🎧</span>
-                <div style="text-align: left;">
-                    <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
-                    <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
-                </div>
-            </a>
-        </div>
-<button onclick="closeQuranModal()" style="margin-top: 18px; background: #f3f4f6; color: #374151; border: none; padding: 10px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; width: 100%;">Close</button>
-    </div>
-</div>
-<script>
-   function applySavedTheme() {
-        const mode = localStorage.getItem('app_reading_mode');
-        const btn = document.getElementById('themeToggleBtn');
-        if (mode === 'eyecare') {
-            document.body.classList.add('eyecare-mode');
-            if (btn) btn.innerText = '🔆';
-        } else {
-            document.body.classList.remove('eyecare-mode');
-            if (btn) btn.innerText = '🌙';
-        }
-    }
-
-   function toggleFavorite() {
-        let isFav = localStorage.getItem('daily_ayat_fav') === 'true';
-        isFav = !isFav;
-        localStorage.setItem('daily_ayat_fav', isFav);
-        updateFavUI(isFav);
-    }
-
-    function updateFavUI(isFav) {
-        const btn = document.getElementById('favBtn');
-        if (btn) {
-            btn.style.color = isFav ? '#e11d48' : '#9ca3af';
-            btn.style.fill = isFav ? '#e11d48' : 'none';
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const isFav = localStorage.getItem('daily_ayat_fav') === 'true';
-        updateFavUI(isFav);
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-    const dailySchedule = {
-        0: { // Sunday (Itwar)
-            day: "اتوار (Sunday)",
-            surah: "سورۃ الملک (رات کو) اور آیت الکرسی",
-            zikr: "یَا حَیُّ یَا قَیُّومُ (100 مرتبہ)",
-            note: "ہر نماز کے بعد آیت الکرسی پڑھنے کی عادت بنائیں۔"
-        },
-        1: { // Monday (Peer)
-            day: "پیر (Monday)",
-            surah: "سورۃ الواقعہ (رزق کی برکت کے لیے)",
-            zikr: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ (100 مرتبہ)",
-            note: "پیر کے دن سنت نبوی ﷺ کے مطابق روزہ رکھنا یا استغفار کی کثرت مستحب ہے۔"
-        },
-        2: { // Tuesday (Mangal)
-            day: "منگل (Tuesday)",
-            surah: "سورۃ یٰس اور سورۃ الملک",
-            zikr: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَّعَلَى آلِ مُحَمَّدٍ (100 مرتبہ)",
-            note: "درود پاک کی کثرت دل کو سکون اور فکروں کو دور کرتی ہے۔"
-        },
-        3: { // Wednesday (Budh)
-            day: "بدھ (Wednesday)",
-            surah: "سورۃ الرحمٰن اور اخلاص، فلق، ناس",
-            zikr: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ (100 مرتبہ)",
-            note: "صبح و شام کی حفاظت والی دعائیں اور معوذتین پڑھیں۔"
-        },
-        4: { // Thursday (Jumerat)
-            day: "جمعرات (Thursday)",
-            surah: "سورۃ الواقعہ اور شبِ جمعہ درود شریف",
-            zikr: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ (100 مرتبہ)",
-            note: "جمعرات کی شام سے ہی درود شریف کی کثرت شروع کر دیں۔"
-        },
-        5: { // Friday (Juma)
-            day: "جمعۃ المبارک (Friday)",
-            surah: "سورۃ الکہف (مکمل تلاوت) اور سورۃ الدخان",
-            zikr: "کثرت سے درودِ ابراہیمی (کم از کم 100 یا 300 مرتبہ)",
-            note: "جمعہ کے دن سورۃ الکہف پڑھنے والے کے لیے دونوں جمعوں کے درمیان نور روشن رہتا ہے۔"
-        },
-        6: { // Saturday (Hafta)
-            day: "ہفتہ (Saturday)",
-            surah: "سورۃ یٰس اور سورۃ السجدہ",
-            zikr: "لَا إِلٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ (100 مرتبہ)",
-            note: "گھر میں خیر و برکت کے لیے سورۃ البقرہ کی آخری دو آیات تلاوت کریں۔"
-        }
-    };
-
-    const todayIndex = new Date().getDay(); // 0 = Sunday, 5 = Friday
-    const todayData = dailySchedule[todayIndex];
-
-    if (todayData) {
-        document.getElementById("dailyDayName").innerText = "📅 " + todayData.day;
-        document.getElementById("dailySurah").innerText = todayData.surah;
-        document.getElementById("dailyZikr").innerText = todayData.zikr;
-        document.getElementById("dailyNote").innerText = "💡 فضیلت: " + todayData.note;
-    }
-});
-const todayData = dailySchedule[new Date().getDay()];
-    if (todayData) {
-        const dName = document.getElementById("dailyDayName");
-        const dSurah = document.getElementById("dailySurah");
-        const dZikr = document.getElementById("dailyZikr");
-        const dNote = document.getElementById("dailyNote");
-
-        if (dName) dName.innerText = todayData.day;
-        if (dSurah) dSurah.innerText = todayData.surah;
-        if (dZikr) dZikr.innerText = todayData.zikr;
-        if (dNote) dNote.innerText = "فضیلت: " + todayData.note;
-    }
-</script>
 </body>
 </html>

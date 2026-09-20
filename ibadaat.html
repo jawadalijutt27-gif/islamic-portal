@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" id="htmlDoc">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ibadaat & Pillars of Islam - Islam 360 Style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #f4f6f9;
+      color: #1e293b;
+      padding-bottom: 95px;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Sticky Header */
+    .top-header {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+      color: #ffffff;
+      padding: 14px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(6, 78, 59, 0.2);
+    }
+    .header-content {
+      max-width: 540px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-title-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+    .lang-dropdown {
+      background: #ffffff;
+      color: #064e3b;
+      border: none;
+      outline: none;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 14px 12px;
+    }
+
+    /* Horizontal Pills Scroller */
+    .tabs-wrapper {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 14px 2px;
+      scrollbar-width: none;
+    }
+    .tabs-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+    .tab-pill {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #475569;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-pill.active {
+      background: #047857;
+      color: #ffffff;
+      border-color: #047857;
+      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Islam 360 Header Banner Card */
+    .rukn-header-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1.5px solid #d1fae5;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.05);
+    }
+    .badge-rukn {
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #a7f3d0;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .card-heading {
+      font-size: 17px;
+      font-weight: 800;
+      color: #064e3b;
+      margin-bottom: 10px;
+    }
+
+    .quote-box {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-right: 4px solid #047857;
+    }
+    html[dir="ltr"] .quote-box {
+      border-right: 1.5px solid #e2e8f0;
+      border-left: 4px solid #047857;
+    }
+    .arabic-text {
+      font-family: 'Amiri Quran', serif;
+      font-size: 20px;
+      line-height: 2.3;
+      color: #064e3b;
+      font-weight: 700;
+      text-align: right;
+    }
+    .tarjuma-text {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      font-size: 13.5px;
+      color: #334155;
+      line-height: 2;
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 8px;
+      margin-top: 8px;
+      text-align: right;
+    }
+    html[dir="ltr"] .tarjuma-text {
+      font-family: 'Noto Sans', sans-serif;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .reference-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #059669;
+      margin-top: 6px;
+    }
+
+    .hadith-card {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #166534;
+    }
+
+    /* Fiqh Switcher Buttons */
+    .fiqh-switch-container {
+      background: #ecfdf5;
+      padding: 5px;
+      border-radius: 14px;
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      border: 1px solid #a7f3d0;
+    }
+    .fiqh-btn {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #065f46;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fiqh-btn.active {
+      background: #ffffff;
+      color: #064e3b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Islam 360 Style List Items (White cards with side chevron & hands icon) */
+    .i360-card {
+      background: #ffffff;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      border: 1.5px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .i360-card.open {
+      border-color: #047857;
+      box-shadow: 0 4px 14px rgba(4, 120, 87, 0.1);
+    }
+    .i360-header {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: #ffffff;
+    }
+    .i360-header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      font-family: 'Noto Nastaliq Urdu', serif;
+    }
+    html[dir="ltr"] .i360-header-right {
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .i360-icon {
+      font-size: 18px;
+      line-height: 1;
+      filter: grayscale(0.2);
+    }
+    .i360-chevron {
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 800;
+      transition: transform 0.25s ease;
+    }
+    .i360-card.open .i360-chevron {
+      transform: rotate(-90deg);
+      color: #047857;
+    }
+    html[dir="ltr"] .i360-card.open .i360-chevron {
+      transform: rotate(90deg);
+    }
+
+    .i360-body {
+      display: none;
+      padding: 14px 16px 16px 16px;
+      border-top: 1px dashed #e2e8f0;
+      background: #fafafa;
+    }
+    .i360-card.open .i360-body {
+      display: block;
+    }
+
+    /* Fixed Bottom Navigation */
+    .bottom-nav {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 64px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      border-top: 1.5px solid #e2e8f0 !important;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.06) !important;
+      z-index: 999999 !important;
+      direction: ltr !important;
+    }
+    .nav-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      color: #64748b !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      flex: 1 !important;
+      cursor: pointer !important;
+      gap: 3px !important;
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+      stroke: #64748b;
+      fill: none;
+    }
+    .nav-item.active {
+      color: #047857 !important;
+      font-weight: 800 !important;
+    }
+    .nav-item.active svg {
+      stroke: #047857 !important;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header class="top-header">
+    <div class="header-content">
+      <div class="header-title-box">
+        <span style="font-size: 20px;">🕌</span>
+        <div class="header-title" id="t_header">عبادات و ارکانِ اسلام</div>
+      </div>
+      <select class="lang-dropdown" id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="ur" selected>اردو (Urdu)</option>
+        <option value="en">English</option>
+        <option value="ro">Roman Urdu</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Tarteeb-war Tabs: Shahadat -> Namaz -> Zakat -> Roza -> Hajj -> Janaza -->
+    <div class="tabs-wrapper">
+      <div class="tab-pill active" onclick="switchTab('shahadat', this)"><span>☝️</span> <span id="tab_shahadat">۱. کلمہ و توحید</span></div>
+      <div class="tab-pill" onclick="switchTab('namaz', this)"><span>🕌</span> <span id="tab_namaz">۲. نماز و طریقہ</span></div>
+      <div class="tab-pill" onclick="switchTab('zakat', this)"><span>💰</span> <span id="tab_zakat">۳. زکوٰۃ و نصاب</span></div>
+      <div class="tab-pill" onclick="switchTab('roza', this)"><span>🌙</span> <span id="tab_roza">۴. روزہ و احکام</span></div>
+      <div class="tab-pill" onclick="switchTab('hajj', this)"><span>🕋</span> <span id="tab_hajj">۵. حج و مناسک</span></div>
+      <div class="tab-pill" onclick="switchTab('janaza', this)"><span>⚰️</span> <span id="tab_janaza">نمازِ جنازہ</span></div>
+    </div>
+
+    <!-- ==========================================
+         TAB 1: SHAHADAT / TOUHEED (Rukn 1)
+    =========================================== -->
+    <section id="pane-shahadat" class="tab-content active">
+      <div class="rukn-header-card">
+        <span class="badge-rukn" id="t_rukn1">رکنِ اول (پہلا بنیادی رکن)</span>
+        <h2 class="card-heading"><span>☝️</span> <span id="t_shahadat_head">کلمۂ شہادت اور عقیدۂ توحید کی حقیقت</span></h2>
+        <div class="quote-box">
+          <div class="arabic-text">شَهِدَ اللَّهُ أَنَّهُ لَا إِلَٰهَ إِلَّا هُوَ وَالْمَلَائِكَةُ وَأُولُو الْعِلْمِ قَائِمًا بِالْقِسْطِ ۚ لَا إِلَٰهَ إِلَّا هُوَ الْعَزِيزُ الْحَكِيمُ</div>
+          <div class="tarjuma-text" id="t_shahadat_ayat">اللہ تعالیٰ، فرشتے اور اہل علم اس بات کی گواہی دیتے ہیں کہ اللہ کے سوا کوئی معبود نہیں، وہ عدل کے ساتھ نظام کو قائم رکھنے والا ہے، اس غالب اور حکمت والے کے سوا کوئی معبود نہیں۔</div>
+          <div class="reference-tag">📖 سورۃ آل عمران: 18</div>
+        </div>
+        <div class="hadith-card" id="t_shahadat_hadith">
+          <strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے فرمایا: "اسلام کی بنیاد پانچ چیزوں پر ہے: اس بات کی گواہی دینا کہ اللہ کے سوا کوئی معبود نہیں اور محمد ﷺ اللہ کے رسول ہیں، نماز قائم کرنا، زکوٰۃ دینا، حج کرنا اور رمضان کے روزے رکھنا۔" (صحیح بخاری: 8، صحیح مسلم: 16)
+        </div>
+      </div>
+
+      <!-- Islam 360 Accordions for Touheed -->
+      <div class="i360-card open">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_t1_t">1. توحید فی الربوبیت (خالق و مالک)</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_t1_d">اس بات پر پختہ یقین رکھنا کہ تمام جہانوں کا واحد خالق، مالک، رازق اور نظام کو چلانے والا صرف اور صرف اللہ تعالیٰ ہے۔ کائنات کے کسی بھی معاملے میں اس کا کوئی شریک نہیں ہے۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_t2_t">2. توحید فی الاسماء والصفات</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_t2_d">اللہ تعالیٰ کے تمام اسمائے حسنیٰ اور اس کی کامل صفات پر بغیر کسی تمثیل، تحریف اور تاویل کے ایمان لانا کہ کوئی مخلوق اس جیسی صفات نہیں رکھ سکتی (لَيْسَ كَمِثْلِهِ شَيْءٌ)۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_t3_t">3. توحید فی العبادت (الوہیت)</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_t3_d">ہر قسم کی عبادت مثلاً نماز، روزہ، سجدہ، دعا، نذر نیاز اور قربانی صرف اور صرف اللہ تعالیٰ کا حق ہے۔ اللہ کے سوا کسی کے آگے ہاتھ پھیلانا یا جھکنا شرکِ اکبر ہے۔</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 2: NAMAZ (Rukn 2 - Islam 360 Style)
+    =========================================== -->
+    <section id="pane-namaz" class="tab-content">
+      <div class="rukn-header-card">
+        <span class="badge-rukn" id="t_rukn2">رکنِ ثانی (دوسرا رکن)</span>
+        <h2 class="card-heading"><span>🕌</span> <span id="t_namaz_head">نماز کی فضیلت اور مسنون طریقہ</span></h2>
+        <div class="quote-box">
+          <div class="arabic-text">إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا</div>
+          <div class="tarjuma-text" id="t_namaz_ayat">بے شک نماز مومنوں پر مقررہ اوقات کے اندر فرض کی گئی ہے۔</div>
+          <div class="reference-tag">📖 سورۃ النساء: 103</div>
+        </div>
+        <div class="hadith-card" id="t_namaz_hadith">
+          <strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے فرمایا: "بندے اور کفر کے درمیان حدِ فاصل نماز کا چھوڑ دینا ہے۔" (صحیح مسلم: 82) اور فرمایا: "صلوا كما رأيتموني أصلي" (نماز ویسے پڑھو جیسے تم نے مجھے نماز پڑھتے ہوئے دیکھا ہے)۔ (صحیح بخاری: 631)
+        </div>
+
+        <div style="margin-top: 14px;">
+          <div style="font-size: 12px; font-weight: 800; color: #064e3b; margin-bottom: 6px;" id="t_select_fiqh">طریقۂ نماز منتخب کریں:</div>
+          <div class="fiqh-switch-container">
+            <button class="fiqh-btn active" id="btnHanafi" onclick="switchFiqh('hanafi')">طریقہ حنفی (Fiqh Hanafi)</button>
+            <button class="fiqh-btn" id="btnAhleHadees" onclick="switchFiqh('ahlehadees')">طریقہ اہل حدیث (Sunnah / Ahle Hadees)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Islam 360 Accordions for Namaz (Images 1, 6) -->
+      <div id="fiqh-hanafi-content">
+        <div class="i360-card open">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn1_t">1 تکبیر تحریمہ</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_hn1_d">قبلہ رخ ہو کر دونوں ہاتھ کانوں کی لو تک اٹھائیں کہ ہتھیلیاں قبلہ رخ ہوں، اور "اللہ اکبر" کہتے ہوئے ہاتھ ناف کے نیچے باندھ لیں۔ دائیں ہاتھ کی ہتھیلی بائیں ہاتھ کی پشت پر رکھیں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn2_t">2 تکبیر تحریمہ کے بعد کی دعائیں</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَهَ غَيْرُكَ</div>
+            <div class="step-desc" id="t_hn2_d">اس کے بعد تعوذ (أعوذ بالله)، تسمیہ (بسم الله)، سورۃ الفاتحہ اور کوئی سورت تلاوت کریں۔ سورۃ الفاتحہ کے بعد آہستہ سے "آمین" کہیں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn3_t">3 رکوع کی دعائیں</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">سُبْحَانَ رَبِّيَ الْعَظِيمِ</div>
+            <div class="step-desc" id="t_hn3_d">"اللہ اکبر" کہہ کر رکوع میں جائیں، دونوں ہاتھوں سے گھٹنوں کو مضبوطی سے تھامیں اور کم از کم 3 مرتبہ یہ تسبیح پڑھیں۔ پیٹھ کو سیدھا رکھیں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn4_t">4 رکوع سے اٹھنے کی دعائیں</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ - رَبَّنَا لَكَ الْحَمْدُ</div>
+            <div class="step-desc" id="t_hn4_d">رکوع سے سر اٹھاتے وقت بغیر رفع الیدین کے سیدھے کھڑے ہوں اور قومہ مکمل کر کے یہ کلمات ادا کریں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn5_t">5 سجدے کی دعائیں</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">سُبْحَانَ رَبِّيَ الْأَعْلَى</div>
+            <div class="step-desc" id="t_hn5_d">"اللہ اکبر" کہہ کر سجدے میں جائیں۔ پہلے گھٹنے پھر ہاتھ زمین پر رکھیں۔ ناک اور پیشانی زمین پر جمائیں اور کم از کم 3 مرتبہ تسبیح پڑھیں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn6_t">6 دو سجدوں کے درمیان کی دعائیں</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">اللَّهُمَّ اغْفِرْ لِي وَارْحَمْنِي وَعَافِنِي وَاهْدِنِي وَارْزُقْنِي</div>
+            <div class="step-desc" id="t_hn6_d">پہلے سجدے سے اٹھ کر اطمینان کے ساتھ سیدھے بیٹھ جائیں (جلسہ) اور پھر دوسرا سجدہ کریں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_hn7_t">7 تشہد اور درود وسلام</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ ، السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</div>
+            <div class="step-desc" id="t_hn7_d">قعدہ میں بایاں پاؤں بچھا کر اس پر بیٹھیں اور دایاں کھڑا رکھیں۔ التحیات کے بعد درودِ ابراہیمی اور دعائے ماثورہ پڑھ کر دونوں طرف سلام پھیریں۔</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ahle Hadees Namaz Content -->
+      <div id="fiqh-ahlehadees-content" style="display: none;">
+        <div class="i360-card open">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ah1_t">1 تکبیرِ تحریمہ اور رفع الیدین</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_ah1_d">قبلہ رخ ہو کر دونوں ہاتھ کندھوں یا کانوں کے برابر اٹھائیں (رفع الیدین) اور "اللہ اکبر" کہتے ہوئے سینے پر ہاتھ باندھیں۔ دایاں ہاتھ بائیں کلائی یا بازو پر رکھیں۔ (صحیح بخاری: 735)</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ah2_t">2 دعائے استفتاح اور آمین بالجہر</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ كَمَا بَاعَدْتَ بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ</div>
+            <div class="step-desc" id="t_ah2_d">دعائے استفتاح، تعوذ، تسمیہ اور سورۃ الفاتحہ پڑھیں۔ جہری نمازوں میں امام کے ساتھ بلند آواز سے "آمین" کہیں۔ (صحیح بخاری: 780)</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ah3_t">3 رکوع جاتے اور اٹھتے وقت رفع الیدین</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ - رَبَّنَا وَلَكَ الْحَمْدُ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ</div>
+            <div class="step-desc" id="t_ah3_d">رکوع میں جاتے اور رکوع سے سر اٹھاتے وقت کندھوں تک ہاتھ اٹھائیں (رفع الیدین)۔ رکوع میں پیٹھ بالکل سیدھی رکھیں۔ (صحیح بخاری: 735)</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ah4_t">4 سجدہ اور جلسہ</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">رَبِّ اغْفِرْ لِي ، رَبِّ اغْفِرْ لِي</div>
+            <div class="step-desc" id="t_ah4_d">سجدے میں جاتے وقت پہلے ہاتھ زمین پر رکھیں پھر گھٹنے۔ دونوں ایڑیاں ملی ہوئی ہوں۔ دو سجدوں کے درمیان کی دعا پڑھیں۔ دوسری رکعت کے لیے اٹھتے وقت بھی رفع الیدین کریں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ah5_t">5 تورک اور شہادت کی انگلی کی مسلسل حرکت</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_ah5_d">آخری قعدہ میں تورک کریں (بایاں پاؤں دائیں پنڈلی کے نیچے نکال کر سرین پر بیٹھیں)۔ تشہد کے دوران شہادت کی انگلی کو مسلسل حرکت دیتے ہوئے دعا کریں، پھر دونوں طرف سلام پھیریں۔ (سنن نسائی: 1270)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 3: ZAKAT (Rukn 3)
+    =========================================== -->
+    <section id="pane-zakat" class="tab-content">
+      <div class="rukn-header-card">
+        <span class="badge-rukn" id="t_rukn3">رکنِ سوم (تیسرا رکن)</span>
+        <h2 class="card-heading"><span>💰</span> <span id="t_zakat_head">زکوٰۃ کا نصاب، حساب اور شرعی مصارف</span></h2>
+        <div class="quote-box">
+          <div class="arabic-text">خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِم بِهَا وَصَلِّ عَلَيْهِمْ</div>
+          <div class="tarjuma-text" id="t_zakat_ayat">آپ ان کے مالوں میں سے زکوٰۃ وصول کیجئے جس سے آپ انہیں پاک اور صاف کر دیں اور ان کے لیے دعا فرمائیے۔</div>
+          <div class="reference-tag">📖 سورۃ التوبۃ: 103</div>
+        </div>
+        <div class="hadith-card" id="t_zakat_hadith">
+          <strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے معاذ رضی اللہ عنہ کو فرمایا: "انہیں بتاؤ کہ اللہ نے ان کے مالوں پر زکوٰۃ فرض کی ہے جو ان کے مالداروں سے لی جائے گی اور ان کے ناداروں میں تقسیم کی جائے گی۔" (صحیح بخاری: 1395)
+        </div>
+      </div>
+
+      <div class="i360-card open">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_z1_t">1. سونے اور چاندی کا نصاب</span>
+            <span class="i360-icon">💰</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_z1_d">سونے کا نصاب ساڑھے 7 تولے (87.48 گرام) اور چاندی کا نصاب ساڑھے 52 تولے (612.36 گرام) ہے۔ اگر نقدی یا مالِ تجارت اس مالیت کے برابر ہو جائے اور اس پر ایک قمری سال گزر جائے تو زکوٰۃ واجب ہوتی ہے۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_z2_t">2. زکوٰۃ کی شرح اور حساب</span>
+            <span class="i360-icon">💰</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_z2_d">کل قابلِ زکوٰۃ مالیت پر 2.5% یعنی چالیسواں حصہ ادا کرنا فرض ہے۔ گھریلو ضروریات کے سامان اور ذاتی استعمال کی گاڑی یا مکان پر زکوٰۃ نہیں ہے۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_z3_t">3. مصارفِ زکوٰۃ (سورۃ التوبہ: 60)</span>
+            <span class="i360-icon">💰</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_z3_d">قرآن نے زکوٰۃ کے 8 مصارف بیان فرمائے ہیں: فقراء، مساکین، زکوٰۃ اکٹھا کرنے والے، نو مسلم (مؤلفۃ القلوب)، غلام آزاد کرانے میں، مقروضوں کے قرض کی ادائیگی میں، فی سبیل اللہ، اور مسافر۔</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 4: ROZA (Rukn 4 - Image 4)
+    =========================================== -->
+    <section id="pane-roza" class="tab-content">
+      <div class="rukn-header-card">
+        <span class="badge-rukn" id="t_rukn4">رکنِ چہارم (چوتھا رکن)</span>
+        <h2 class="card-heading"><span>🌙</span> <span id="t_roza_head">روزے کے احکام، فضائل اور فقہی مسائل</span></h2>
+        <div class="quote-box">
+          <div class="arabic-text">شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ هُدًى لِّلنَّاسِ</div>
+          <div class="tarjuma-text" id="t_roza_ayat">رمضان کا مہینہ وہ ہے جس میں قرآن نازل کیا گیا جو تمام انسانوں کے لیے ہدایت ہے۔</div>
+          <div class="reference-tag">📖 سورۃ البقرۃ: 185</div>
+        </div>
+        <div class="hadith-card" id="t_roza_hadith">
+          <strong>حدیثِ قدسی:</strong> اللہ تعالیٰ فرماتا ہے: "روزہ میرے لیے ہے اور میں ہی اس کی جزا دوں گا۔ روزہ دار اپنے کھانے پینے اور شہوت کو میرے لیے چھوڑتا ہے۔" (صحیح بخاری: 1904)
+        </div>
+      </div>
+
+      <!-- Islam 360 Accordions for Roza Duas (Image 4) -->
+      <div class="i360-card open">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_r1_t">1 روزہ افطار کرتے وقت کی دعائیں</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="arabic-text">ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ</div>
+          <div class="tarjuma-text" id="t_r1_d">ترجمہ: پیاس چلی گئی، رگیں تر ہو گئیں اور ان شاء اللہ اجر ثابت ہو گیا۔ (سنن ابی داؤد: 2357)</div>
+          <div class="arabic-text" style="margin-top: 10px;">اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_r2_t">2 افطاری کروانے والے کے لیے دعا</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="arabic-text">أَفْطَرَ عِنْدَكُمُ الصَّائِمُونَ، وَأَكَلَ طَعَامَكُمُ الأَبْرَارُ، وَصَلَّتْ عَلَيْكُمُ الْمَلَائِكَةُ</div>
+          <div class="tarjuma-text" id="t_r2_d">ترجمہ: تمہارے پاس روزہ دار روزہ افطار کریں، تمہارا کھانا نیک لوگ کھائیں اور فرشتے تمہارے لیے رحمت کی دعا کریں۔ (سنن ابی داؤد: 3854)</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_r3_t">3 روزے کے بنیادی فقہی احکام و کفارہ</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_r3_d">صبح صادق سے پہلے دل کے ارادے سے نیت کرنا فرض ہے۔ بھول کر کھا پی لینے یا مسواک کرنے سے روزہ نہیں ٹوٹتا۔ جان بوجھ کر بغیر شرعی عذر کے رمضان کا روزہ توڑنے پر قضاء کے ساتھ کفارہ (مسلسل 60 روزے یا 60 مسکینوں کو کھانا) لازم آتا ہے۔</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 5: HAJJ (Rukn 5 - Images 2, 3, 5, 7, 8)
+    =========================================== -->
+    <section id="pane-hajj" class="tab-content">
+      <div class="rukn-header-card">
+        <span class="badge-rukn" id="t_rukn5">رکنِ پنجم (پانچواں رکن)</span>
+        <h2 class="card-heading"><span>🕋</span> <span id="t_hajj_head">حج کے بنیادی ارکان، فضائل و مناسک</span></h2>
+        <div class="quote-box">
+          <div class="arabic-text">وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا</div>
+          <div class="tarjuma-text" id="t_hajj_ayat">اور اللہ کے لیے لوگوں پر اس گھر کا حج فرض ہے جو اس تک پہنچنے کی استطاعت رکھتا ہو۔</div>
+          <div class="reference-tag">📖 سورۃ آل عمران: 97</div>
+        </div>
+        <div class="hadith-card" id="t_hajj_hadith">
+          <strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے فرمایا: "حجِ مبرور کا بدلہ سوائے جنت کے کچھ نہیں، اور جو حج کرے اور گناہ نہ کرے وہ ایسے لوٹتا ہے جیسے اس کی ماں نے اسے آج ہی جنم دیا ہو۔" (صحیح بخاری: 1521)
+        </div>
+      </div>
+
+      <!-- Islam 360 Hajj Guidance List (Images 2, 3, 5, 7, 8) -->
+      <div class="i360-card open">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_hj1_t">احرام کے احکام اور طریقہ</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="arabic-text">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ ، لَا شَرِيكَ لَكَ</div>
+          <div class="step-desc" id="t_hj1_d">میقات پر غسل کر کے دو غیر سلی سفید چادریں باندھنا اور حج کی نیت کر کے تلبیہ پڑھنا حج کا اولین فرض رکن ہے۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_hj2_t">طواف کعبہ اور حجر اسود کا بوسہ</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_hj2_d">حجرِ اسود سے طواف شروع کر کے کعبۃ اللہ کے 7 چکر مکمل کریں۔ ہر چکر پر استلام (اشارہ) کریں اور رُکنِ یمانی اور حجرِ اسود کے درمیان 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً...' پڑھیں۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_hj3_t">مقامِ ابراہیم پر نماز اور زم زم پینا</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_hj3_d">طواف مکمل کرنے کے بعد مقامِ ابراہیم کے پیچھے 2 رکعت واجب الطواف پڑھیں، اور اس کے بعد قبلہ رخ کھڑے ہو کر پیٹ بھر کر آبِ زم زم پئیں اور دعا مانگیں۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_hj4_t">سعی کے احکام اور طریقہ</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="arabic-text">إِنَّ الصَّفَا وَالْمَرْوَةَ مِن شَعَائِرِ اللَّهِ</div>
+          <div class="step-desc" id="t_hj4_d">صفا سے شروع کر کے مروہ تک 7 چکر لگائیں۔ سبز روشنیوں کے درمیان مرد حضرات قدرے تیز دوڑیں (ہرولہ کریں)۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_hj5_t">منیٰ، عرفات اور مزدلفہ کے ایام</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_hj5_d">8 ذوالحجہ کو منیٰ روانگی، 9 ذوالحجہ کو میدانِ عرفات میں وقوف (الحج عرفۃ - اعظم فرض)، پھر رات مزدلفہ میں گزارنا اور رمی کے لیے کنکریاں چننا۔</div>
+        </div>
+      </div>
+
+      <div class="i360-card">
+        <div class="i360-header" onclick="toggleCard(this)">
+          <span class="i360-chevron">❮</span>
+          <div class="i360-header-right">
+            <span class="step-title" id="t_hj6_t">جمرات کو کنکریاں مارنا، حجامت اور طوافِ زیارت</span>
+            <span class="i360-icon">🤲</span>
+          </div>
+        </div>
+        <div class="i360-body">
+          <div class="step-desc" id="t_hj6_d">10 ذوالحجہ کو جمرہ عقبہ کو 7 کنکریاں مارنا، قربانی کرنا، بال منڈوانا یا کتروانا (حجامت)، اور 10 سے 12 ذوالحجہ کے دوران فرض طوافِ زیارت مکمل کرنا۔</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 6: JANAZA (End Position)
+    =========================================== -->
+    <section id="pane-janaza" class="tab-content">
+      <div class="rukn-header-card">
+        <span class="badge-rukn" id="t_janaza_badge">فرضِ کفایہ (احکامِ جنازہ)</span>
+        <h2 class="card-heading"><span>⚰️</span> <span id="t_janaza_head">نمازِ جنازہ کا مسنون طریقہ و ادعیہ</span></h2>
+        <div class="quote-box">
+          <div class="arabic-text">مَنْ صَلَّى عَلَى جَنَازَةٍ فَلَهُ قِيرَاطٌ، وَمَنْ تَبِعَهَا حَتَّى تُدْفَنَ فَلَهُ قِيرَاطَانِ</div>
+          <div class="tarjuma-text" id="t_janaza_hadith_txt">رسول اللہ ﷺ نے فرمایا: جو جنازے کی نماز پڑھے اس کے لیے ایک قیراط ہے اور جو تدفین تک ساتھ رہے اس کے لیے دو قیراط اجر ہے۔ (صحیح بخاری: 1325)</div>
+          <div class="reference-tag">📖 صحیح بخاری: 1325</div>
+        </div>
+
+        <div style="margin-top: 14px;">
+          <div style="font-size: 12px; font-weight: 800; color: #064e3b; margin-bottom: 6px;" id="t_select_janaza_fiqh">طریقۂ نمازِ جنازہ منتخب کریں:</div>
+          <div class="fiqh-switch-container">
+            <button class="fiqh-btn active" id="btnJanazaHanafi" onclick="switchJanazaFiqh('hanafi')">طریقہ حنفی (Fiqh Hanafi)</button>
+            <button class="fiqh-btn" id="btnJanazaAhleHadees" onclick="switchJanazaFiqh('ahlehadees')">طریقہ اہل حدیث (Ahle Hadees)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hanafi Janaza Accordions -->
+      <div id="janaza-hanafi-content">
+        <div class="i360-card open">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_jh1_t">1. پہلی تکبیر اور ثناء</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ ، وَتَبَارَكَ اسْمُكَ ، وَتَعَالَى جَدُّكَ ، وَجَلَّ ثَنَاؤُكَ ، وَلَا إِلَهَ غَيْرُكَ</div>
+            <div class="step-desc" id="t_jh1_d">پہلی تکبیر پر ہاتھ کانوں تک اٹھائیں اور ناف کے نیچے باندھ کر ثناء پڑھیں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_jh2_t">2. دوسری تکبیر اور درودِ ابراہیمی</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_jh2_d">بغیر ہاتھ اٹھائے اللہ اکبر کہیں اور مکمل درودِ ابراہیمی تلاوت کریں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_jh3_t">3. تیسری تکبیر اور میت کی مسنون دعا</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَشَاهِدِنَا وَغَائِبِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا ، اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الْإِسْلَامِ ، وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الْإِيمَانِ</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_jh4_t">4. چوتھی تکبیر اور دونوں طرف سلام</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_jh4_d">چوتھی تکبیر کہیں، ہاتھ کھولیں اور دائیں اور بائیں دونوں طرف سلام پھیریں۔</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ahle Hadees Janaza Accordions -->
+      <div id="janaza-ahlehadees-content" style="display: none;">
+        <div class="i360-card open">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ja1_t">1. پہلی تکبیر، رفع الیدین اور سورۃ الفاتحہ</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_ja1_d">رفع الیدین کے ساتھ تکبیر کہیں، ہاتھ سینے پر باندھیں، اور سورۃ الفاتحہ اور چھوٹی سورت پڑھیں۔ (صحیح بخاری: 1335)</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ja2_t">2. دوسری تکبیر اور درود شریف</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_ja2_d">رفع الیدین کے ساتھ تکبیر کہیں اور درودِ ابراہیمی تلاوت کریں۔</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ja3_t">3. تیسری تکبیر اور جامع دعا</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="arabic-text">اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ ، وَأَكْرِمْ نُزُلَهُ ، وَوَسِّعْ مُدْخَلَهُ ، وَاغْسِلْهُ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ</div>
+            <div class="reference-tag">📖 صحیح مسلم: 963</div>
+          </div>
+        </div>
+
+        <div class="i360-card">
+          <div class="i360-header" onclick="toggleCard(this)">
+            <span class="i360-chevron">❮</span>
+            <div class="i360-header-right">
+              <span class="step-title" id="t_ja4_t">4. چوتھی تکبیر اور دائیں طرف سلام</span>
+              <span class="i360-icon">🤲</span>
+            </div>
+          </div>
+          <div class="i360-body">
+            <div class="step-desc" id="t_ja4_d">چوتھی تکبیر کے بعد صرف دائیں طرف ایک سلام "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ" پھیریں۔</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Navigation Bar with Quran Modal Hook -->
+  <nav class="bottom-nav">
+    <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Quran</span>
+    </a>
+    <a href="/hadith" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      <span>Hadith</span>
+    </a>
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="/ibadaat" class="nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V14h3a3 3 0 0 1 3 3v4H4v-4a3 3 0 0 1 3-3h3V9.5A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path></svg>
+      <span>Ibadaat</span>
+    </a>
+    <a href="/more" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+      <span>More</span>
+    </a>
+  </nav>
+
+  <!-- Quran Selection Modal (Translation vs Audio) -->
+  <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 9999999; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+    <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+      <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+      <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+          </div>
+        </a>
+
+        <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+          </div>
+        </a>
+      </div>
+
+      <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 11px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 700; color: #4b5563; cursor: pointer;">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId, el) {
+      document.querySelectorAll('.tab-pill').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      if (el) el.classList.add('active');
+      const target = document.getElementById('pane-' + tabId);
+      if (target) target.classList.add('active');
+    }
+
+    function toggleCard(headerEl) {
+      headerEl.parentElement.classList.toggle('open');
+    }
+
+    function switchFiqh(fiqh) {
+      const btnH = document.getElementById('btnHanafi');
+      const btnA = document.getElementById('btnAhleHadees');
+      const boxH = document.getElementById('fiqh-hanafi-content');
+      const boxA = document.getElementById('fiqh-ahlehadees-content');
+      if (fiqh === 'hanafi') {
+        btnH.classList.add('active'); btnA.classList.remove('active');
+        boxH.style.display = 'block'; boxA.style.display = 'none';
+      } else {
+        btnA.classList.add('active'); btnH.classList.remove('active');
+        boxA.style.display = 'block'; boxH.style.display = 'none';
+      }
+    }
+
+    function switchJanazaFiqh(fiqh) {
+      const btnH = document.getElementById('btnJanazaHanafi');
+      const btnA = document.getElementById('btnJanazaAhleHadees');
+      const boxH = document.getElementById('janaza-hanafi-content');
+      const boxA = document.getElementById('janaza-ahlehadees-content');
+      if (fiqh === 'hanafi') {
+        btnH.classList.add('active'); btnA.classList.remove('active');
+        boxH.style.display = 'block'; boxA.style.display = 'none';
+      } else {
+        btnA.classList.add('active'); btnH.classList.remove('active');
+        boxA.style.display = 'block'; boxH.style.display = 'none';
+      }
+    }
+
+    function openQuranModal() {
+      const modal = document.getElementById('quranModal');
+      if (modal) modal.style.display = 'flex';
+    }
+    function closeQuranModal() {
+      const modal = document.getElementById('quranModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    const LANG_DATA = {
+      ur: {
+        dir: "rtl",
+        header: "عبادات و ارکانِ اسلام",
+        tabs: ["۱. کلمہ و توحید", "۲. نماز و طریقہ", "۳. زکوٰۃ و نصاب", "۴. روزہ و احکام", "۵. حج و مناسک", "نمازِ جنازہ"],
+        rukns: {
+          shahadat: "رکنِ اول (پہلا بنیادی رکن)",
+          namaz: "رکنِ ثانی (دوسرا رکن)",
+          zakat: "رکنِ سوم (تیسرا رکن)",
+          roza: "رکنِ چہارم (چوتھا رکن)",
+          hajj: "رکنِ پنجم (پانچواں رکن)",
+          janaza: "فرضِ کفایہ (احکامِ جنازہ)"
+        },
+        headings: {
+          shahadat: "کلمۂ شہادت اور عقیدۂ توحید کی حقیقت",
+          namaz: "نماز کی فضیلت اور مسنون طریقہ",
+          zakat: "زکوٰۃ کا نصاب، حساب اور شرعی مصارف",
+          roza: "روزے کے احکام، فضائل اور فقہی مسائل",
+          hajj: "حج کے بنیادی ارکان، فضائل و مناسک",
+          janaza: "نمازِ جنازہ کا مسنون طریقہ و ادعیہ"
+        },
+        ayats: {
+          shahadat: "اللہ تعالیٰ، فرشتے اور اہل علم اس بات کی گواہی دیتے ہیں کہ اللہ کے سوا کوئی معبود نہیں، وہ عدل کے ساتھ نظام کو قائم رکھنے والا ہے، اس غالب اور حکمت والے کے سوا کوئی معبود نہیں۔",
+          namaz: "بے شک نماز مومنوں پر مقررہ اوقات کے اندر فرض کی گئی ہے۔",
+          zakat: "آپ ان کے مالوں میں سے زکوٰۃ وصول کیجئے جس سے آپ انہیں پاک اور صاف کر دیں اور ان کے لیے دعا فرمائیے۔",
+          roza: "رمضان کا مہینہ وہ ہے جس میں قرآن نازل کیا گیا جو تمام انسانوں کے لیے ہدایت ہے۔",
+          hajj: "اور اللہ کے لیے لوگوں پر اس گھر کا حج فرض ہے جو اس تک پہنچنے کی استطاعت رکھتا ہو۔"
+        },
+        hadiths: {
+          shahadat: "<strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے فرمایا: 'اسلام کی بنیاد پانچ چیزوں پر ہے: اس بات کی گواہی دینا کہ اللہ کے سوا کوئی معبود نہیں اور محمد ﷺ اللہ کے رسول ہیں، نماز قائم کرنا، زکوٰۃ دینا، حج کرنا اور رمضان کے روزے رکھنا۔' (صحیح بخاری: 8)",
+          namaz: "<strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے فرمایا: 'بندے اور کفر کے درمیان حدِ فاصل نماز کا چھوڑ دینا ہے۔' (صحیح مسلم: 82) اور فرمایا: 'صلوا كما رأيتموني أصلي' (نماز ویسے پڑھو جیسے تم نے مجھے نماز پڑھتے ہوئے دیکھا ہے)۔ (صحیح بخاری: 631)",
+          zakat: "<strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے معاذ رضی اللہ عنہ کو فرمایا: 'انہیں بتاؤ کہ اللہ نے ان کے مالوں پر زکوٰۃ فرض کی ہے جو ان کے مالداروں سے لی جائے گی اور ان کے ناداروں میں تقسیم کی جائے گی۔' (صحیح بخاری: 1395)",
+          roza: "<strong>حدیثِ قدسی:</strong> اللہ تعالیٰ فرماتا ہے: 'روزہ میرے لیے ہے اور میں ہی اس کی جزا دوں گا۔ روزہ دار اپنے کھانے پینے اور شہوت کو میرے لیے چھوڑتا ہے۔' (صحیح بخاری: 1904)",
+          hajj: "<strong>حدیثِ مبارکہ:</strong> رسول اللہ ﷺ نے فرمایا: 'حجِ مبرور کا بدلہ سوائے جنت کے کچھ نہیں، اور جو حج کرے اور گناہ نہ کرے وہ ایسے لوٹتا ہے جیسے اس کی ماں نے اسے آج ہی جنم دیا ہو۔' (صحیح بخاری: 1521)",
+          janaza: "رسول اللہ ﷺ نے فرمایا: جو جنازے کی نماز پڑھے اس کے لیے ایک قیراط ہے اور جو تدفین تک ساتھ رہے اس کے لیے دو قیراط اجر ہے۔ (صحیح بخاری: 1325)"
+        },
+        selectFiqh: "طریقۂ نماز منتخب کریں:",
+        selectJanazaFiqh: "طریقۂ نمازِ جنازہ منتخب کریں:",
+        btnHanafi: "طریقہ حنفی (Fiqh Hanafi)",
+        btnAhleHadees: "طریقہ اہل حدیث (Sunnah / Ahle Hadees)",
+        t1_t: "1. توحید فی الربوبیت (خالق و مالک)",
+        t1_d: "اس بات پر پختہ یقین رکھنا کہ تمام جہانوں کا واحد خالق، مالک، رازق اور نظام کو چلانے والا صرف اور صرف اللہ تعالیٰ ہے۔ کائنات کے کسی بھی معاملے میں اس کا کوئی شریک نہیں ہے۔",
+        t2_t: "2. توحید فی الاسماء والصفات",
+        t2_d: "اللہ تعالیٰ کے تمام اسمائے حسنیٰ اور اس کی کامل صفات پر بغیر کسی تمثیل، تحریف اور تاویل کے ایمان لانا کہ کوئی مخلوق اس جیسی صفات نہیں رکھ سکتی (لَيْسَ كَمِثْلِهِ شَيْءٌ)۔",
+        t3_t: "3. توحید فی العبادت (الوہیت)",
+        t3_d: "ہر قسم کی عبادت مثلاً نماز، روزہ، سجدہ، دعا، نذر نیاز اور قربانی صرف اور صرف اللہ تعالیٰ کا حق ہے۔ اللہ کے سوا کسی کے آگے ہاتھ پھیلانا یا جھکنا شرکِ اکبر ہے۔",
+        hn1_t: "1 تکبیر تحریمہ",
+        hn1_d: "قبلہ رخ ہو کر دونوں ہاتھ کانوں کی لو تک اٹھائیں کہ ہتھیلیاں قبلہ رخ ہوں، اور 'اللہ اکبر' کہتے ہوئے ہاتھ ناف کے نیچے باندھ لیں۔ دائیں ہاتھ کی ہتھیلی بائیں ہاتھ کی پشت پر رکھیں۔",
+        hn2_t: "2 تکبیر تحریمہ کے بعد کی دعائیں",
+        hn2_d: "اس کے بعد تعوذ (أعوذ بالله)، تسمیہ (بسم الله)، سورۃ الفاتحہ اور کوئی سورت تلاوت کریں۔ سورۃ الفاتحہ کے بعد آہستہ سے 'آمین' کہیں۔",
+        hn3_t: "3 رکوع کی دعائیں",
+        hn3_d: "'اللہ اکبر' کہہ کر رکوع میں جائیں، دونوں ہاتھوں سے گھٹنوں کو مضبوطی سے تھامیں اور کم از کم 3 مرتبہ یہ تسبیح پڑھیں۔ پیٹھ کو سیدھا رکھیں۔",
+        hn4_t: "4 رکوع سے اٹھنے کی دعائیں",
+        hn4_d: "رکوع سے سر اٹھاتے وقت بغیر رفع الیدین کے سیدھے کھڑے ہوں اور قومہ مکمل کر کے یہ کلمات ادا کریں۔",
+        hn5_t: "5 سجدے کی دعائیں",
+        hn5_d: "'اللہ اکبر' کہہ کر سجدے میں جائیں۔ پہلے گھٹنے پھر ہاتھ زمین پر رکھیں۔ ناک اور پیشانی زمین پر جمائیں اور کم از کم 3 مرتبہ تسبیح پڑھیں۔",
+        hn6_t: "6 دو سجدوں کے درمیان کی دعائیں",
+        hn6_d: "پہلے سجدے سے اٹھ کر اطمینان کے ساتھ سیدھے بیٹھ جائیں (جلسہ) اور پھر دوسرا سجدہ کریں۔",
+        hn7_t: "7 تشہد اور درود وسلام",
+        hn7_d: "قعدہ میں بایاں پاؤں بچھا کر اس پر بیٹھیں اور دایاں کھڑا رکھیں۔ التحیات کے بعد درودِ ابراہیمی اور دعائے ماثورہ پڑھ کر دونوں طرف سلام پھیریں۔",
+        ah1_t: "1 تکبیرِ تحریمہ اور رفع الیدین",
+        ah1_d: "قبلہ رخ ہو کر دونوں ہاتھ کندھوں یا کانوں کے برابر اٹھائیں (رفع الیدین) اور 'اللہ اکبر' کہتے ہوئے سینے پر ہاتھ باندھیں۔ دایاں ہاتھ بائیں کلائی یا بازو پر رکھیں۔ (صحیح بخاری: 735)",
+        ah2_t: "2 دعائے استفتاح اور آمین بالجہر",
+        ah2_d: "دعائے استفتاح، تعوذ، تسمیہ اور سورۃ الفاتحہ پڑھیں۔ جہری نمازوں میں امام کے ساتھ بلند آواز سے 'آمین' کہیں۔ (صحیح بخاری: 780)",
+        ah3_t: "3 رکوع جاتے اور اٹھتے وقت رفع الیدین",
+        ah3_d: "رکوع میں جاتے اور رکوع سے سر اٹھاتے وقت کندھوں تک ہاتھ اٹھائیں (رفع الیدین)۔ رکوع میں پیٹھ بالکل سیدھی رکھیں۔ (صحیح بخاری: 735)",
+        ah4_t: "4 سجدہ اور جلسہ",
+        ah4_d: "سجدے میں جاتے وقت پہلے ہاتھ زمین پر رکھیں پھر گھٹنے۔ دونوں ایڑیاں ملی ہوئی ہوں۔ دو سجدوں کے درمیان کی دعا پڑھیں۔ دوسری رکعت کے لیے اٹھتے وقت بھی رفع الیدین کریں۔",
+        ah5_t: "5 تورک اور شہادت کی انگلی کی مسلسل حرکت",
+        ah5_d: "آخری قعدہ میں تورک کریں (بایاں پاؤں دائیں پنڈلی کے نیچے نکال کر سرین پر بیٹھیں)۔ تشہد کے دوران شہادت کی انگلی کو مسلسل حرکت دیتے ہوئے دعا کریں، پھر دونوں طرف سلام پھیریں۔ (سنن نسائی: 1270)",
+        z1_t: "1. سونے اور چاندی کا نصاب",
+        z1_d: "سونے کا نصاب ساڑھے 7 تولے (87.48 گرام) اور چاندی کا نصاب ساڑھے 52 تولے (612.36 گرام) ہے۔ اگر نقدی یا مالِ تجارت اس مالیت کے برابر ہو جائے اور اس پر ایک قمری سال گزر جائے تو زکوٰۃ واجب ہوتی ہے۔",
+        z2_t: "2. زکوٰۃ کی شرح اور حساب",
+        z2_d: "کل قابلِ زکوٰۃ مالیت پر 2.5% یعنی چالیسواں حصہ ادا کرنا فرض ہے۔ گھریلو ضروریات کے سامان اور ذاتی استعمال کی گاڑی یا مکان پر زکوٰۃ نہیں ہے۔",
+        z3_t: "3. مصارفِ زکوٰۃ (سورۃ التوبہ: 60)",
+        z3_d: "قرآن نے زکوٰۃ کے 8 مصارف بیان فرمائے ہیں: فقراء، مساکین، زکوٰۃ اکٹھا کرنے والے، نو مسلم (مؤلفۃ القلوب)، غلام آزاد کرانے میں، مقروضوں کے قرض کی ادائیگی میں، فی سبیل اللہ، اور مسافر۔",
+        r1_t: "1 روزہ افطار کرتے وقت کی دعائیں",
+        r1_d: "ترجمہ: پیاس چلی گئی، رگیں تر ہو گئیں اور ان شاء اللہ اجر ثابت ہو گیا۔ (سنن ابی داؤد: 2357)",
+        r2_t: "2 افطاری کروانے والے کے لیے دعا",
+        r2_d: "ترجمہ: تمہارے پاس روزہ دار روزہ افطار کریں، تمہارا کھانا نیک لوگ کھائیں اور فرشتے تمہارے لیے رحمت کی دعا کریں۔ (سنن ابی داؤد: 3854)",
+        r3_t: "3 روزے کے بنیادی فقہی احکام و کفارہ",
+        r3_d: "صبح صادق سے پہلے دل کے ارادے سے نیت کرنا فرض ہے۔ بھول کر کھا پی لینے یا مسواک کرنے سے روزہ نہیں ٹوٹتا۔ جان بوجھ کر بغیر شرعی عذر کے رمضان کا روزہ توڑنے پر قضاء کے ساتھ کفارہ (مسلسل 60 روزے یا 60 مسکینوں کو کھانا) لازم آتا ہے۔",
+        hj1_t: "احرام کے احکام اور طریقہ",
+        hj1_d: "میقات پر غسل کر کے دو غیر سلی سفید چادریں باندھنا اور حج کی نیت کر کے تلبیہ پڑھنا حج کا اولین فرض رکن ہے۔",
+        hj2_t: "طواف کعبہ اور حجر اسود کا بوسہ",
+        hj2_d: "حجرِ اسود سے طواف شروع کر کے کعبۃ اللہ کے 7 چکر مکمل کریں۔ ہر چکر پر استلام (اشارہ) کریں اور رُکنِ یمانی اور حجرِ اسود کے درمیان 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً...' پڑھیں۔",
+        hj3_t: "مقامِ ابراہیم پر نماز اور زم زم پینا",
+        hj3_d: "طواف مکمل کرنے کے بعد مقامِ ابراہیم کے پیچھے 2 رکعت واجب الطواف پڑھیں، اور اس کے بعد قبلہ رخ کھڑے ہو کر پیٹ بھر کر آبِ زم زم پئیں اور دعا مانگیں۔",
+        hj4_t: "سعی کے احکام اور طریقہ",
+        hj4_d: "صفا سے شروع کر کے مروہ تک 7 چکر لگائیں۔ سبز روشنیوں کے درمیان مرد حضرات قدرے تیز دوڑیں (ہرولہ کریں)۔",
+        hj5_t: "منیٰ، عرفات اور مزدلفہ کے ایام",
+        hj5_d: "8 ذوالحجہ کو منیٰ روانگی، 9 ذوالحجہ کو میدانِ عرفات میں وقوف (الحج عرفۃ - اعظم فرض)، پھر رات مزدلفہ میں گزارنا اور رمی کے لیے کنکریاں چننا۔",
+        hj6_t: "جمرات کو کنکریاں مارنا، حجامت اور طوافِ زیارت",
+        hj6_d: "10 ذوالحجہ کو جمرہ عقبہ کو 7 کنکریاں مارنا، قربانی کرنا، بال منڈوانا یا کتروانا (حجامت)، اور 10 سے 12 ذوالحجہ کے دوران فرض طوافِ زیارت مکمل کرنا۔",
+        jh1_t: "1. پہلی تکبیر اور ثناء",
+        jh1_d: "پہلی تکبیر پر ہاتھ کانوں تک اٹھائیں اور ناف کے نیچے باندھ کر ثناء پڑھیں۔",
+        jh2_t: "2. دوسری تکبیر اور درودِ ابراہیمی",
+        jh2_d: "بغیر ہاتھ اٹھائے اللہ اکبر کہیں اور مکمل درودِ ابراہیمی تلاوت کریں۔",
+        jh4_t: "4. چوتھی تکبیر اور دونوں طرف سلام",
+        jh4_d: "چوتھی تکبیر کہیں، ہاتھ کھولیں اور دائیں اور بائیں دونوں طرف سلام پھیریں۔",
+        ja1_t: "1. پہلی تکبیر، رفع الیدین اور سورۃ الفاتحہ",
+        ja1_d: "رفع الیدین کے ساتھ تکبیر کہیں، ہاتھ سینے پر باندھیں، اور سورۃ الفاتحہ اور چھوٹی سورت پڑھیں۔ (صحیح بخاری: 1335)",
+        ja2_t: "2. دوسری تکبیر اور درود شریف",
+        ja2_d: "رفع الیدین کے ساتھ تکبیر کہیں اور درودِ ابراہیمی تلاوت کریں۔",
+        ja4_t: "4. چوتھی تکبیر اور دائیں طرف سلام",
+        ja4_d: "چوتھی تکبیر کے بعد صرف دائیں طرف ایک سلام 'السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ' پھیریں۔"
+      },
+      en: {
+        dir: "ltr",
+        header: "Ibadaat & Pillars of Islam",
+        tabs: ["1. Shahada (Faith)", "2. Salah (Prayer)", "3. Zakat (Charity)", "4. Sawm (Fasting)", "5. Hajj (Pilgrimage)", "Funeral (Janaza)"],
+        rukns: {
+          shahadat: "1st Pillar of Islam",
+          namaz: "2nd Pillar of Islam",
+          zakat: "3rd Pillar of Islam",
+          roza: "4th Pillar of Islam",
+          hajj: "5th Pillar of Islam",
+          janaza: "Farz-e-Kifaya (Funeral Rites)"
+        },
+        headings: {
+          shahadat: "Testimony of Faith & Essence of Tawheed",
+          namaz: "Significance of Salah & Sunnah Method",
+          zakat: "Nisab, Calculation & Beneficiaries of Zakat",
+          roza: "Rules, Virtues & Guidelines of Fasting",
+          hajj: "Fundamental Rites & Virtues of Hajj",
+          janaza: "Funeral Prayer (Janaza) Sunnah Method"
+        },
+        ayats: {
+          shahadat: "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge - [that He is] maintaining [creation] in justice. There is no deity except Him, the Exalted in Might, the Wise.",
+          namaz: "Indeed, prayer has been decreed upon the believers a decree of specified times.",
+          zakat: "Take from their wealth a charity by which you purify them and cause them increase, and invoke [Allah's blessings] upon them.",
+          roza: "The month of Ramadan [is that] in which was revealed the Qur'an, a guidance for the people and clear proofs of guidance and criterion.",
+          hajj: "And [due] to Allah from the people is a pilgrimage to the House - for whoever is able to find thereto a way."
+        },
+        hadiths: {
+          shahadat: "<strong>Hadith:</strong> The Messenger of Allah ﷺ said: 'Islam is built on five: Testifying that there is no god but Allah and Muhammad is His Messenger, establishing prayer, giving zakah, performing Hajj, and fasting Ramadan.' (Sahih Bukhari: 8)",
+          namaz: "<strong>Hadith:</strong> The Prophet ﷺ said: 'Between a person and disbelief is abandoning prayer.' (Sahih Muslim: 82) and 'Pray as you have seen me praying.' (Sahih Bukhari: 631)",
+          zakat: "<strong>Hadith:</strong> The Prophet ﷺ instructed Mu'adh: 'Inform them that Allah has made zakat obligatory on their wealth, taken from the rich and given to their poor.' (Sahih Bukhari: 1395)",
+          roza: "<strong>Hadith Qudsi:</strong> Allah said: 'Fasting is for Me, and I shall reward it. The fasting person leaves his desire and food for My sake.' (Sahih Bukhari: 1904)",
+          hajj: "<strong>Hadith:</strong> The Prophet ﷺ said: 'Whoever performs Hajj for Allah and commits no obscenity or sin returns free of sins as on the day his mother bore him.' (Sahih Bukhari: 1521)",
+          janaza: "The Prophet ﷺ said: 'Whoever attends the funeral prayer gets one Qirat, and whoever remains until burial gets two Qirats, each equal to Mount Uhud.' (Sahih Bukhari: 1325)"
+        },
+        selectFiqh: "Select Prayer Method:",
+        selectJanazaFiqh: "Select Janaza Method:",
+        btnHanafi: "Hanafi School",
+        btnAhleHadees: "Ahle Hadees / Sunnah",
+        t1_t: "1. Tawheed ar-Rububiyyah (Lordship)",
+        t1_d: "Firm conviction that Allah alone is the Creator, Owner, Sustainer, and Ruler of all the universes without any partners.",
+        t2_t: "2. Tawheed al-Asma was-Sifat",
+        t2_d: "Believing in all of Allah's divine names and perfect attributes without likening them to creation, distorting them, or negating them (There is nothing like unto Him).",
+        t3_t: "3. Tawheed al-Ibadah (Worship)",
+        t3_d: "Directing every form of worship including prayer, fasting, prostration, supplication, vows, and sacrifice exclusively to Allah alone.",
+        hn1_t: "1. Takbeer-e-Tehreema",
+        hn1_d: "Face the Qiblah, raise hands up to earlobes with palms facing Qiblah, say 'Allahu Akbar', and fold hands below the navel with right palm on left wrist.",
+        hn2_t: "2. Supplication after Takbeer",
+        hn2_d: "Recite Thana (Subhanak Allahumma), Ta'awwudh, Tasmiyah, Surah Al-Fatiha, and an additional Surah. Say 'Ameen' quietly.",
+        hn3_t: "3. Ruku (Bowing) Supplication",
+        hn3_d: "Say 'Allahu Akbar', bow into Ruku grasping knees firmly, and recite 'Subhana Rabbiyal Azeem' at least 3 times. Keep the back straight.",
+        hn4_t: "4. Rising from Ruku (Qaumah)",
+        hn4_d: "Rise from Ruku without raising hands, stand straight, and say 'Sami Allahu Liman Hamidah' followed by 'Rabbana Lakal Hamd'.",
+        hn5_t: "5. Sajdah (Prostration)",
+        hn5_d: "Say 'Allahu Akbar' and prostrate. Place knees first then hands, nose, and forehead. Recite 'Subhana Rabbiyal A'la' at least 3 times.",
+        hn6_t: "6. Sitting Between Two Prostrations",
+        hn6_d: "Rise from the first prostration and sit calmly upright in Jalsah, reciting the supplication before prostrating a second time.",
+        hn7_t: "7. Tashahhud, Durood & Salam",
+        hn7_d: "Sit on the left foot with right upright. Recite Attahiyyat, raise index finger at the testimony, recite Durood-e-Ibrahimi, and make Salam to both sides.",
+        ah1_t: "1. Takbeer & Rafa-ul-Yadain",
+        ah1_d: "Face Qiblah, raise hands to shoulders/ears (Rafa-ul-Yadain), say 'Allahu Akbar', and fold hands upon the chest with right hand over left arm. (Bukhari: 735)",
+        ah2_t: "2. Opening Dua & Audible Ameen",
+        ah2_d: "Recite Dua Al-Istiftah, Ta'awwudh, Tasmiyah, and Surah Al-Fatiha. Recite 'Ameen' loudly with the Imam in audible prayers. (Bukhari: 780)",
+        ah3_t: "3. Rafa-ul-Yadain in Ruku",
+        ah3_d: "Perform Rafa-ul-Yadain when going into Ruku and when rising while reciting 'Sami Allahu Liman Hamidah' and 'Rabbana wa Lakal Hamd'. (Bukhari: 735)",
+        ah4_t: "4. Prostration & Jalsah",
+        ah4_d: "Place hands before knees when prostrating. Keep heels together. Recite the supplication between the two prostrations.",
+        ah5_t: "5. Tawarruk & Continuous Finger Movement",
+        ah5_d: "Sit in Tawarruk in the final sitting and continuously move the index finger throughout Tashahhud while supplicating, then make Salam. (Nasai: 1270)",
+        z1_t: "1. Nisab of Gold and Silver",
+        z1_d: "Gold Nisab is 7.5 Tolas (87.48 grams) and Silver Nisab is 52.5 Tolas (612.36 grams) or equivalent cash and commercial merchandise held for one full lunar year.",
+        z2_t: "2. Rate and Calculation",
+        z2_d: "2.5% (one-fortieth) of the total eligible wealth must be given as Zakat. Basic personal necessities, home, and personal vehicle are exempt.",
+        z3_t: "3. Beneficiaries of Zakat (At-Tawbah: 60)",
+        z3_d: "The Qur'an specifies 8 categories: the poor, the needy, zakat collectors, new Muslims, freeing slaves, debtors, in Allah's cause, and stranded travelers.",
+        r1_t: "1. Supplications at Iftar (Breaking Fast)",
+        r1_d: "Translation: The thirst is gone, the veins are moistened, and the reward is confirmed, if Allah wills. (Abu Dawood: 2357)",
+        r2_t: "2. Supplication for the Host Providing Iftar",
+        r2_d: "Translation: May fasting people break their fast with you, may the righteous eat your food, and may the angels pray for mercy upon you. (Abu Dawood: 3854)",
+        r3_t: "3. Essential Fiqh Rules & Kaffarah",
+        r3_d: "Intention must be made in the heart before dawn. Unintentional eating/drinking does not break the fast. Breaking an obligatory Ramadan fast intentionally requires 60 consecutive days of fasting as Kaffarah.",
+        hj1_t: "Rules and Method of Ihram",
+        hj1_d: "Bathing at the Miqat, wearing two unstitched white sheets, making the intention for Hajj, and reciting the Talbiyah.",
+        hj2_t: "Tawaf of Ka'bah & Touching Black Stone",
+        hj2_d: "Perform 7 circuits starting from the Black Stone, gesturing toward it (Istilam), and reciting prayers between the Yamani Corner and the Black Stone.",
+        hj3_t: "Prayer at Maqam Ibrahim & Zamzam",
+        hj3_d: "Perform 2 rak'ahs behind Maqam Ibrahim after Tawaf, then drink Zamzam water to fulfillment facing the Qiblah.",
+        hj4_t: "Method and Rules of Sa'i",
+        hj4_d: "Perform 7 laps between Safa and Marwah, starting at Safa and ending at Marwah, with men running at a moderate pace between the green lights.",
+        hj5_t: "Days of Mina, Arafat & Muzdalifah",
+        hj5_d: "Departure to Mina on 8th Dhul-Hijjah, standing at the plains of Arafat on 9th (Al-Hajj Arafah - core pillar), and overnight stay at Muzdalifah.",
+        hj6_t: "Rami of Jamarat, Shaving & Tawaf Ziyarah",
+        hj6_d: "Stoning Jamrat al-Aqaba on 10th Dhul-Hijjah, animal sacrifice, shaving or trimming hair, and performing the obligatory Tawaf al-Ziyarah.",
+        jh1_t: "1. 1st Takbeer and Thana",
+        jh1_d: "Raise hands to earlobes on the first Takbeer, fold below navel, and recite Thana adding 'wa jalla thana'uk'.",
+        jh2_t: "2. 2nd Takbeer and Durood",
+        jh2_d: "Say Takbeer without raising hands and recite the complete Durood-e-Ibrahimi.",
+        jh4_t: "4. 4th Takbeer and Salam to Both Sides",
+        jh4_d: "Say 4th Takbeer without raising hands, release hands, and turn face right and left for Salam.",
+        ja1_t: "1. 1st Takbeer, Rafa-ul-Yadain & Surah Fatiha",
+        ja1_d: "Say Takbeer with Rafa-ul-Yadain, fold hands on chest, and recite Surah Al-Fatiha and a short surah. (Bukhari: 1335)",
+        ja2_t: "2. 2nd Takbeer and Durood",
+        ja2_d: "Say Takbeer with Rafa-ul-Yadain and recite complete Durood-e-Ibrahimi.",
+        ja4_t: "4. 4th Takbeer and Single Salam to the Right",
+        ja4_d: "After the 4th Takbeer, pause briefly and make a single Salam to the right side: 'Assalamu Alaikum wa Rahmatullah'."
+      },
+      ro: {
+        dir: "ltr",
+        header: "Ibadaat aur Arkaan-e-Islam",
+        tabs: ["1. Kalma Touheed", "2. Namaz Ka Tariqa", "3. Zakat aur Nisab", "4. Roza aur Ahkam", "5. Hajj aur Manasik", "Namaz-e-Janaza"],
+        rukns: {
+          shahadat: "1st Rukn-e-Islam",
+          namaz: "2nd Rukn-e-Islam",
+          zakat: "3rd Rukn-e-Islam",
+          roza: "4th Rukn-e-Islam",
+          hajj: "5th Rukn-e-Islam",
+          janaza: "Farz-e-Kifaya (Janaza)"
+        },
+        headings: {
+          shahadat: "Kalma Shahadat aur Aqeedah Touheed",
+          namaz: "Namaz Ki Ahmiyat aur Masnoon Tariqa",
+          zakat: "Zakat Ka Nisab aur Shari Masarif",
+          roza: "Roze Ke Ahkam, Fazail aur Masail",
+          hajj: "Hajj Ke Bunyadi Arkan aur Manasik",
+          janaza: "Namaz-e-Janaza Ka Masnoon Tariqa"
+        },
+        ayats: {
+          shahadat: "Allah gawahi deta hai ke Us ke siwa koi mabood nahi, aur farishte aur ilm wale bhi adl ke sath is baat par qayam hain.",
+          namaz: "Beshak namaz mominon par muqarrarah waqt ke andar farz ki gayi hai.",
+          zakat: "Aap unke maal mein se zakat wasool kijiye taake aap unhe paak o saaf kar sakein.",
+          roza: "Ramzan wo maheena hai jis mein Quran nazil kiya gaya jo logon ke liye hidayat hai.",
+          hajj: "Aur logon par Allah ke liye is ghar ka hajj farz hai jo wahan tak jaane ki istetaat rakhta ho."
+        },
+        hadiths: {
+          shahadat: "<strong>Hadith:</strong> Rasool Allah ﷺ ne farmaya: 'Islam ki bunyad 5 cheezon par hai: Gawahi dena ke Allah ke siwa koi mabood nahi aur Muhammad ﷺ Allah ke Rasool hain, Namaz qayam karna, Zakat dena, Hajj karna aur Ramzan ke roze rakhna.' (Bukhari: 8)",
+          namaz: "<strong>Hadith:</strong> Rasool Allah ﷺ ne farmaya: 'Bande aur kufr ke darmiyan farq namaz ka chhor dena hai.' (Muslim: 82) aur farmaya: 'Namaz waise padho jaise mujhe padhte dekha hai.' (Bukhari: 631)",
+          zakat: "<strong>Hadith:</strong> Nabi ﷺ ne farmaya: 'Unhe batao ke Allah ne unke maal par zakat farz ki hai jo ameer logon se lekar ghareebon mein taqseem ki jayegi.' (Bukhari: 1395)",
+          roza: "<strong>Hadith Qudsi:</strong> Allah farmata hai: 'Roza mere liye hai aur main hi iska badla doonga.' (Bukhari: 1904)",
+          hajj: "<strong>Hadith:</strong> Rasool Allah ﷺ ne farmaya: 'Jis ne Allah ke liye hajj kiya aur gunah na kiya wo aise laut-ta hai jaise aaj hi paida hua ho.' (Bukhari: 1521)",
+          janaza: "Rasool Allah ﷺ ne farmaya: Jo janaza padhe use ek qirat aur jo tadfeen tak sath rahe use do qirat sawab milta hai. (Bukhari: 1325)"
+        },
+        selectFiqh: "Namaz Ka Tariqa Chuniye:",
+        selectJanazaFiqh: "Janaza Ka Tariqa Chuniye:",
+        btnHanafi: "Tariqa Hanafi",
+        btnAhleHadees: "Tariqa Ahle Hadees",
+        t1_t: "1. Touheed fir-Rububiyyat (Khalik o Malik)",
+        t1_d: "Is baat par pakka yaqeen rakhna ke tamaam jahano ka akela Khalik, Malik aur Razik sirf Allah hai. Kayinat ke kisi mamle mein Uska koi shareek nahi.",
+        t2_t: "2. Touheed fil-Asma was-Sifaat",
+        t2_d: "Allah Ta'ala ke tamaam Asma-e-Husna aur kaamil sifat par baghair kisi misaal ke imaan lana ke koi makhlooq Us jaisi nahi ho sakti.",
+        t3_t: "3. Touheed fil-Ibadat (Uloohiyat)",
+        t3_d: "Har qisam ki ibadat jaise namaz, roza, sajdah, dua, nazar niyaz aur qurbaani sirf aur sirf Allah ka haq hai. Kisi aur ke aage jhukna shirk hai.",
+        hn1_t: "1. Takbeer-e-Tehreema",
+        hn1_d: "Qibla rukh khade hokar dono haath kaano ki lau tak uthayein aur Allahu Akbar kehte huye naaf ke neeche baandh lein.",
+        hn2_t: "2. Takbeer ke Baad Ki Duayein",
+        hn2_d: "Sana (Subhanak Allahumma), Ta'awwuz, Tasmiyah, Surah Al-Fatiha aur koi surat padhein. Fatiha ke baad aahista se 'Aameen' kahein.",
+        hn3_t: "3. Ruku Ki Duayein",
+        hn3_d: "Allahu Akbar keh kar ruku mein jayein, ghutno ko pakdein aur kam az kam 3 baar 'Subhana Rabbiyal Azeem' padhein. Peeth seedhi rakhein.",
+        hn4_t: "4. Ruku Se Uthne Ki Duayein",
+        hn4_d: "Ruku se uthte waqt baghair rafa-ul-yadain seedhe khade hon aur 'Sami Allahu Liman Hamidah' aur 'Rabbana Lakal Hamd' kahein.",
+        hn5_t: "5. Sajde Ki Duayein",
+        hn5_d: "Allahu Akbar keh kar sajde mein jayein. Pehle ghutne phir haath rakhein aur 3 baar 'Subhana Rabbiyal A'la' padhein.",
+        hn6_t: "6. Do Sajdon Ke Darmiyan Ki Dua",
+        hn6_d: "Pehle sajde se uth kar itminan se seedhe baith jayein (Jalsah) aur dua padh kar doosra sajdah karein.",
+        hn7_t: "7. Tashahhud, Durood aur Salam",
+        hn7_d: "Qaada mein baayan paon bicha kar baith jayein. Attahiyyat, Durood-e-Ibrahimi aur dua padh kar dono taraf salam pherein.",
+        ah1_t: "1. Takbeer aur Rafa-ul-Yadain",
+        ah1_d: "Kandhon tak haath uthayein (Rafa-ul-Yadain), Allahu Akbar kahein aur seene par haath baandhein. (Bukhari: 735)",
+        ah2_t: "2. Dua-e-Istiftah aur Buland Aameen",
+        ah2_d: "Dua-e-Istiftah, Surah Fatiha padhein aur jahri namazon mein Imam ke sath buland aawaz se 'Aameen' kahein. (Bukhari: 780)",
+        ah3_t: "3. Ruku Jaate aur Uthte Waqt Rafa-ul-Yadain",
+        ah3_d: "Ruku mein jaate aur ruku se uthte waqt kandhon tak haath uthayein (Rafa-ul-Yadain). (Bukhari: 735)",
+        ah4_t: "4. Sajdah aur Jalsah",
+        ah4_d: "Sajde mein pehle haath rakhein phir ghutne. Dono aediyan mili hon aur do sajdon ke darmiyan dua padhein.",
+        ah5_t: "5. Tawarruk aur Ungli Ki Harkat",
+        ah5_d: "Aakhri qaada mein Tawarruk karein aur tashahhud mein ungli ko musalsal harkat dete huye dua karein. (Nasai: 1270)",
+        z1_t: "1. Sone aur Chaandi Ka Nisab",
+        z1_d: "Sone ka nisab 7.5 tole (87.48 grams) aur chaandi ka nisab 52.5 tole (612.36 grams) ya iske barabar naqdi par saal guzarne par zakat wajib hoti hai.",
+        z2_t: "2. Zakat Ki Sharah aur Calculation",
+        z2_d: "Kul qabil-e-zakat maaliyat par 2.5% (chaliswaan hissa) ada karna farz hai. Zaati zaroorat ke makaan aur gaadi par zakat nahi hai.",
+        z3_t: "3. Zakat Ke 8 Masarif (Surah At-Tawbah: 60)",
+        z3_d: "Fuqara, Masakeen, Aamileen, Muallafat-ul-Quloob, Ghulam azaad karana, Maqrooz, Fi Sabilillah aur Musafir.",
+        r1_t: "1. Roza Iftar Karte Waqt Ki Duayein",
+        r1_d: "Tarjuma: Pyaas chali gayi, ragein tar ho gayin aur in sha Allah ajar saabit ho gaya. (Abu Dawood: 2357)",
+        r2_t: "2. Iftari Karwane Wale Ke Liye Dua",
+        r2_d: "Tarjuma: Tumhare paas rozedar iftar karein, nek log khana khayein aur farishte tumhare liye rehmat ki dua karein. (Abu Dawood: 3854)",
+        r3_t: "3. Roze Ke Aham Fiqhi Masail aur Kaffarah",
+        r3_d: "Subah Sadiq se pehle dil se niyyat karna farz hai. Bhool kar khana peena roza nahi todta. Jaan boojh kar roza todne par 60 roze kaffarah lazim hai.",
+        hj1_t: "Ihram Ke Ahkam aur Tariqa",
+        hj1_d: "Meeqaat se ghusl karke do safed chaadrein baandhna, hajj ki niyyat aur Talbiyah padhna hajj ka pehla farz hai.",
+        hj2_t: "Tawaf Kaabah aur Hajr-e-Aswad Ka Bosa",
+        hj2_d: "Hajr-e-Aswad se tawaf shuru karke 7 chakkar mukammal karein aur duayein padhein.",
+        hj3_t: "Maqam-e-Ibrahim Par Namaz aur Zamzam",
+        hj3_d: "Tawaf ke baad Maqam-e-Ibrahim ke peeche 2 rakat wajib-ut-tawaf padhein aur Zamzam pyein.",
+        hj4_t: "Sayi Ka Tariqa aur Ahkam",
+        hj4_d: "Safa se shuru karke Marwah tak 7 chakkar lagayein, sabz lighton ke darmiyan mard tezi se daudein.",
+        hj5_t: "Mina, Arafat aur Muzdalifah Ke Ayyaam",
+        hj5_d: "8 Zul-Hijjah ko Mina rawangi, 9 ko Maidan-e-Arafat mein qayam (Al-Hajj Arafah - aazam farz), aur raat Muzdalifah mein guzarna.",
+        hj6_t: "Jamarat Ko Kankariyan, Hajamat aur Tawaf Ziyarat",
+        hj6_d: "10 Zul-Hijjah ko kankariyan maarna, qurbaani, baal katwana, aur farz Tawaf-e-Ziyarat mukammal karna.",
+        jh1_t: "1. Pehli Takbeer aur Sana",
+        jh1_d: "Pehli takbeer par haath utha kar naaf ke neeche baandhein aur Sana (wa jalla thana'uk) padhein.",
+        jh2_t: "2. Doosri Takbeer aur Durood",
+        jh2_d: "Baghair haath uthaye Allahu Akbar kahein aur Durood-e-Ibrahimi padhein.",
+        jh4_t: "4. Chauthi Takbeer aur Dono Taraf Salam",
+        jh4_d: "Chauthi takbeer keh kar haath kholein aur dono taraf salam pherein.",
+        ja1_t: "1. Pehli Takbeer, Rafa-ul-Yadain aur Fatiha",
+        ja1_d: "Rafa-ul-Yadain karke seene par haath baandhein aur Surah Al-Fatiha aur surat padhein. (Bukhari: 1335)",
+        ja2_t: "2. Doosri Takbeer aur Durood",
+        ja2_d: "Rafa-ul-Yadain ke sath takbeer kahein aur Durood-e-Ibrahimi padhein.",
+        ja4_t: "4. Chauthi Takbeer aur Daayein Taraf Salam",
+        ja4_d: "Chauthi takbeer ke baad sirf daayein taraf ek salam pherein."
+      }
+    };
+
+    function changeLanguage(lang) {
+      const d = LANG_DATA[lang] || LANG_DATA['ur'];
+      const doc = document.getElementById('htmlDoc');
+      doc.setAttribute('dir', d.dir);
+      doc.setAttribute('lang', lang);
+
+      document.getElementById('t_header').innerText = d.header;
+      document.getElementById('tab_shahadat').innerText = d.tabs[0];
+      document.getElementById('tab_namaz').innerText = d.tabs[1];
+      document.getElementById('tab_zakat').innerText = d.tabs[2];
+      document.getElementById('tab_roza').innerText = d.tabs[3];
+      document.getElementById('tab_hajj').innerText = d.tabs[4];
+      document.getElementById('tab_janaza').innerText = d.tabs[5];
+
+      document.getElementById('t_rukn1').innerText = d.rukns.shahadat;
+      document.getElementById('t_rukn2').innerText = d.rukns.namaz;
+      document.getElementById('t_rukn3').innerText = d.rukns.zakat;
+      document.getElementById('t_rukn4').innerText = d.rukns.roza;
+      document.getElementById('t_rukn5').innerText = d.rukns.hajj;
+      document.getElementById('t_janaza_badge').innerText = d.rukns.janaza;
+
+      document.getElementById('t_shahadat_head').innerText = d.headings.shahadat;
+      document.getElementById('t_namaz_head').innerText = d.headings.namaz;
+      document.getElementById('t_zakat_head').innerText = d.headings.zakat;
+      document.getElementById('t_roza_head').innerText = d.headings.roza;
+      document.getElementById('t_hajj_head').innerText = d.headings.hajj;
+      document.getElementById('t_janaza_head').innerText = d.headings.janaza;
+
+      document.getElementById('t_shahadat_ayat').innerText = d.ayats.shahadat;
+      document.getElementById('t_namaz_ayat').innerText = d.ayats.namaz;
+      document.getElementById('t_zakat_ayat').innerText = d.ayats.zakat;
+      document.getElementById('t_roza_ayat').innerText = d.ayats.roza;
+      document.getElementById('t_hajj_ayat').innerText = d.ayats.hajj;
+
+      document.getElementById('t_shahadat_hadith').innerHTML = d.hadiths.shahadat;
+      document.getElementById('t_namaz_hadith').innerHTML = d.hadiths.namaz;
+      document.getElementById('t_zakat_hadith').innerHTML = d.hadiths.zakat;
+      document.getElementById('t_roza_hadith').innerHTML = d.hadiths.roza;
+      document.getElementById('t_hajj_hadith').innerHTML = d.hadiths.hajj;
+      document.getElementById('t_janaza_hadith_txt').innerText = d.hadiths.janaza;
+
+      document.getElementById('t_select_fiqh').innerText = d.selectFiqh;
+      document.getElementById('t_select_janaza_fiqh').innerText = d.selectJanazaFiqh;
+      document.getElementById('btnHanafi').innerText = d.btnHanafi;
+      document.getElementById('btnAhleHadees').innerText = d.btnAhleHadees;
+      document.getElementById('btnJanazaHanafi').innerText = d.btnHanafi;
+      document.getElementById('btnJanazaAhleHadees').innerText = d.btnAhleHadees;
+
+      document.getElementById('t_t1_t').innerText = d.t1_t;
+      document.getElementById('t_t1_d').innerText = d.t1_d;
+      document.getElementById('t_t2_t').innerText = d.t2_t;
+      document.getElementById('t_t2_d').innerText = d.t2_d;
+      document.getElementById('t_t3_t').innerText = d.t3_t;
+      document.getElementById('t_t3_d').innerText = d.t3_d;
+
+      document.getElementById('t_hn1_t').innerText = d.hn1_t;
+      document.getElementById('t_hn1_d').innerText = d.hn1_d;
+      document.getElementById('t_hn2_t').innerText = d.hn2_t;
+      document.getElementById('t_hn2_d').innerText = d.hn2_d;
+      document.getElementById('t_hn3_t').innerText = d.hn3_t;
+      document.getElementById('t_hn3_d').innerText = d.hn3_d;
+      document.getElementById('t_hn4_t').innerText = d.hn4_t;
+      document.getElementById('t_hn4_d').innerText = d.hn4_d;
+      document.getElementById('t_hn5_t').innerText = d.hn5_t;
+      document.getElementById('t_hn5_d').innerText = d.hn5_d;
+      document.getElementById('t_hn6_t').innerText = d.hn6_t;
+      document.getElementById('t_hn6_d').innerText = d.hn6_d;
+      document.getElementById('t_hn7_t').innerText = d.hn7_t;
+      document.getElementById('t_hn7_d').innerText = d.hn7_d;
+
+      document.getElementById('t_ah1_t').innerText = d.ah1_t;
+      document.getElementById('t_ah1_d').innerText = d.ah1_d;
+      document.getElementById('t_ah2_t').innerText = d.ah2_t;
+      document.getElementById('t_ah2_d').innerText = d.ah2_d;
+      document.getElementById('t_ah3_t').innerText = d.ah3_t;
+      document.getElementById('t_ah3_d').innerText = d.ah3_d;
+      document.getElementById('t_ah4_t').innerText = d.ah4_t;
+      document.getElementById('t_ah4_d').innerText = d.ah4_d;
+      document.getElementById('t_ah5_t').innerText = d.ah5_t;
+      document.getElementById('t_ah5_d').innerText = d.ah5_d;
+
+      document.getElementById('t_z1_t').innerText = d.z1_t;
+      document.getElementById('t_z1_d').innerText = d.z1_d;
+      document.getElementById('t_z2_t').innerText = d.z2_t;
+      document.getElementById('t_z2_d').innerText = d.z2_d;
+      document.getElementById('t_z3_t').innerText = d.z3_t;
+      document.getElementById('t_z3_d').innerText = d.z3_d;
+
+      document.getElementById('t_r1_t').innerText = d.r1_t;
+      document.getElementById('t_r1_d').innerText = d.r1_d;
+      document.getElementById('t_r2_t').innerText = d.r2_t;
+      document.getElementById('t_r2_d').innerText = d.r2_d;
+      document.getElementById('t_r3_t').innerText = d.r3_t;
+      document.getElementById('t_r3_d').innerText = d.r3_d;
+
+      document.getElementById('t_hj1_t').innerText = d.hj1_t;
+      document.getElementById('t_hj1_d').innerText = d.hj1_d;
+      document.getElementById('t_hj2_t').innerText = d.hj2_t;
+      document.getElementById('t_hj2_d').innerText = d.hj2_d;
+      document.getElementById('t_hj3_t').innerText = d.hj3_t;
+      document.getElementById('t_hj3_d').innerText = d.hj3_d;
+      document.getElementById('t_hj4_t').innerText = d.hj4_t;
+      document.getElementById('t_hj4_d').innerText = d.hj4_d;
+      document.getElementById('t_hj5_t').innerText = d.hj5_t;
+      document.getElementById('t_hj5_d').innerText = d.hj5_d;
+      document.getElementById('t_hj6_t').innerText = d.hj6_t;
+      document.getElementById('t_hj6_d').innerText = d.hj6_d;
+
+      document.getElementById('t_jh1_t').innerText = d.jh1_t;
+      document.getElementById('t_jh1_d').innerText = d.jh1_d;
+      document.getElementById('t_jh2_t').innerText = d.jh2_t;
+      document.getElementById('t_jh2_d').innerText = d.jh2_d;
+      document.getElementById('t_jh4_t').innerText = d.jh4_t;
+      document.getElementById('t_jh4_d').innerText = d.jh4_d;
+
+      document.getElementById('t_ja1_t').innerText = d.ja1_t;
+      document.getElementById('t_ja1_d').innerText = d.ja1_d;
+      document.getElementById('t_ja2_t').innerText = d.ja2_t;
+      document.getElementById('t_ja2_d').innerText = d.ja2_d;
+      document.getElementById('t_ja4_t').innerText = d.ja4_t;
+      document.getElementById('t_ja4_d').innerText = d.ja4_d;
+    }
+  </script>
+</body>
+</html>
