@@ -249,7 +249,7 @@ def view_surah(surah_id):
 def favorites():
     return render_template('favorites.html')
 
-# Hadith Section Route
+# Hadith Section Route (Safe Translation & Missing Fallback)
 @app.route('/hadith')
 @app.route('/hadith/<book_id>')
 def view_hadith(book_id=None):
@@ -274,15 +274,25 @@ def view_hadith(book_id=None):
     
     hadiths = []
     try:
-        url_trans = f"https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/{lang_code}-{book_id}.json"
-        res_trans = requests.get(url_trans, timeout=12).json()
-        raw_list_trans = res_trans.get('hadiths', [])[start_num - 1 : end_num - 1]
-        
+        # 1. अरबी टेक्स्ट हमेशा बेस के रूप में लाएं
         url_ar = f"https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/ara-{book_id}.json"
         res_ar = requests.get(url_ar, timeout=12).json()
         raw_list_ar = res_ar.get('hadiths', [])[start_num - 1 : end_num - 1]
 
-        for idx, (tr, ar) in enumerate(zip(raw_list_trans, raw_list_ar)):
+        # 2. चुनी हुई भाषा का अनुवाद लोड करें (अगर फाइल न मिले तो खाली लिस्ट रखें)
+        raw_list_trans = []
+        try:
+            url_trans = f"https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/{lang_code}-{book_id}.json"
+            res_trans = requests.get(url_trans, timeout=12)
+            if res_trans.status_code == 200:
+                raw_list_trans = res_trans.json().get('hadiths', [])[start_num - 1 : end_num - 1]
+        except Exception as te:
+            print("Translation fetch warning:", te)
+
+        # अनुवाद न होने पर दिखाया जाने वाला स्पष्ट संदेश
+        no_trans_msg = "اس زبان میں ترجمہ فی الحال دستیاب نہیں ہے۔ / Translation not available in this language."
+
+        for idx, ar in enumerate(raw_list_ar):
             grades = ar.get('grades', [])
             status = "صحیح (Sahih)" if book_id in ['bukhari', 'muslim'] else "موثق / حسن"
             if grades and len(grades) > 0:
@@ -290,10 +300,17 @@ def view_hadith(book_id=None):
                 if grade_name:
                     status = grade_name
 
+            # अनुवाद की जाँच: अगर खाली हो तो सूचना संदेश डालें
+            trans_text = no_trans_msg
+            if idx < len(raw_list_trans):
+                t_item = raw_list_trans[idx]
+                if t_item and t_item.get('text') and t_item.get('text').strip():
+                    trans_text = t_item.get('text').strip()
+
             hadiths.append({
                 "intl_number": ar.get('hadithnumber', start_num + idx),
                 "arabic": ar.get('text', ''),
-                "translation": tr.get('text', ''),
+                "translation": trans_text,
                 "status": status
             })
     except Exception as e:
