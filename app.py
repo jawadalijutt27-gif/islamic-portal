@@ -168,6 +168,11 @@ def flashes():
 def prayer_times():
     return render_template('prayer_times.html')
 
+# Naya Prayer Alarm & Azaan Route
+@app.route('/prayer-alarm')
+def prayer_alarm():
+    return render_template('prayer_alarm.html')
+
 @app.route('/share-greetings')
 def share_greetings():
     return render_template('share_greetings.html')
