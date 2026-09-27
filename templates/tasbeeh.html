@@ -2,100 +2,376 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Tasbeeh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Digital Tasbeeh - Islamic App</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-    body { background-color: #f7fafc; padding: 20px 16px 85px; text-align: center; }
-    .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
-    .back-btn { text-decoration: none; color: #1a4fba; font-weight: bold; font-size: 15px; }
-    .zikr-select {
-      width: 100%; max-width: 320px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e0;
-      font-size: 16px; margin-bottom: 30px; background: white; outline: none; font-weight: 600;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    .counter-display {
-      width: 220px; height: 220px; background: #1a4fba; color: white; border-radius: 50%;
-      margin: 0 auto 30px; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; box-shadow: 0 10px 25px rgba(26, 79, 186, 0.35);
-      user-select: none; cursor: pointer; transition: transform 0.1s;
+
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding-bottom: 95px;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .counter-display:active { transform: scale(0.95); }
-    .count-num { font-size: 64px; font-weight: bold; }
-    .tap-text { font-size: 13px; opacity: 0.8; margin-top: 4px; }
-    .btn-reset {
-      background: #e53e3e; color: white; border: none; padding: 10px 24px;
-      font-size: 14px; border-radius: 20px; cursor: pointer; font-weight: 600;
+
+    /* Fixed Green Sticky Header */
+    .top-header {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%) !important;
+      color: #ffffff !important;
+      padding: 16px 14px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      text-align: center;
+      width: 100%;
+    }
+    .top-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: 0.3px;
+    }
+    .top-header p {
+      font-size: 12px;
+      color: #d1fae5;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+
+    /* Dhikr Dropdown Card */
+    .dhikr-card {
+      background: #ffffff;
+      border: 1.5px solid #d1fae5;
+      border-radius: 16px;
+      padding: 12px 14px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.05);
+      margin-bottom: 24px;
+    }
+
+    .dhikr-select {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #064e3b;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #f8fafc;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* Big Circular Tap Button */
+    .counter-wrapper {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .tap-btn {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1d4ed8, #2563eb);
+      border: 6px solid #dbeafe;
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+    }
+
+    .tap-btn:active {
+      transform: scale(0.94);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+    }
+
+    .count-display {
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+
+    .tap-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      opacity: 0.85;
+    }
+
+    /* Controls Row */
+    .controls-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .reset-btn {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1.5px solid #fecaca;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    .reset-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Standardized Bottom Navigation */
+    .bottom-nav {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 64px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      border-top: 1.5px solid #e2e8f0 !important;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.06) !important;
+      z-index: 999999 !important;
+      direction: ltr !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .nav-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      color: #64748b !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      flex: 1 !important;
+      cursor: pointer !important;
+      gap: 3px !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+      stroke: #64748b;
+      fill: none;
+      transition: all 0.2s ease;
+    }
+    .nav-item.active {
+      color: #047857 !important;
+      font-weight: 800 !important;
+    }
+    .nav-item.active svg {
+      stroke: #047857 !important;
+      transform: scale(1.1);
     }
   </style>
 
-    <!-- Global Eye Care Mode CSS (Safe Layout) -->
-    <style id="eyecare-style">
-        body.eyecare-mode {
-            background-color: #f6eedb !important;
-            color: #2d241e !important;
-        }
-        body.eyecare-mode .card,
-        body.eyecare-mode .ayat-card,
-        body.eyecare-mode .hadith-card,
-        body.eyecare-mode .ibadaat-card,
-        body.eyecare-mode .prayer-capsule,
-        body.eyecare-mode .nav-bar,
-        body.eyecare-mode .bottom-nav {
-            background-color: #ede2c8 !important;
-            border-color: #d8c8a7 !important;
-        }
-        body.eyecare-mode .top-header {
-            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
-        }
-    </style>
-
+  <!-- Global Eye Care Mode CSS -->
+  <style id="eyecare-style">
+    body.eyecare-mode {
+      background-color: #f6eedb !important;
+      color: #2d241e !important;
+    }
+    body.eyecare-mode .dhikr-card,
+    body.eyecare-mode .bottom-nav {
+      background-color: #ede2c8 !important;
+      border-color: #d8c8a7 !important;
+    }
+    body.eyecare-mode .top-header {
+      background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <a href="/more" class="back-btn">← Back to Menu</a>
-    <h3 style="font-size: 17px; color: #2d3748;">Digital Tasbeeh</h3>
-    <div style="width: 50px;"></div>
+  <!-- Top Green Sticky Header -->
+  <header class="top-header">
+    <h2>ڈیجیٹل تسبیح</h2>
+    <p>Digital Tasbeeh Counter</p>
+  </header>
+
+  <!-- Counter Container -->
+  <main class="container">
+    <div class="dhikr-card">
+      <select id="dhikrSelect" class="dhikr-select" onchange="onDhikrChange()">
+        <option value="subhanallah">سُبْحَانَ اللَّهِ (SubhanAllah)</option>
+        <option value="alhamdulillah">الْحَمْدُ لِلَّهِ (Alhamdulillah)</option>
+        <option value="allahuakbar">اللَّهُ أَكْبَرُ (Allahu Akbar)</option>
+        <option value="astaghfirullah">أَسْتَغْفِرُ اللَّهَ (Astaghfirullah)</option>
+        <option value="lailahaillallah">لَا إِلٰهَ إِلَّا اللَّهُ (La ilaha illallah)</option>
+        <option value="durood">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ (Durood Sharif)</option>
+      </select>
+    </div>
+
+    <div class="counter-wrapper">
+      <div class="tap-btn" id="tapBtn" onclick="incrementCount()">
+        <div class="count-display" id="counterNumber">0</div>
+        <div class="tap-label">Tap To Count</div>
+      </div>
+    </div>
+
+    <div class="controls-row">
+      <button class="reset-btn" onclick="resetCount()">🔄 Reset Count</button>
+    </div>
+  </main>
+
+  <!-- Standardized Bottom Navigation Bar (More is Active) -->
+  <nav class="bottom-nav">
+    <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Quran</span>
+    </a>
+    <a href="/hadith" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      <span>Hadith</span>
+    </a>
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="/ibadaat" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V14h3a3 3 0 0 1 3 3v4H4v-4a3 3 0 0 1 3-3h3V9.5A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path></svg>
+      <span>Ibadaat</span>
+    </a>
+    <a href="/more" class="nav-item active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+      <span>More</span>
+    </a>
+  </nav>
+
+  <!-- Quran Selection Popup Modal -->
+  <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+    <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+      <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+      <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+          </div>
+        </a>
+
+        <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+          </div>
+        </a>
+      </div>
+
+      <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+        Close
+      </button>
+    </div>
   </div>
-
-  <select class="zikr-select" id="zikrText">
-    <option>سُبْحَانَ اللَّهِ (SubhanAllah)</option>
-    <option>الْحَمْدُ لِلَّهِ (Alhamdulillah)</option>
-    <option>اللَّهُ أَكْبَرُ (Allahu Akbar)</option>
-    <option>لَا إِلٰهَ إِلَّا اللَّهُ (La ilaha illallah)</option>
-    <option>أَسْتَغْفِرُ اللَّهَ (Astaghfirullah)</option>
-  </select>
-
-  <div class="counter-display" onclick="incrementCounter()">
-    <div class="count-num" id="counter">0</div>
-    <div class="tap-text">TAP TO COUNT</div>
-  </div>
-
-  <button class="btn-reset" onclick="resetCounter()">Reset Count</button>
 
   <script>
     let count = 0;
-    function incrementCounter() {
-      count++;
-      document.getElementById('counter').innerText = count;
-      if (navigator.vibrate) navigator.vibrate(40);
+    const countDisplay = document.getElementById('counterNumber');
+    const dhikrSelect = document.getElementById('dhikrSelect');
+
+    function getStorageKey() {
+      return 'tasbeeh_count_' + dhikrSelect.value;
     }
-    function resetCounter() {
-      if(confirm('Are you sure you want to reset?')) {
-        count = 0;
-        document.getElementById('counter').innerText = 0;
+
+    function loadSavedCount() {
+      const saved = localStorage.getItem(getStorageKey());
+      count = saved ? parseInt(saved, 10) : 0;
+      countDisplay.innerText = count;
+    }
+
+    function incrementCount() {
+      count++;
+      countDisplay.innerText = count;
+      localStorage.setItem(getStorageKey(), count);
+
+      // Light vibration on mobile devices
+      if (navigator.vibrate) {
+        navigator.vibrate(40);
       }
     }
+
+    function resetCount() {
+      if (confirm("Kya aap counter ko reset karna chahte hain?")) {
+        count = 0;
+        countDisplay.innerText = count;
+        localStorage.setItem(getStorageKey(), 0);
+      }
+    }
+
+    function onDhikrChange() {
+      loadSavedCount();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadSavedCount();
+    });
+
+    function openQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'flex'; }
+    }
+    function closeQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'none'; }
+    }
+
+    (function() {
+      if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+        document.body.classList.add('eyecare-mode');
+      }
+    })();
   </script>
-
-    <!-- Global Eye Care Preference Loader -->
-    <script>
-        (function() {
-            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
-                document.body.classList.add('eyecare-mode');
-            }
-        })();
-    </script>
-
 </body>
 </html>

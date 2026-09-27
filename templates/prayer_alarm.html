@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Prayer Alarm</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f8fafc;
+      padding-bottom: 95px;
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+
+    .top-header {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%) !important;
+      color: #ffffff !important;
+      padding: 14px 16px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #d1fae5;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .page-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 550px;
+      margin: 16px auto 0 auto;
+      padding: 0 14px;
+    }
+
+    .tone-card {
+      background: #ffffff;
+      border: 1.5px solid #d1fae5;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(6, 78, 59, 0.05);
+    }
+    .tone-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .tone-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #064e3b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tone-select-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .tone-select {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 12px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      outline: none;
+      color: #0f172a;
+    }
+    .btn-test {
+      background: #047857;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+      min-width: 85px;
+      justify-content: center;
+    }
+    .btn-test.playing {
+      background: #dc2626 !important;
+    }
+    .btn-test:active {
+      transform: scale(0.96);
+    }
+
+    /* Custom File Picker Button */
+    .custom-upload-box {
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-upload {
+      background: #f1f5f9;
+      color: #047857;
+      border: 1px dashed #047857;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .custom-file-name {
+      font-size: 11px;
+      color: #64748b;
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .prayer-alarm-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: border-color 0.2s;
+    }
+    .prayer-alarm-card.active {
+      border-color: #047857;
+      background: #f0fdf4;
+    }
+    .prayer-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .prayer-icon {
+      font-size: 24px;
+    }
+    .prayer-names {
+      text-align: left;
+    }
+    .p-name-main {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .p-time {
+      font-size: 13px;
+      color: #047857;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 26px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #047857;
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    #alarmRingingModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 99999999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .alarm-box {
+      background: #ffffff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 360px;
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .alarm-icon-ring {
+      font-size: 54px;
+      animation: bounceRing 0.8s infinite alternate;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    @keyframes bounceRing {
+      from { transform: rotate(-15deg) scale(1); }
+      to { transform: rotate(15deg) scale(1.15); }
+    }
+    .alarm-msg-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #064e3b;
+      margin-bottom: 6px;
+    }
+    .alarm-msg-sub {
+      font-size: 14px;
+      color: #475569;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .btn-stop-alarm {
+      background: #dc2626;
+      color: #ffffff;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+    }
+
+    .bottom-nav {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 64px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      border-top: 1.5px solid #e2e8f0 !important;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.06) !important;
+      z-index: 999999 !important;
+      direction: ltr !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .nav-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      color: #64748b !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      flex: 1 !important;
+      cursor: pointer !important;
+      gap: 3px !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+      stroke: #64748b;
+      fill: none;
+      transition: all 0.2s ease;
+    }
+    .nav-item.active {
+      color: #047857 !important;
+      font-weight: 800 !important;
+    }
+    .nav-item.active svg {
+      stroke: #047857 !important;
+      transform: scale(1.1);
+    }
+  </style>
+
+  <style id="eyecare-style">
+    body.eyecare-mode {
+      background-color: #f6eedb !important;
+      color: #2d241e !important;
+    }
+    body.eyecare-mode .tone-card,
+    body.eyecare-mode .prayer-alarm-card,
+    body.eyecare-mode .bottom-nav {
+      background-color: #ede2c8 !important;
+      border-color: #d8c8a7 !important;
+    }
+    body.eyecare-mode .top-header {
+      background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <a href="/more" class="back-btn">← Back</a>
+    <div class="page-title" id="pageHeaderTitle">Prayer Alarm & Azaan</div>
+    <div style="width: 45px;"></div>
+  </header>
+
+  <main class="container">
+    <div class="tone-card">
+      <div class="tone-header">
+        <span class="tone-title" id="toneCardLabel">🔔 Select Alarm Tone / Azaan</span>
+      </div>
+      <div class="tone-select-row">
+        <select id="toneSelect" class="tone-select" onchange="onToneSelectChange()">
+          <optgroup label="🕌 اذان مبارک (Azaan)">
+            <option value="azan_makkah">اذانِ مکہ مکرمہ (Azaan Makkah)</option>
+            <option value="azan_madinah">اذانِ مدینہ منورہ (Azaan Madinah)</option>
+            <option value="azan_fajr">اذانِ فجر (خاص فجر اذان)</option>
+          </optgroup>
+          <optgroup label="🎵 Custom (Apni File)">
+            <option value="custom_audio" id="customOption" style="display:none;">📁 Selected Custom Tone</option>
+          </optgroup>
+        </select>
+        <button class="btn-test" id="btnTestAudio" onclick="toggleTestAudio()">
+          <span id="testIcon">▶</span> <span id="testBtnTxt">Test</span>
+        </button>
+      </div>
+
+      <!-- File input for choosing from mobile / PC -->
+      <div class="custom-upload-box">
+        <label for="customAudioInput" class="btn-upload">
+          📁 Choose Custom Audio
+        </label>
+        <input type="file" id="customAudioInput" accept="audio/*" style="display: none;" onchange="handleCustomAudioUpload(event)">
+        <span class="custom-file-name" id="customFileNameText">No custom file chosen</span>
+      </div>
+    </div>
+
+    <div id="prayersAlarmList">
+      <div class="prayer-alarm-card" id="card_fajr">
+        <div class="prayer-info">
+          <div class="prayer-icon">🌅</div>
+          <div class="prayer-names">
+            <div class="p-name-main" data-en="Fajr (Dawn)" data-ur="فجر">Fajr (Dawn)</div>
+            <div class="p-time" id="time_fajr">--:--</div>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="switch_fajr" onchange="togglePrayerAlarm('fajr')">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="prayer-alarm-card" id="card_dhuhr">
+        <div class="prayer-info">
+          <div class="prayer-icon">☀️</div>
+          <div class="prayer-names">
+            <div class="p-name-main" data-en="Dhuhr (Noon)" data-ur="ظہر">Dhuhr (Noon)</div>
+            <div class="p-time" id="time_dhuhr">--:--</div>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="switch_dhuhr" onchange="togglePrayerAlarm('dhuhr')">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="prayer-alarm-card" id="card_asr">
+        <div class="prayer-info">
+          <div class="prayer-icon">🌤️</div>
+          <div class="prayer-names">
+            <div class="p-name-main" data-en="Asr (Afternoon)" data-ur="عصر">Asr (Afternoon)</div>
+            <div class="p-time" id="time_asr">--:--</div>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="switch_asr" onchange="togglePrayerAlarm('asr')">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="prayer-alarm-card" id="card_maghrib">
+        <div class="prayer-info">
+          <div class="prayer-icon">🌇</div>
+          <div class="prayer-names">
+            <div class="p-name-main" data-en="Maghrib (Sunset)" data-ur="مغرب">Maghrib (Sunset)</div>
+            <div class="p-time" id="time_maghrib">--:--</div>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="switch_maghrib" onchange="togglePrayerAlarm('maghrib')">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="prayer-alarm-card" id="card_isha">
+        <div class="prayer-info">
+          <div class="prayer-icon">🌙</div>
+          <div class="prayer-names">
+            <div class="p-name-main" data-en="Isha (Night)" data-ur="عشاء">Isha (Night)</div>
+            <div class="p-time" id="time_isha">--:--</div>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="switch_isha" onchange="togglePrayerAlarm('isha')">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </main>
+
+  <div id="alarmRingingModal">
+    <div class="alarm-box">
+      <div class="alarm-icon-ring">🕌</div>
+      <div class="alarm-msg-title" id="ringingPrayerTitle">نماز کا وقت ہو گیا ہے</div>
+      <div class="alarm-msg-sub" id="ringingPrayerSub">حی علی الصلاۃ - حی علی الفلاح<br>اللہ کی بارگاہ میں حاضری کا وقت ہو گیا ہے۔</div>
+      <button class="btn-stop-alarm" onclick="stopRingingAlarm()">Stop Alarm ✕</button>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Quran</span>
+    </a>
+    <a href="/hadith" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      <span>Hadith</span>
+    </a>
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="/ibadaat" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V14h3a3 3 0 0 1 3 3v4H4v-4a3 3 0 0 1 3-3h3V9.5A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path></svg>
+      <span>Ibadaat</span>
+    </a>
+    <a href="/more" class="nav-item active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+      <span>More</span>
+    </a>
+  </nav>
+
+  <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+    <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+      <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+      <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+          </div>
+        </a>
+
+        <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+          </div>
+        </a>
+      </div>
+
+      <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const azaanSources = {
+      azan_makkah: "https://www.islamcan.com/audio/adhan/azan1.mp3",
+      azan_madinah: "https://www.islamcan.com/audio/adhan/azan2.mp3",
+      azan_fajr: "https://www.islamcan.com/audio/adhan/azan3.mp3"
+    };
+
+    let audioPlayer = new Audio();
+    let isTesting = false;
+    let customAudioBase64 = localStorage.getItem('prayer_custom_audio_data') || null;
+    let customAudioName = localStorage.getItem('prayer_custom_audio_name') || null;
+    let selectedTone = localStorage.getItem('prayer_alarm_tone') || 'azan_makkah';
+
+    let prayerTimesRaw = {};
+    const prayerKeys = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+    let alarmSettings = JSON.parse(localStorage.getItem('prayer_alarm_config') || '{"fajr":true,"dhuhr":true,"asr":true,"maghrib":true,"isha":true}');
+
+    function initPage() {
+      applyPageLanguage();
+
+      // Check if custom audio already exists
+      if (customAudioBase64 && customAudioName) {
+        showCustomOption(customAudioName);
+      }
+
+      document.getElementById('toneSelect').value = selectedTone;
+
+      prayerKeys.forEach(p => {
+        const sw = document.getElementById(`switch_${p}`);
+        if (sw) sw.checked = !!alarmSettings[p];
+        updateCardVisual(p);
+      });
+
+      fetchTimings();
+      setInterval(checkAlarmTrigger, 1000);
+    }
+
+    function showCustomOption(name) {
+      const opt = document.getElementById('customOption');
+      opt.style.display = 'block';
+      opt.innerText = `📁 ${name}`;
+      document.getElementById('customFileNameText').innerText = name;
+    }
+
+    function handleCustomAudioUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        customAudioBase64 = e.target.result;
+        customAudioName = file.name;
+        localStorage.setItem('prayer_custom_audio_data', customAudioBase64);
+        localStorage.setItem('prayer_custom_audio_name', customAudioName);
+
+        showCustomOption(customAudioName);
+        document.getElementById('toneSelect').value = 'custom_audio';
+        selectedTone = 'custom_audio';
+        localStorage.setItem('prayer_alarm_tone', 'custom_audio');
+
+        // Play instantly as confirmation
+        playSelectedAudio();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function applyPageLanguage() {
+      const currentLang = localStorage.getItem('more_page_lang') || 'ur';
+      const isUrdu = (currentLang === 'ur');
+
+      const titleEl = document.getElementById('pageHeaderTitle');
+      if (titleEl) {
+        titleEl.innerText = isUrdu ? "نماز الارم و اذان (Prayer Alarm)" : "Prayer Alarm & Azaan";
+      }
+
+      const toneLabel = document.getElementById('toneCardLabel');
+      if (toneLabel) {
+        toneLabel.innerText = isUrdu ? "🔔 منتخب الارم ٹون یا اذان" : "🔔 Select Alarm Tone / Azaan";
+      }
+
+      document.querySelectorAll('.p-name-main').forEach(el => {
+        el.innerText = isUrdu ? el.getAttribute('data-ur') : el.getAttribute('data-en');
+      });
+    }
+
+    function onToneSelectChange() {
+      selectedTone = document.getElementById('toneSelect').value;
+      localStorage.setItem('prayer_alarm_tone', selectedTone);
+      if (isTesting) {
+        stopAudio();
+      }
+    }
+
+    function toggleTestAudio() {
+      if (isTesting) {
+        stopAudio();
+      } else {
+        playSelectedAudio();
+      }
+    }
+
+    function playSelectedAudio() {
+      stopAudio();
+
+      const btn = document.getElementById('btnTestAudio');
+      btn.classList.add('playing');
+      document.getElementById('testIcon').innerText = "⏹";
+      document.getElementById('testBtnTxt').innerText = "Stop";
+      isTesting = true;
+
+      let sourceUrl = null;
+      if (selectedTone === 'custom_audio' && customAudioBase64) {
+        sourceUrl = customAudioBase64;
+      } else if (azaanSources[selectedTone]) {
+        sourceUrl = azaanSources[selectedTone];
+      }
+
+      if (sourceUrl) {
+        audioPlayer.src = sourceUrl;
+        audioPlayer.currentTime = 0;
+        
+        let playPromise = audioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.error("Playback error:", err);
+            stopAudio();
+          });
+        }
+
+        audioPlayer.onended = () => {
+          stopAudio();
+        };
+      }
+    }
+
+    function stopAudio() {
+      try {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+      } catch (e) {}
+
+      const btn = document.getElementById('btnTestAudio');
+      if (btn) btn.classList.remove('playing');
+      document.getElementById('testIcon').innerText = "▶";
+      document.getElementById('testBtnTxt').innerText = "Test";
+      isTesting = false;
+    }
+
+    function togglePrayerAlarm(prayer) {
+      const sw = document.getElementById(`switch_${prayer}`);
+      alarmSettings[prayer] = sw.checked;
+      localStorage.setItem('prayer_alarm_config', JSON.stringify(alarmSettings));
+      updateCardVisual(prayer);
+    }
+
+    function updateCardVisual(prayer) {
+      const card = document.getElementById(`card_${prayer}`);
+      const sw = document.getElementById(`switch_${prayer}`);
+      if (card && sw) {
+        if (sw.checked) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      }
+    }
+
+    function format12Hour(time24) {
+      if (!time24) return "--:--";
+      let [h, m] = time24.split(':');
+      let hour = parseInt(h);
+      let ampm = hour >= 12 ? 'PM' : 'AM';
+      hour = hour % 12 || 12;
+      return `${hour}:${m} ${ampm}`;
+    }
+
+    async function fetchTimings(lat = 31.5204, lon = 74.3587) {
+      try {
+        const today = new Date();
+        const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+        const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lon}&method=1`);
+        const data = await res.json();
+        if (data.code === 200) {
+          const t = data.data.timings;
+          prayerTimesRaw = {
+            fajr: t.Fajr,
+            dhuhr: t.Dhuhr,
+            asr: t.Asr,
+            maghrib: t.Maghrib,
+            isha: t.Isha
+          };
+
+          prayerKeys.forEach(k => {
+            const el = document.getElementById(`time_${k}`);
+            if (el && prayerTimesRaw[k]) {
+              el.innerText = format12Hour(prayerTimesRaw[k]);
+            }
+          });
+        }
+      } catch (e) {
+        console.log("Failed to fetch timings", e);
+      }
+    }
+
+    let triggeredToday = {};
+
+    function checkAlarmTrigger() {
+      const now = new Date();
+      const currentH = String(now.getHours()).padStart(2, '0');
+      const currentM = String(now.getMinutes()).padStart(2, '0');
+      const currentTimeStr = `${currentH}:${currentM}`;
+
+      prayerKeys.forEach(p => {
+        if (alarmSettings[p] && prayerTimesRaw[p]) {
+          const pTime = prayerTimesRaw[p];
+          if (pTime === currentTimeStr && !triggeredToday[p]) {
+            triggeredToday[p] = true;
+            ringAlarm(p);
+          }
+        }
+      });
+    }
+
+    function ringAlarm(prayer) {
+      const currentLang = localStorage.getItem('more_page_lang') || 'ur';
+      const isUrdu = (currentLang === 'ur');
+
+      const prayerNames = {
+        fajr: { ur: "فجر", en: "Fajr" },
+        dhuhr: { ur: "ظہر", en: "Dhuhr" },
+        asr: { ur: "عصر", en: "Asr" },
+        maghrib: { ur: "مغرب", en: "Maghrib" },
+        isha: { ur: "عشاء", en: "Isha" }
+      };
+
+      const pTitle = isUrdu ? `${prayerNames[prayer].ur} کی نماز کا وقت ہو گیا ہے` : `Time for ${prayerNames[prayer].en} Prayer`;
+      document.getElementById('ringingPrayerTitle').innerText = pTitle;
+      document.getElementById('alarmRingingModal').style.display = 'flex';
+
+      playSelectedAudio();
+
+      if (navigator.vibrate) {
+        navigator.vibrate([500, 250, 500, 250, 500]);
+      }
+    }
+
+    function stopRingingAlarm() {
+      stopAudio();
+      document.getElementById('alarmRingingModal').style.display = 'none';
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initPage();
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          fetchTimings(pos.coords.latitude, pos.coords.longitude);
+        });
+      }
+    });
+
+    function openQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'flex'; }
+    }
+    function closeQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'none'; }
+    }
+
+    (function() {
+      if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+        document.body.classList.add('eyecare-mode');
+      }
+    })();
+  </script>
+</body>
+</html>

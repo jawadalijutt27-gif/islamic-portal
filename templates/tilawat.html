@@ -2,68 +2,136 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تلاوت قرآن مجید - Tilawat Player</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
         }
         body {
             margin: 0;
-            padding: 0 0 80px 0;
+            padding: 0 0 95px 0;
             background-color: #f8fafc;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
             color: #1e293b;
+            overflow-x: hidden;
         }
         .header-bar {
-            background: #ffffff;
-            padding: 14px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            background: linear-gradient(135deg, #064e3b 0%, #047857 100%) !important;
+            padding: 14px 16px;
+            box-shadow: 0 4px 14px rgba(6, 78, 59, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             direction: ltr;
+            border-radius: 0 0 20px 20px;
         }
         .back-btn {
             text-decoration: none;
-            color: #0d9488;
-            font-weight: 600;
+            color: #d1fae5;
+            font-weight: 700;
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
+        .header-title-text {
+            margin: 0;
+            font-size: 16px;
+            color: #ffffff !important;
+            font-weight: 800;
+            text-align: center;
+        }
+        .bookmark-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(6px);
+            transition: all 0.2s ease;
+        }
+        .bookmark-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Resume Banner */
+        .resume-banner {
+            display: none;
+            max-width: 650px;
+            margin: 12px auto 0 auto;
+            padding: 10px 16px;
+            background: #ecfdf5;
+            border: 1.5px solid #a7f3d0;
+            border-radius: 14px;
+            align-items: center;
+            justify-content: space-between;
+            direction: ltr;
+            box-shadow: 0 2px 8px rgba(6, 78, 59, 0.05);
+        }
+        .resume-info {
+            font-size: 12px;
+            color: #064e3b;
+            font-weight: 600;
+        }
+        .btn-resume-action {
+            background: #047857;
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .controls-card {
             background: #ffffff;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 650px;
+            margin: 10px auto;
+            padding: 18px 16px;
             border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
             text-align: center;
             direction: ltr;
+            position: sticky;
+            top: 60px;
+            z-index: 990;
+            border: 1px solid #e2e8f0;
         }
         .selectors-grid {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         select {
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 1px solid #cbd5e1;
-            font-size: 14px;
+            padding: 9px 12px;
+            border-radius: 12px;
+            border: 1.5px solid #cbd5e1;
+            font-size: 13px;
             outline: none;
             background: #ffffff;
             color: #334155;
-            min-width: 220px;
+            min-width: 200px;
             font-family: inherit;
+            font-weight: 600;
         }
         audio {
             width: 100%;
@@ -73,11 +141,11 @@
             margin-top: 5px;
         }
         .quran-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 30px 24px;
+            max-width: 650px;
+            margin: 14px auto;
+            padding: 26px 20px;
             background: #ffffff;
-            border-radius: 16px;
+            border-radius: 18px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             text-align: justify;
             text-align-last: center;
@@ -85,47 +153,77 @@
             font-family: 'Amiri Quran', serif;
             font-size: 26px;
             direction: rtl;
+            border: 1px solid #e2e8f0;
         }
         .bismillah {
             text-align: center;
             font-size: 28px;
-            margin-bottom: 25px;
-            color: #0f766e;
+            margin-bottom: 22px;
+            color: #047857;
         }
         .ayah-num {
             display: inline-block;
-            color: #0d9488;
+            color: #047857;
             margin: 0 8px;
             font-size: 20px;
         }
         .loading-text {
             text-align: center;
             font-family: 'Poppins', sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             color: #64748b;
         }
-        .header-bar {
-        background: linear-gradient(135deg, #064e3b, #047857) !important;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        padding: 12px 16px;
-        color: #ffffff !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    .header-bar h3, .header-bar span, .header-bar a {
-        color: #ffffff !important;
-    }
-    .controls-card {
-        position: sticky;
-        top: 55px;
-        z-index: 999;
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        border-radius: 12px;
-        margin: 10px auto;
-        max-width: 650px;
-    }
+
+        /* Standardized Bottom Navigation */
+        .bottom-nav {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 64px !important;
+            background: #ffffff !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            border-top: 1.5px solid #e2e8f0 !important;
+            box-shadow: 0 -4px 14px rgba(0,0,0,0.06) !important;
+            z-index: 999999 !important;
+            direction: ltr !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .nav-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+            color: #64748b !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            flex: 1 !important;
+            cursor: pointer !important;
+            gap: 3px !important;
+            background: transparent !important;
+            border: none !important;
+        }
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            stroke-width: 2.2;
+            stroke: #64748b;
+            fill: none;
+            transition: all 0.2s ease;
+        }
+        .nav-item.active {
+            color: #047857 !important;
+            font-weight: 800 !important;
+        }
+        .nav-item.active svg {
+            stroke: #047857 !important;
+            transform: scale(1.1);
+        }
     </style>
 
     <!-- Global Eye Care Mode CSS (Safe Layout) -->
@@ -134,28 +232,34 @@
             background-color: #f6eedb !important;
             color: #2d241e !important;
         }
-        body.eyecare-mode .card,
-        body.eyecare-mode .ayat-card,
-        body.eyecare-mode .hadith-card,
-        body.eyecare-mode .ibadaat-card,
-        body.eyecare-mode .prayer-capsule,
-        body.eyecare-mode .nav-bar,
+        body.eyecare-mode .controls-card,
+        body.eyecare-mode .quran-container,
+        body.eyecare-mode .resume-banner,
         body.eyecare-mode .bottom-nav {
             background-color: #ede2c8 !important;
             border-color: #d8c8a7 !important;
         }
-        body.eyecare-mode .top-header {
+        body.eyecare-mode .top-header,
+        body.eyecare-mode .header-bar {
             background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
         }
     </style>
-
 </head>
 <body>
 
+    <!-- Header Bar with Nishani / Bookmark Button -->
     <div class="header-bar">
-        <a href="/" class="back-btn">⬅ Home</a>
-        <h3 style="margin: 0; font-size: 17px; color: #0f172a;">تلاوت قرآن (Full Surah Audio)</h3>
-        <span style="font-size: 13px; color: #64748b;">Audio Mode</span>
+        <a href="/" class="back-btn">← Home</a>
+        <h3 class="header-title-text">تلاوت قرآن (Full Surah Audio)</h3>
+        <button type="button" class="bookmark-btn" id="bookmarkBtn" onclick="saveTilawatBookmark()">
+            🔖 <span id="bookmarkText">نشان لگائیں</span>
+        </button>
+    </div>
+
+    <!-- Resume Banner -->
+    <div class="resume-banner" id="resumeBanner">
+        <div class="resume-info" id="resumeInfoText">📍 Pichli tilawat ka nishan mila</div>
+        <button class="btn-resume-action" onclick="resumeFromBookmark()">Play Karein ▶</button>
     </div>
 
     <div class="controls-card">
@@ -164,11 +268,11 @@
                 <!-- JS se populate hoga -->
             </select>
             <button type="button" 
-        id="favSurahBtn" 
-        onclick="toggleTilawatFav()" 
-        style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 22px; cursor: pointer; padding: 6px 12px; margin-right: 6px;">
-    🤍
-</button>
+                    id="favSurahBtn" 
+                    onclick="toggleTilawatFav()" 
+                    style="background: white; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 18px; cursor: pointer; padding: 7px 12px;">
+                🤍
+            </button>
 
             <select id="reciterSelect" onchange="updatePlayer()">
                 {% for key, rec in reciters.items() %}
@@ -190,53 +294,61 @@
         <div id="quranText" class="loading-text">Tilawat text load ho raha hai...</div>
     </div>
 
+    <!-- Standardized Bottom Navigation Bar (Quran Active) -->
+    <nav class="bottom-nav">
+        <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span>Quran</span>
+        </a>
+        <a href="/hadith" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <span>Hadith</span>
+        </a>
+        <a href="/" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"></path></svg>
+            <span>Home</span>
+        </a>
+        <a href="/ibadaat" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V14h3a3 3 0 0 1 3 3v4H4v-4a3 3 0 0 1 3-3h3V9.5A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path></svg>
+            <span>Ibadaat</span>
+        </a>
+        <a href="/more" class="nav-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+            <span>More</span>
+        </a>
+    </nav>
+
+    <!-- Quran Selection Popup Modal -->
+    <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+        <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+            <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+            <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+                    <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+                    <div style="text-align: left;">
+                        <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+                        <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+                    </div>
+                </a>
+
+                <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+                    <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+                    <div style="text-align: left;">
+                        <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+                        <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+                    </div>
+                </a>
+            </div>
+
+            <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+                Close
+            </button>
+        </div>
+    </div>
+
     <script>
-        function toggleTilawatFav() {
-    const sel = document.getElementById("surahSelect");
-    const sNum = parseInt(sel ? sel.value : 1);
-    const sName = (typeof surahNames !== 'undefined' && surahNames[sNum - 1]) ? surahNames[sNum - 1] : ("Surah " + sNum);
-
-    let favs = [];
-    try {
-        favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
-    } catch(e) { favs = []; }
-
-    let idx = favs.findIndex(item => item.number === sNum);
-    const btn = document.getElementById('favSurahBtn');
-
-    if (idx > -1) {
-        favs.splice(idx, 1);
-        if (btn) btn.innerText = '🤍';
-    } else {
-        favs.push({ number: sNum, name: sName });
-        if (btn) btn.innerText = '❤️';
-    }
-
-    localStorage.setItem('fav_surahs', JSON.stringify(favs));
-}
-
-function checkCurrentFavStatus() {
-    const sel = document.getElementById("surahSelect");
-    const sNum = parseInt(sel ? sel.value : 1);
-    let favs = [];
-    try {
-        favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
-    } catch(e) { favs = []; }
-
-    const isFav = favs.some(item => item.number === sNum);
-    const btn = document.getElementById('favSurahBtn');
-    if (btn) {
-        btn.innerText = isFav ? '❤️' : '🤍';
-    }
-}
-
-setTimeout(() => {
-    checkCurrentFavStatus();
-    const sel = document.getElementById("surahSelect");
-    if (sel) {
-        sel.addEventListener('change', checkCurrentFavStatus);
-    }
-}, 300);
         const surahNames = [
             "Al-Faatiha", "Al-Baqara", "Aal-i-Imraan", "An-Nisaa", "Al-Maaida", "Al-An'aam", "Al-A'raaf", "Al-Anfaal",
             "At-Tawba", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Israa", "Al-Kahf",
@@ -256,6 +368,7 @@ setTimeout(() => {
 
         const currentSurah = parseInt("{{ surah_id | default(1) }}");
         const select = document.getElementById("surahSelect");
+        const player = document.getElementById("fullAudioPlayer");
 
         surahNames.forEach((name, idx) => {
             const opt = document.createElement("option");
@@ -265,7 +378,6 @@ setTimeout(() => {
             select.appendChild(opt);
         });
 
-        // Surah At-Tawbah (9) ke liye Bismillah hide karein
         if (currentSurah === 9) {
             document.getElementById("bismillahBox").style.display = "none";
         }
@@ -298,61 +410,128 @@ setTimeout(() => {
                 document.getElementById("quranText").innerText = "Arabic text load karne mein masla hua.";
             });
 
-        // Ek Surah complete hone par automatic next Surah play karein
-        const player = document.getElementById("fullAudioPlayer");
         player.onended = function() {
             const reciter = document.getElementById("reciterSelect").value;
             if (currentSurah < 114) {
                 window.location.href = `/tilawat/${currentSurah + 1}?reciter=${reciter}`;
             }
         };
-    </script>
 
-    <!-- Global Eye Care Preference Loader -->
-    <script>
+        // ================= Bookmark / Nishani Management =================
+        function formatSeconds(secs) {
+            const m = Math.floor(secs / 60);
+            const s = Math.floor(secs % 60);
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function saveTilawatBookmark() {
+            const currentTime = player.currentTime || 0;
+            const bookmark = {
+                surahId: currentSurah,
+                surahName: surahNames[currentSurah - 1],
+                time: currentTime,
+                reciter: document.getElementById("reciterSelect").value
+            };
+            localStorage.setItem('tilawat_last_bookmark', JSON.stringify(bookmark));
+            
+            const txt = document.getElementById('bookmarkText');
+            txt.innerText = "نشان لگ گیا! ✓";
+            setTimeout(() => {
+                txt.innerText = "نشان لگائیں";
+            }, 2000);
+        }
+
+        function checkBookmarkPrompt() {
+            try {
+                const bm = JSON.parse(localStorage.getItem('tilawat_last_bookmark'));
+                if (bm && bm.surahId) {
+                    const banner = document.getElementById('resumeBanner');
+                    const info = document.getElementById('resumeInfoText');
+                    info.innerText = `📍 آخری تلاوت: ${bm.surahName} (${formatSeconds(bm.time)})`;
+                    banner.style.display = 'flex';
+                }
+            } catch(e) {}
+        }
+
+        function resumeFromBookmark() {
+            try {
+                const bm = JSON.parse(localStorage.getItem('tilawat_last_bookmark'));
+                if (bm && bm.surahId) {
+                    if (bm.surahId === currentSurah) {
+                        player.currentTime = bm.time;
+                        player.play();
+                        document.getElementById('resumeBanner').style.display = 'none';
+                    } else {
+                        window.location.href = `/tilawat/${bm.surahId}?reciter=${bm.reciter || 'afs'}&resumeTime=${bm.time}`;
+                    }
+                }
+            } catch(e) {}
+        }
+
+        // URL resume query check
+        window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+            const rTime = params.get('resumeTime');
+            if (rTime && player) {
+                player.currentTime = parseFloat(rTime);
+                player.play().catch(() => {});
+            }
+            checkBookmarkPrompt();
+        });
+
+        // Favorites
+        function toggleTilawatFav() {
+            const sel = document.getElementById("surahSelect");
+            const num = parseInt(sel ? sel.value : 1);
+            const name = (typeof surahNames !== 'undefined' && surahNames[num - 1]) ? surahNames[num - 1] : ("Surah " + num);
+
+            let favs = [];
+            try {
+                favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
+            } catch(e) { favs = []; }
+
+            let index = favs.findIndex(item => item.number === num);
+            const btn = document.getElementById('favSurahBtn');
+
+            if (index > -1) {
+                favs.splice(index, 1);
+                if (btn) btn.innerText = '🤍';
+            } else {
+                favs.push({ number: num, name: name });
+                if (btn) btn.innerText = '❤️';
+            }
+
+            localStorage.setItem('fav_surahs', JSON.stringify(favs));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let favs = [];
+            try {
+                favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
+            } catch(e) { favs = []; }
+
+            let isFav = favs.some(item => item.number === currentSurah);
+            const btn = document.getElementById('favSurahBtn');
+            if (btn && isFav) {
+                btn.innerText = '❤️';
+            }
+        });
+
+        // Navigation modal controls
+        function openQuranModal() {
+            var modal = document.getElementById('quranModal');
+            if (modal) { modal.style.display = 'flex'; }
+        }
+        function closeQuranModal() {
+            var modal = document.getElementById('quranModal');
+            if (modal) { modal.style.display = 'none'; }
+        }
+
         (function() {
             if (localStorage.getItem('app_reading_mode') === 'eyecare') {
                 document.body.classList.add('eyecare-mode');
             }
         })();
-       function toggleTilawatFav() {
-        const sel = document.getElementById("surahSelect");
-        const num = parseInt(sel ? sel.value : 1);
-        const name = (typeof surahNames !== 'undefined' && surahNames[num - 1]) ? surahNames[num - 1] : ("Surah " + num);
-
-        let favs = [];
-        try {
-            favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
-        } catch(e) { favs = []; }
-
-        let index = favs.findIndex(item => item.number === num);
-        const btn = document.getElementById('favSurahBtn');
-
-        if (index > -1) {
-            favs.splice(index, 1);
-            if (btn) btn.innerText = '🤍';
-        } else {
-            favs.push({ number: num, name: name });
-            if (btn) btn.innerText = '❤️';
-        }
-
-        localStorage.setItem('fav_surahs', JSON.stringify(favs));
-    }
-
-document.addEventListener('DOMContentLoaded', () => {
-    let favs = [];
-    try {
-        favs = JSON.parse(localStorage.getItem('fav_surahs')) || [];
-    } catch(e) { favs = []; }
-
-    let currentNum = parseInt(document.getElementById("surahSelect") ? document.getElementById("surahSelect").value : 1);
-    let isFav = favs.some(item => item.number === currentNum);
-    const btn = document.getElementById('favSurahBtn');
-    if (btn && isFav) {
-        btn.innerText = '❤️';
-    }
-});
     </script>
-
 </body>
 </html>

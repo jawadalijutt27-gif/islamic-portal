@@ -2,253 +2,492 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مخارج الحروف - Pronunciation</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     body {
-      background-color: #f7fafc;
-      padding: 16px 16px 85px 16px;
-      color: #2d3748;
+      background-color: #f8fafc;
+      padding-bottom: 95px;
+      color: #1e293b;
+      overflow-x: hidden;
     }
-    .top-bar {
+
+    /* Fixed Green Sticky Header */
+    .top-header {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%) !important;
+      color: #ffffff !important;
+      padding: 14px 16px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      width: 100%;
     }
     .back-btn {
       text-decoration: none;
-      color: #1a4fba;
+      color: #d1fae5;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     .page-title {
-      font-size: 18px;
-      color: #1a202c;
-      font-weight: bold;
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+      text-align: center;
+      flex-grow: 1;
     }
+
+    .container {
+      width: 100%;
+      max-width: 550px;
+      margin: 16px auto 0 auto;
+      padding: 0 14px;
+    }
+
     .intro-box {
-      background: #ebf8ff;
-      border-right: 4px solid #3182ce;
+      background: #ecfdf5;
+      border-right: 4px solid #047857;
       padding: 12px 14px;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 13px;
-      line-height: 1.6;
-      color: #2b6cb0;
+      line-height: 1.7;
+      color: #064e3b;
+      margin-bottom: 16px;
+      border: 1px solid #a7f3d0;
+    }
+    .intro-box.rtl {
       text-align: right;
       direction: rtl;
-      margin-bottom: 18px;
+      font-family: 'Noto Nastaliq Urdu', serif;
     }
+    .intro-box.ltr {
+      text-align: left;
+      direction: ltr;
+      border-right: none;
+      border-left: 4px solid #047857;
+    }
+
     .makhraj-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      border-radius: 16px;
+      padding: 18px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+    }
+    .makhraj-card.rtl {
       direction: rtl;
       text-align: right;
     }
+    .makhraj-card.ltr {
+      direction: ltr;
+      text-align: left;
+    }
+
     .card-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
-      border-bottom: 1px solid #edf2f7;
+      border-bottom: 1px solid #f1f5f9;
       padding-bottom: 8px;
     }
     .makhraj-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      color: #1a4fba;
+      color: #064e3b;
     }
     .letters-pill {
-      background: #f0f4ff;
-      color: #1a4fba;
+      background: #ecfdf5;
+      color: #047857;
       padding: 4px 12px;
       border-radius: 20px;
       font-size: 18px;
       font-weight: bold;
-      font-family: 'Amiri', 'Traditional Arabic', serif;
+      font-family: 'Amiri Quran', serif;
       letter-spacing: 2px;
+      border: 1px solid #a7f3d0;
     }
+
     .rule-point {
       margin-bottom: 10px;
       font-size: 13px;
       line-height: 1.6;
-      color: #4a5568;
+      color: #475569;
+    }
+    .makhraj-card.rtl .rule-point {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      line-height: 1.9;
     }
     .rule-point strong {
-      color: #2d3748;
+      color: #0f172a;
+    }
+
+    /* Standardized Bottom Navigation */
+    .bottom-nav {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 64px !important;
+      background: #ffffff !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      border-top: 1.5px solid #e2e8f0 !important;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.06) !important;
+      z-index: 999999 !important;
+      direction: ltr !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .nav-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      color: #64748b !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      flex: 1 !important;
+      cursor: pointer !important;
+      gap: 3px !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+      stroke: #64748b;
+      fill: none;
+      transition: all 0.2s ease;
+    }
+    .nav-item.active {
+      color: #047857 !important;
+      font-weight: 800 !important;
+    }
+    .nav-item.active svg {
+      stroke: #047857 !important;
+      transform: scale(1.1);
     }
   </style>
 
-    <!-- Global Eye Care Mode CSS (Safe Layout) -->
-    <style id="eyecare-style">
-        body.eyecare-mode {
-            background-color: #f6eedb !important;
-            color: #2d241e !important;
-        }
-        body.eyecare-mode .card,
-        body.eyecare-mode .ayat-card,
-        body.eyecare-mode .hadith-card,
-        body.eyecare-mode .ibadaat-card,
-        body.eyecare-mode .prayer-capsule,
-        body.eyecare-mode .nav-bar,
-        body.eyecare-mode .bottom-nav {
-            background-color: #ede2c8 !important;
-            border-color: #d8c8a7 !important;
-        }
-        body.eyecare-mode .top-header {
-            background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
-        }
-    </style>
-
+  <!-- Global Eye Care Mode CSS -->
+  <style id="eyecare-style">
+    body.eyecare-mode {
+      background-color: #f6eedb !important;
+      color: #2d241e !important;
+    }
+    body.eyecare-mode .makhraj-card,
+    body.eyecare-mode .intro-box,
+    body.eyecare-mode .bottom-nav {
+      background-color: #ede2c8 !important;
+      border-color: #d8c8a7 !important;
+    }
+    body.eyecare-mode .top-header {
+      background: linear-gradient(135deg, #1e3a2b, #134e35) !important;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <a href="/more" class="back-btn">← Back to Menu</a>
-    <div class="page-title">مخارج الحروف (Pronunciation)</div>
-    <div style="width: 40px;"></div>
+  <!-- Top Sticky Header -->
+  <header class="top-header">
+    <a href="/more" class="back-btn">← Back</a>
+    <div class="page-title" id="pageHeaderTitle">مخارج الحروف (Pronunciation)</div>
+    <div style="width: 45px;"></div>
+  </header>
+
+  <main class="container">
+    <div class="intro-box rtl" id="introBox"
+         data-en="Makhraj refers to the specific point of origin where an Arabic letter is articulated. According to Tajweed rules, there are 5 major regions and 17 articulation points:"
+         data-ur="مخرج اس جگہ کو کہتے ہیں جہاں سے حرف ادا ہوتا ہے۔ تجوید کے اصولوں کے مطابق عربی حروف کے 5 بڑے اعضاء اور 17 خاص مخارج ہیں۔">
+      مخرج اس جگہ کو کہتے ہیں جہاں سے حرف ادا ہوتا ہے۔ تجوید کے اصولوں کے مطابق عربی حروف کے 5 بڑے اعضاء اور 17 خاص مخارج ہیں۔
+    </div>
+
+    <!-- Halq (Throat) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Throat Letters (Al-Halq)" data-ur="حروفِ حلقی (حلق سے ادا ہونے والے)">حروفِ حلقی (حلق سے ادا ہونے والے)</span>
+        <span class="letters-pill">ء ه ع ح غ خ</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>Bottom of Throat (Near chest):</strong> ء (Hamzah) and ه (Haa) are articulated from the deepest part of the throat."
+           data-ur="<strong>ادنیٰ حلق (سینے کی طرف):</strong> <span>ء (ہمزہ) اور ه (ہاء) حلق کے نچلے حصے سے ادا ہوتے ہیں۔</span>">
+        <strong>ادنیٰ حلق (سینے کی طرف):</strong> <span>ء (ہمزہ) اور ه (ہاء) حلق کے نچلے حصے سے ادا ہوتے ہیں۔</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>Middle of Throat:</strong> ع ('Ayn) and ح (Haa) are articulated clearly from the center of the throat."
+           data-ur="<strong>وسطِ حلق (درمیان):</strong> <span>ع (عین) اور ح (حاء) حلق کے درمیانی حصے سے صاف نکلتے ہیں۔</span>">
+        <strong>وسطِ حلق (درمیان):</strong> <span>ع (عین) اور ح (حاء) حلق کے درمیانی حصے سے صاف نکلتے ہیں۔</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>Top of Throat (Near mouth):</strong> غ (Ghayn) and خ (Khaa) are articulated from the upper throat."
+           data-ur="<strong>ادنیٰ حلق (منہ کی طرف):</strong> <span>غ (غین) اور خ (خاء) حلق کے اوپری حصے سے ادا ہوتے ہیں۔</span>">
+        <strong>ادنیٰ حلق (منہ کی طرف):</strong> <span>غ (غین) اور خ (خاء) حلق کے اوپری حصے سے ادا ہوتے ہیں۔</span>
+      </div>
+    </div>
+
+    <!-- Lahati (Uvular) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Deep Tongue Letters (Al-Lahatiyyah)" data-ur="حروفِ لہاتیہ (کوا اور تالو سے)">حروفِ لہاتیہ (کوا اور تالو سے)</span>
+        <span class="letters-pill">ق ك</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ق (Qaaf):</strong> Base of tongue touching the soft palate near the uvula produces a deep heavy Qaaf."
+           data-ur="<strong>ق (قاف):</strong> زبان کی جڑ جب کوے کے قریب نرم تالو سے لگے تو موٹا قاف ادا ہوتا ہے۔">
+        <strong>ق (قاف):</strong> زبان کی جڑ جب کوے کے قریب نرم تالو سے لگے تو موٹا قاف ادا ہوتا ہے۔
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ك (Kaaf):</strong> Base of tongue touching slightly forward on the hard palate produces a lighter Kaaf."
+           data-ur="<strong>ك (کاف):</strong> زبان کی جڑ ذرا آگے منہ کی طرف سخت تالو سے لگے تو باریک کاف ادا ہوتا ہے۔">
+        <strong>ك (کاف):</strong> زبان کی جڑ ذرا آگے منہ کی طرف سخت تالو سے لگے تو باریک کاف ادا ہوتا ہے۔
+      </div>
+    </div>
+
+    <!-- Shajari (Tongue Middle) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Middle Tongue Letters (Al-Shajariyyah)" data-ur="حروفِ شجریہ (زبان کا درمیانی حصہ)">حروفِ شجریہ (زبان کا درمیانی حصہ)</span>
+        <span class="letters-pill">ج ش ی</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ج، ش، ی:</strong> The middle of the tongue touching the upper palate articulates Jeem, Sheen, and non-madd Yaa."
+           data-ur="<strong>ج، ش، ی:</strong> زبان کا درمیانی حصہ جب اوپر والے تالو سے لگے تو یہ تینوں حروف ادا ہوتے ہیں۔">
+        <strong>ج، ش، ی:</strong> زبان کا درمیانی حصہ جب اوپر والے تالو سے لگے تو یہ تینوں حروف ادا ہوتے ہیں۔
+      </div>
+    </div>
+
+    <!-- Haafah (Side of Tongue) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Edge of Tongue Letter (Al-Haafiyyah)" data-ur="حرفِ حافیہ (زبان کی کروٹ)">حرفِ حافیہ (زبان کی کروٹ)</span>
+        <span class="letters-pill">ض</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ض (Dhaad):</strong> One or both sides of the tongue touching the upper molars. This is considered the most unique letter in Arabic."
+           data-ur="<strong>ض (ضاد):</strong> زبان کی کروٹ (بائیں یا دائیں طرف) جب اوپر والی ڈاڑھوں کی جڑ سے لگے تو ضاد ادا ہوتا ہے۔ یہ عربی کا سب سے خاص حرف ہے۔">
+        <strong>ض (ضاد):</strong> زبان کی کروٹ (بائیں یا دائیں طرف) جب اوپر والی ڈاڑھوں کی جڑ سے لگے تو ضاد ادا ہوتا ہے۔ یہ عربی کا سب سے خاص حرف ہے۔
+      </div>
+    </div>
+
+    <!-- Tarafi (Tongue Tip) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Tongue Edge Letters (Al-Tarafiyyah)" data-ur="حروفِ طرفیہ (زبان کا کنارہ)">حروفِ طرفیہ (زبان کا کنارہ)</span>
+        <span class="letters-pill">ل ن ر</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ل (Laam):</strong> The edge of the tongue nearest the front touching the gum line of upper teeth."
+           data-ur="<strong>ل (لام):</strong> زبان کے کنارے کا اگلا حصہ جب اوپر والے دانتوں کے مسوڑھوں سے لگے۔">
+        <strong>ل (لام):</strong> زبان کے کنارے کا اگلا حصہ جب اوپر والے دانتوں کے مسوڑھوں سے لگے۔
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ن (Noon):</strong> The tip of the tongue touching the gums of the upper front teeth."
+           data-ur="<strong>ن (نون):</strong> زبان کا سرا جب اوپر والے اگلے دانتوں کے مسوڑھوں سے لگے۔">
+        <strong>ن (نون):</strong> زبان کا سرا جب اوپر والے اگلے دانتوں کے مسوڑھوں سے لگے۔
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ر (Raa):</strong> The tip of the tongue along with its top side touching the gums of the upper front teeth."
+           data-ur="<strong>ر (راء):</strong> زبان کا سرا مع پشت جب اوپر والے تالو سے لگے۔">
+        <strong>ر (راء):</strong> زبان کا سرا مع پشت جب اوپر والے تالو سے لگے۔
+      </div>
+    </div>
+
+    <!-- Nit'iyyah (Gums) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Palatal Front Letters (Al-Nit'iyyah)" data-ur="حروفِ نطعیہ (ثنایا علیا کی جڑ)">حروفِ نطعیہ (ثنایا علیا کی جڑ)</span>
+        <span class="letters-pill">ط د ت</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ط، د، ت:</strong> The tip of the tongue touching the roots of the upper two front incisors. Taa (ط) is pronounced heavy, while Daal and Taa are light."
+           data-ur="<strong>ط، د، ت:</strong> زبان کا سرا جب سامنے والے اوپر کے دو دانتوں (ثنایا علیا) کی جڑ سے لگے۔ ط کو پر (موٹا) اور د، ت کو باریک پڑھا جاتا ہے۔">
+        <strong>ط، د، ت:</strong> زبان کا سرا جب سامنے والے اوپر کے دو دانتوں (ثنایا علیا) کی جڑ سے لگے۔ ط کو پر (موٹا) اور د، ت کو باریک پڑھا جاتا ہے۔
+      </div>
+    </div>
+
+    <!-- Lathwiyyah (Edge of Teeth) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Gingival Letters (Al-Lathwiyyah)" data-ur="حروفِ لثویہ (نرم سیٹی کے بغیر)">حروفِ لثویہ (نرم سیٹی کے بغیر)</span>
+        <span class="letters-pill">ظ ذ ث</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ظ، ذ، ث:</strong> The tip of the tongue touching the inner edges of the upper two front teeth softly without whistling."
+           data-ur="<strong>ظ، ذ، ث:</strong> زبان کی نوک جب اوپر والے دو دانتوں کے اندرونی کنارے سے چھوئے۔ ان کو نرمی سے بغیر سیٹی کے ادا کیا جاتا ہے۔">
+        <strong>ظ، ذ، ث:</strong> زبان کی نوک جب اوپر والے دو دانتوں کے اندرونی کنارے سے چھوئے۔ ان کو نرمی سے بغیر سیٹی کے ادا کیا جاتا ہے۔
+      </div>
+    </div>
+
+    <!-- Asliyyah (Whistling) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Whistle Letters (Al-Asliyyah)" data-ur="حروفِ اصلیہ (سیٹی والے حروف)">حروفِ اصلیہ (سیٹی والے حروف)</span>
+        <span class="letters-pill">ص س ز</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ص، س، ز:</strong> The tip of the tongue placed just above the edge of lower front teeth producing a sharp whistling sound (Safeer)."
+           data-ur="<strong>ص، س، ز:</strong> زبان کی نوک جب نیچے اور اوپر والے دانتوں کے درمیانی کنارے پر آئے تو سیٹی جیسی تیز آواز کے ساتھ ادا ہوتے ہیں۔">
+        <strong>ص، س، ز:</strong> زبان کی نوک جب نیچے اور اوپر والے دانتوں کے درمیانی کنارے پر آئے تو سیٹی جیسی تیز آواز کے ساتھ ادا ہوتے ہیں۔
+      </div>
+    </div>
+
+    <!-- Shafawiyyah (Lips) -->
+    <div class="makhraj-card rtl">
+      <div class="card-head">
+        <span class="makhraj-title" data-en="Lip Letters (Al-Shafawiyyah)" data-ur="حروفِ شفویہ (ہونٹوں کے حروف)">حروفِ شفویہ (ہونٹوں کے حروف)</span>
+        <span class="letters-pill">ف ب م و</span>
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ف (Faa):</strong> Edge of the upper two front incisors touching the wet inner part of the lower lip."
+           data-ur="<strong>ف (فاء):</strong> اوپر والے دانتوں کے کنارے جب نچلے ہونٹ کے گیلے حصے پر لگیں۔">
+        <strong>ف (فاء):</strong> اوپر والے دانتوں کے کنارے جب نچلے ہونٹ کے گیلے حصے پر لگیں۔
+      </div>
+      <div class="rule-point"
+           data-en="<strong>ب، م، و:</strong> Articulated from the lips: Baa (ب) and Meem (م) by closing both lips firmly, Waw (و) by rounding both lips."
+           data-ur="<strong>ب، م، و:</strong> دونوں ہونٹوں کے ملنے اور گول کرنے سے ادا ہوتے ہیں (ب اور م ہونٹوں کو بند کر کے، و ہونٹوں کو گول کر کے)۔">
+        <strong>ب، م، و:</strong> دونوں ہونٹوں کے ملنے اور گول کرنے سے ادا ہوتے ہیں (ب اور م ہونٹوں کو بند کر کے، و ہونٹوں کو گول کر کے)۔
+      </div>
+    </div>
+  </main>
+
+  <!-- Standardized Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <a href="javascript:void(0)" onclick="openQuranModal()" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Quran</span>
+    </a>
+    <a href="/hadith" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      <span>Hadith</span>
+    </a>
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="/ibadaat" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V14h3a3 3 0 0 1 3 3v4H4v-4a3 3 0 0 1 3-3h3V9.5A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path></svg>
+      <span>Ibadaat</span>
+    </a>
+    <a href="/more" class="nav-item active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+      <span>More</span>
+    </a>
+  </nav>
+
+  <!-- Quran Selection Popup Modal -->
+  <div id="quranModal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999999; align-items: center; justify-content: center;">
+    <div style="background: #ffffff; width: 88%; max-width: 360px; border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+      <h3 style="margin: 0 0 6px 0; color: #064e3b; font-size: 19px; font-weight: 700;">Select Quran Option</h3>
+      <p style="color: #4b5563; font-size: 13px; margin: 0 0 18px 0;">Aap kya parhna ya sunna chahte hain?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="/surah/1" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">📖</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Quran (Translation)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Parhein ba-tarjuma</div>
+          </div>
+        </a>
+
+        <a href="/tilawat" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 14px; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 16px;">
+          <span style="font-size: 24px; background: #ecfdf5; padding: 8px 12px; border-radius: 12px; color: #047857;">🎧</span>
+          <div style="text-align: left;">
+            <div style="font-size: 15px; font-weight: 700; color: #064e3b;">Tilawat Quran (Audio)</div>
+            <div style="font-size: 12px; color: #6b7280; font-weight: 500; margin-top: 2px;">Suniein khubsurat aawaz mein</div>
+          </div>
+        </a>
+      </div>
+
+      <button type="button" onclick="closeQuranModal()" style="margin-top: 18px; width: 100%; padding: 10px; background: #f3f4f6; border: none; border-radius: 12px; font-weight: 600; color: #4b5563; cursor: pointer;">
+        Close
+      </button>
+    </div>
   </div>
 
-  <div class="intro-box">
-    مخرج اس جگہ کو کہتے ہیں جہاں سے حرف ادا ہوتا ہے۔ تجوید کے اصولوں کے مطابق عربی حروف کے 5 بڑے اعضاء اور 17 خاص مخارج ہیں۔
-  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const currentLang = localStorage.getItem('more_page_lang') || 'ur';
+      applyPageLanguage(currentLang);
+    });
 
-  <!-- Halq (Throat) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ حلقی (حلق سے ادا ہونے والے)</span>
-      <span class="letters-pill">ء ه ع ح غ خ</span>
-    </div>
-    <div class="rule-point">
-      <strong>ادنیٰ حلق (سینے کی طرف):</strong> <span>ء (ہمزہ) اور ه (ہاء) حلق کے نچلے حصے سے ادا ہوتے ہیں۔</span>
-    </div>
-    <div class="rule-point">
-      <strong>وسطِ حلق (درمیان):</strong> <span>ع (عین) اور ح (حاء) حلق کے درمیانی حصے سے صاف نکلتے ہیں۔</span>
-    </div>
-    <div class="rule-point">
-      <strong>ادنیٰ حلق (منہ کی طرف):</strong> <span>غ (غین) اور خ (خاء) حلق کے اوپری حصے سے ادا ہوتے ہیں۔</span>
-    </div>
-  </div>
+    function applyPageLanguage(lang) {
+      const isUrdu = (lang === 'ur');
 
-  <!-- Lahati (Uvular) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ لہاتیہ (کوا اور تالو سے)</span>
-      <span class="letters-pill">ق ك</span>
-    </div>
-    <div class="rule-point">
-      <strong>ق (قاف):</strong> زبان کی جڑ جب کوے کے قریب نرم تالو سے لگے تو موٹا قاف ادا ہوتا ہے۔
-    </div>
-    <div class="rule-point">
-      <strong>ك (کاف):</strong> زبان کی جڑ ذرا آگے منہ کی طرف سخت تالو سے لگے تو باریک کاف ادا ہوتا ہے۔
-    </div>
-  </div>
+      const headerTitle = document.getElementById('pageHeaderTitle');
+      if (headerTitle) {
+        headerTitle.innerText = isUrdu ? "مخارج الحروف (Pronunciation)" : "Makharij al-Huroof (Pronunciation)";
+      }
 
-  <!-- Shajari (Tongue Middle) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ شجریہ (زبان کا درمیانی حصہ)</span>
-      <span class="letters-pill">ج ش ی</span>
-    </div>
-    <div class="rule-point">
-      <strong>ج، ش، ی:</strong> زبان کا درمیانی حصہ جب اوپر والے تالو سے لگے تو یہ تینوں حروف ادا ہوتے ہیں۔
-    </div>
-  </div>
+      const intro = document.getElementById('introBox');
+      if (intro) {
+        intro.innerText = isUrdu ? intro.getAttribute('data-ur') : intro.getAttribute('data-en');
+        if (isUrdu) {
+          intro.classList.add('rtl');
+          intro.classList.remove('ltr');
+        } else {
+          intro.classList.add('ltr');
+          intro.classList.remove('rtl');
+        }
+      }
 
-  <!-- Haafah (Side of Tongue) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حرفِ حافیہ (زبان کی کروٹ)</span>
-      <span class="letters-pill">ض</span>
-    </div>
-    <div class="rule-point">
-      <strong>ض (ضاد):</strong> زبان کی کروٹ (بائیں یا دائیں طرف) جب اوپر والی ڈاڑھوں کی جڑ سے لگے تو ضاد ادا ہوتا ہے۔ یہ عربی کا سب سے خاص حرف ہے۔
-    </div>
-  </div>
+      document.querySelectorAll('.makhraj-card').forEach(card => {
+        if (isUrdu) {
+          card.classList.add('rtl');
+          card.classList.remove('ltr');
+        } else {
+          card.classList.add('ltr');
+          card.classList.remove('rtl');
+        }
 
-  <!-- Tarafi (Tongue Tip) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ طرفیہ (زبان کا کنارہ)</span>
-      <span class="letters-pill">ل ن ر</span>
-    </div>
-    <div class="rule-point">
-      <strong>ل (لام):</strong> زبان کے کنارے کا اگلا حصہ جب اوپر والے دانتوں کے مسوڑھوں سے لگے۔
-    </div>
-    <div class="rule-point">
-      <strong>ن (نون):</strong> زبان کا سرا جب اوپر والے اگلے دانتوں کے مسوڑھوں سے لگے۔
-    </div>
-    <div class="rule-point">
-      <strong>ر (راء):</strong> زبان کا سرا مع پشت جب اوپر والے تالو سے لگے۔
-    </div>
-  </div>
+        const titleEl = card.querySelector('.makhraj-title');
+        if (titleEl) {
+          titleEl.innerText = isUrdu ? titleEl.getAttribute('data-ur') : titleEl.getAttribute('data-en');
+        }
 
-  <!-- Nit'iyyah (Gums) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ نطعیہ (ثنایا علیا کی جڑ)</span>
-      <span class="letters-pill">ط د ت</span>
-    </div>
-    <div class="rule-point">
-      <strong>ط، د، ت:</strong> زبان کا سرا جب سامنے والے اوپر کے دو دانتوں (ثنایا علیا) کی جڑ سے لگے۔ ط کو پر (موٹا) اور د، ت کو باریک پڑھا جاتا ہے۔
-    </div>
-  </div>
+        card.querySelectorAll('.rule-point').forEach(point => {
+          point.innerHTML = isUrdu ? point.getAttribute('data-ur') : point.getAttribute('data-en');
+        });
+      });
+    }
 
-  <!-- Lathwiyyah (Edge of Teeth) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ لثویہ (نرم سیٹی کے بغیر)</span>
-      <span class="letters-pill">ظ ذ ث</span>
-    </div>
-    <div class="rule-point">
-      <strong>ظ، ذ، ث:</strong> زبان کی نوک جب اوپر والے دو دانتوں کے اندرونی کنارے سے چھوئے۔ ان کو نرمی سے بغیر سیٹی کے ادا کیا جاتا ہے۔
-    </div>
-  </div>
+    function openQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'flex'; }
+    }
+    function closeQuranModal() {
+      var modal = document.getElementById('quranModal');
+      if (modal) { modal.style.display = 'none'; }
+    }
 
-  <!-- Asliyyah (Whistling) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ اصلیہ (سیٹی والے حروف)</span>
-      <span class="letters-pill">ص س ز</span>
-    </div>
-    <div class="rule-point">
-      <strong>ص، س، ز:</strong> زبان کی نوک جب نیچے اور اوپر والے دانتوں کے درمیانی کنارے پر آئے تو سیٹی جیسی تیز آواز کے ساتھ ادا ہوتے ہیں۔
-    </div>
-  </div>
-
-  <!-- Shafawiyyah (Lips) -->
-  <div class="makhraj-card">
-    <div class="card-head">
-      <span class="makhraj-title">حروفِ شفویہ (ہونٹوں کے حروف)</span>
-      <span class="letters-pill">ف ب م و</span>
-    </div>
-    <div class="rule-point">
-      <strong>ف (فاء):</strong> اوپر والے دانتوں کے کنارے جب نچلے ہونٹ کے گیلے حصے پر لگیں۔
-    </div>
-    <div class="rule-point">
-      <strong>ب، م، و:</strong> دونوں ہونٹوں کے ملنے اور گول کرنے سے ادا ہوتے ہیں (ب اور م ہونٹوں کو بند کر کے، و ہونٹوں کو گول کر کے)۔
-    </div>
-  </div>
-
-
-    <!-- Global Eye Care Preference Loader -->
-    <script>
-        (function() {
-            if (localStorage.getItem('app_reading_mode') === 'eyecare') {
-                document.body.classList.add('eyecare-mode');
-            }
-        })();
-    </script>
-
+    (function() {
+      if (localStorage.getItem('app_reading_mode') === 'eyecare') {
+        document.body.classList.add('eyecare-mode');
+      }
+    })();
+  </script>
 </body>
 </html>
